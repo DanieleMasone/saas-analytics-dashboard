@@ -1,36 +1,131 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SaaS Analytics Dashboard
 
-## Getting Started
+A realistic SaaS analytics dashboard built with Next.js App Router, React, TypeScript, TanStack Query, Recharts, and mock API routes.
 
-First, run the development server:
+The goal of this project is to demonstrate frontend engineering skills that matter in real production dashboards: complex UI state, server-driven data, loading states, error handling, pagination, filtering, caching, responsive layout, and polished dark mode.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Tech Stack
+
+- Next.js App Router
+- React
+- TypeScript
+- TanStack Query
+- Recharts
+- Tailwind CSS
+- Mock API routes via Next.js Route Handlers
+
+## Features
+
+- SaaS-style analytics dashboard
+- KPI metric cards
+- Revenue chart
+- Customer table
+- Filtering by status, plan, and search query
+- Pagination
+- API mock with artificial network latency
+- TanStack Query caching
+- Skeleton loading states
+- Error boundary
+- Responsive layout
+- Dark mode with persisted preference
+
+## Project Structure
+
+```txt
+src/
+  app/
+    api/
+      metrics/
+      customers/
+      revenue/
+    dashboard/
+      page.tsx
+      loading.tsx
+      error.tsx
+    layout.tsx
+    page.tsx
+    globals.css
+
+  components/
+    dashboard/
+    ui/
+
+  lib/
+    api.ts
+    mock-data.ts
+    query-client.ts
+    utils.ts
+
+  providers/
+    ReactQueryProvider.tsx
+
+  types/
+    dashboard.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Getting Started
+Requirements
+Node.js 24.15.0 or newer
+npm
+Install dependencies
+npm install
+Run development server
+npm run dev
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+http://localhost:3000
+Available Scripts
+npm run dev
+npm run build
+npm run start
+npm run lint
+Mock API Endpoints
+Metrics
+GET /api/metrics
 
-## Learn More
+Returns SaaS KPI data such as revenue, active users, churn rate, and conversion rate.
 
-To learn more about Next.js, take a look at the following resources:
+Revenue
+GET /api/revenue
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Returns chart-ready revenue data.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Customers
+GET /api/customers?page=1&status=active&plan=pro&query=acme
 
-## Deploy on Vercel
+Returns paginated customer data with filtering support.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Engineering Highlights
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project intentionally includes patterns commonly used in production dashboards:
+
+Query caching with TanStack Query
+Explicit loading and error states
+Mock backend behavior through API routes
+Client-side state for filters and pagination
+Reusable UI components
+Typed data contracts
+Responsive dashboard layout
+Accessible contrast-aware dark mode
+Roadmap
+Add date range filtering
+Add CSV export
+Add optimistic table actions
+Add authentication mock
+Add dashboard settings page
+Add Playwright smoke tests
+Purpose
+
+This repository is designed as a portfolio project for demonstrating modern frontend architecture, UX discipline, and production-oriented React/Next.js patterns.
+
+
+---
+
+## Nota importante
+
+Per GitHub personale, non fare una dashboard “bella ma vuota”. Deve sembrare un prodotto reale. Quindi cura soprattutto:
+
+```txt
+loading → error → empty state → data state
+```
