@@ -15,9 +15,11 @@ function getInitialTheme(): Theme {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
+/** Persisted light/dark theme toggle used in the dashboard header. */
 export function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
 
+  // The layout script handles first paint; this effect keeps later toggles persistent.
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
     window.localStorage.setItem("dashboard-theme", theme);

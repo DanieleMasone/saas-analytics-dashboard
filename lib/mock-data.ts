@@ -6,6 +6,7 @@ import type {
   RevenuePoint,
 } from "@/types/dashboard";
 
+/** Portfolio-ready KPI fixtures returned by `/api/metrics`. */
 export const metrics: Metric[] = [
   {
     id: "mrr",
@@ -45,6 +46,7 @@ export const metrics: Metric[] = [
   },
 ];
 
+/** Monthly revenue fixtures returned by `/api/revenue`. */
 export const revenue: RevenuePoint[] = [
   {month: "May", revenue: 181200, newBusiness: 42600, expansion: 16900, churn: -9600, customers: 1294},
   {month: "Jun", revenue: 190800, newBusiness: 44800, expansion: 18400, churn: -8200, customers: 1348},
@@ -60,6 +62,7 @@ export const revenue: RevenuePoint[] = [
   {month: "Apr", revenue: 286400, newBusiness: 72100, expansion: 36100, churn: -11800, customers: 1842},
 ];
 
+/** Customer account fixtures used by the searchable, paginated API route. */
 export const customers: Customer[] = [
   {
     id: "cus-1001",
@@ -349,18 +352,22 @@ const latencyByEndpoint = {
   revenue: 520,
 };
 
+// Artificial latency keeps loading and refresh states visible during portfolio demos.
+/** Delay mock Route Handler responses to exercise loading and refresh states. */
 export function simulateLatency(endpoint: keyof typeof latencyByEndpoint) {
   return new Promise((resolve) => {
     setTimeout(resolve, latencyByEndpoint[endpoint]);
   });
 }
 
+/** Apply customer search, filters, pagination, and filtered-set summary metrics. */
 export function getCustomers(filters: CustomerFilters): CustomersResponse {
   const pageSize = filters.pageSize ?? 8;
   const query = filters.query?.trim().toLowerCase() ?? "";
   const status = filters.status ?? "all";
   const plan = filters.plan ?? "all";
 
+  // Search intentionally spans business fields that operators scan most often.
   const filtered = customers.filter((customer) => {
     const matchesQuery =
         query.length === 0 ||
@@ -380,6 +387,7 @@ export function getCustomers(filters: CustomerFilters): CustomersResponse {
   const data = filtered.slice(start, start + pageSize);
   const mrrCustomers = filtered.filter((customer) => customer.status !== "churned");
 
+  // Summary values are derived from the filtered set so side panels match the table.
   return {
     data,
     page,

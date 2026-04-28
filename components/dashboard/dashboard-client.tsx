@@ -34,6 +34,7 @@ const navItems = [
   {icon: Settings, label: "Settings", active: false},
 ];
 
+/** Main client-side dashboard shell that coordinates filters, queries, and refreshes. */
 export function DashboardClient() {
   const [filters, setFilters] = useState<CustomerFilters>({
     page: 1,
@@ -43,6 +44,7 @@ export function DashboardClient() {
     status: "all",
   });
 
+  // Normalize filters before using them in query keys and API requests.
   const customerFilters = useMemo(
       () => ({
         page: filters.page ?? 1,
@@ -65,6 +67,7 @@ export function DashboardClient() {
   });
 
   const customersQuery = useQuery({
+    // Preserve the current table while the next filtered page is fetched.
     placeholderData: keepPreviousData,
     queryFn: () => fetchCustomers(customerFilters),
     queryKey: ["customers", customerFilters],

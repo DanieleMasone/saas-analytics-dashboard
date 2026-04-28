@@ -15,7 +15,8 @@ import {Skeleton} from "@/components/ui/skeleton";
 import {formatCurrency, formatNumber} from "@/lib/utils";
 import type {RevenuePoint} from "@/types/dashboard";
 
-type RevenueChartProps = {
+/** Props for the revenue composition chart panel. */
+export type RevenueChartProps = {
   data: RevenuePoint[];
   isLoading: boolean;
   isError: boolean;
@@ -28,6 +29,7 @@ type TooltipPayload = {
   value?: number;
 };
 
+// Recharts passes a broad tooltip payload; this local shape keeps rendering typed.
 function ChartTooltip({
                         active,
                         label,
@@ -63,6 +65,7 @@ function ChartTooltip({
   );
 }
 
+/** Revenue composition panel with loading, error, and populated chart states. */
 export function RevenueChart({data, isError, isLoading, onRetry}: RevenueChartProps) {
   if (isLoading) {
     return (
@@ -86,7 +89,7 @@ export function RevenueChart({data, isError, isLoading, onRetry}: RevenueChartPr
                 Revenue data failed to load
               </h2>
               <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                The mock API returned an error. Retry the query to recover this panel.
+                The revenue service returned an error. Retry the query to recover this panel.
               </p>
               <Button className="mt-4" onClick={onRetry} variant="danger">
                 <RotateCcw aria-hidden="true" size={16}/>
@@ -119,6 +122,7 @@ export function RevenueChart({data, isError, isLoading, onRetry}: RevenueChartPr
         </div>
 
         <div className="mt-6 h-85 min-w-0">
+          {/* ResponsiveContainer needs a stable parent height to avoid a blank chart. */}
           <ResponsiveContainer height="100%" width="100%">
             <ComposedChart data={data} margin={{bottom: 8, left: 0, right: 6, top: 10}}>
               <defs>

@@ -8,6 +8,7 @@ export const metadata: Metadata = {
       "A production-style SaaS analytics dashboard with mock APIs, filtering, caching, loading states, and dark mode.",
 };
 
+// Set the persisted theme before React hydrates to avoid a light/dark flash.
 const themeScript = `
 (() => {
   try {

@@ -23,7 +23,8 @@ import type {
   CustomerStatus,
 } from "@/types/dashboard";
 
-type CustomerTableProps = {
+/** Props for the customer account table. */
+export type CustomerTableProps = {
   filters: Required<Pick<CustomerFilters, "page">> &
       Pick<CustomerFilters, "plan" | "query" | "status">;
   data?: CustomersResponse;
@@ -84,6 +85,7 @@ function TableSkeleton() {
   );
 }
 
+/** Searchable, paginated customer table with explicit API states. */
 export function CustomerTable({
                                 data,
                                 filters,
@@ -96,6 +98,7 @@ export function CustomerTable({
   const hasFilters =
       Boolean(filters.query) || filters.status !== "all" || filters.plan !== "all";
 
+  // This component keeps expected API states explicit: error, loading, empty, and data.
   return (
       <section
           className="rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">

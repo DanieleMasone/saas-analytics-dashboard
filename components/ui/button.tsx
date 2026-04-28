@@ -1,10 +1,14 @@
 import type {ButtonHTMLAttributes} from "react";
 import {cn} from "@/lib/utils";
 
-type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
-type ButtonSize = "sm" | "md" | "icon";
+/** Visual intent variants supported by the shared button primitive. */
+export type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+/** Fixed button sizes used across the dashboard toolbar and actions. */
+export type ButtonSize = "sm" | "md" | "icon";
+
+/** Props for the shared button primitive. */
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
 };
@@ -26,6 +30,7 @@ const sizes: Record<ButtonSize, string> = {
   sm: "h-8 px-2.5 text-sm",
 };
 
+/** Small design-system button primitive shared by dashboard actions. */
 export function Button({
                          className,
                          size = "md",

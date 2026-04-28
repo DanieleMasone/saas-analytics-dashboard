@@ -16,6 +16,7 @@ const iconByMetric: Record<string, typeof CircleDollarSign> = {
   mrr: CircleDollarSign,
 };
 
+/** KPI card for one executive metric, including trend direction and outcome color. */
 export function KpiCard({metric}: { metric: Metric }) {
   const Icon = iconByMetric[metric.id] ?? Activity;
   const TrendIcon = metric.trend === "down" ? ArrowDownRight : ArrowUpRight;

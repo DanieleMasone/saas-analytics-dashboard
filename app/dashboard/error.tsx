@@ -2,11 +2,11 @@
 
 import {AlertTriangle, RotateCcw} from "lucide-react";
 import {Button} from "@/components/ui/button";
-import {DashboardErrorProps} from "@/types/dashboard";
+import type {DashboardErrorProps} from "@/types/dashboard";
 
 export default function DashboardError({
                                          error,
-                                         reset,
+                                         unstable_retry,
                                        }: DashboardErrorProps) {
   return (
       <main
@@ -23,7 +23,7 @@ export default function DashboardError({
               <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
                 {error.message || "The dashboard could not be rendered."}
               </p>
-              <Button className="mt-5" onClick={reset} variant="primary">
+              <Button className="mt-5" onClick={unstable_retry} variant="primary">
                 <RotateCcw aria-hidden="true" size={16}/>
                 Try again
               </Button>

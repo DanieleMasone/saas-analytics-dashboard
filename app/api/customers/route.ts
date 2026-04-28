@@ -5,6 +5,7 @@ import type {CustomerPlan, CustomerStatus} from "@/types/dashboard";
 
 export const dynamic = "force-dynamic";
 
+// Keep query parsing defensive so malformed URLs still return a valid dashboard state.
 const isCustomerStatus = (value: string | null): value is CustomerStatus =>
     Boolean(value && customerStatuses.includes(value as CustomerStatus));
 
@@ -16,6 +17,7 @@ function getPositiveInteger(value: string | null, fallback: number) {
     return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
 }
 
+/** Return paginated customer data after validating URL search params. */
 export async function GET(request: NextRequest) {
     await simulateLatency("customers");
 
@@ -26,6 +28,7 @@ export async function GET(request: NextRequest) {
     return Response.json(
         getCustomers({
             page: getPositiveInteger(searchParams.get("page"), 1),
+            // Cap page size to keep mock responses predictable and UI rows scannable.
             pageSize: Math.min(getPositiveInteger(searchParams.get("pageSize"), 8), 20),
             plan: isCustomerPlan(plan) ? plan : "all",
             query: searchParams.get("query") ?? "",

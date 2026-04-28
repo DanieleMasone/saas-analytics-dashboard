@@ -1,6 +1,7 @@
 import type {HTMLAttributes} from "react";
 import {cn} from "@/lib/utils";
 
+/** Reusable skeleton block for route and panel loading states. */
 export function Skeleton({className, ...props}: HTMLAttributes<HTMLDivElement>) {
     return (
         <div

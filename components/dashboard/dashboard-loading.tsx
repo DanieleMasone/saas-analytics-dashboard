@@ -1,5 +1,6 @@
 import {Skeleton} from "@/components/ui/skeleton";
 
+/** Route-level skeleton matching the dashboard's final layout. */
 export function DashboardLoading() {
   return (
       <div

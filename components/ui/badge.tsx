@@ -1,7 +1,8 @@
 import type {HTMLAttributes} from "react";
 import {cn} from "@/lib/utils";
 
-type BadgeTone = "cyan" | "emerald" | "amber" | "rose" | "slate";
+/** Semantic tones used by compact status badges. */
+export type BadgeTone = "cyan" | "emerald" | "amber" | "rose" | "slate";
 
 const tones: Record<BadgeTone, string> = {
   amber:
@@ -16,6 +17,7 @@ const tones: Record<BadgeTone, string> = {
       "border-slate-200 bg-slate-100 text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200",
 };
 
+/** Compact status badge with semantic dashboard tones. */
 export function Badge({
                         className,
                         tone = "slate",

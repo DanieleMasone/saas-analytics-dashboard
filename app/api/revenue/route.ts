@@ -2,6 +2,7 @@ import {revenue, simulateLatency} from "@/lib/mock-data";
 
 export const dynamic = "force-dynamic";
 
+/** Return monthly revenue data with demo latency. */
 export async function GET() {
   await simulateLatency("revenue");
 

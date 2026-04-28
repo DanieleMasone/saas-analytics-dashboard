@@ -11,12 +11,14 @@ import {Skeleton} from "@/components/ui/skeleton";
 import {formatCurrency, formatNumber} from "@/lib/utils";
 import type {CustomersResponse, RevenuePoint} from "@/types/dashboard";
 
-type OpsSummaryProps = {
+/** Props for the operating pulse summary panel. */
+export type OpsSummaryProps = {
   customers?: CustomersResponse;
   revenue?: RevenuePoint[];
   isLoading: boolean;
 };
 
+/** Side-panel summary that stays aligned with the active customer filters. */
 export function OpsSummary({customers, isLoading, revenue}: OpsSummaryProps) {
   if (isLoading) {
     return (

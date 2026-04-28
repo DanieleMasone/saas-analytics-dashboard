@@ -94,6 +94,32 @@ npm run build
 npm run start
 npm run lint
 npm run typecheck
+npm run docs
+npm run docs:check
+```
+
+## Static Documentation
+
+This project uses TypeDoc for generated static reference docs. TypeDoc is a better fit than JSDoc templates such as Docdash because the codebase is TypeScript-first and the most useful documentation comes from exported contracts, typed mock APIs, reusable components, and utility functions.
+
+The npm scripts call TypeDoc's CLI entrypoint directly so generation also works in restricted Windows shells where the default TypeDoc wrapper may be blocked from spawning a child process.
+
+Generate the static HTML reference:
+
+```bash
+npm run docs
+```
+
+The output is written to:
+
+```txt
+docs/reference/
+```
+
+Validate documentation generation without writing files:
+
+```bash
+npm run docs:check
 ```
 
 ## Mock API
