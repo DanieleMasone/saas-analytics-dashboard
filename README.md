@@ -58,6 +58,9 @@ providers/
 
 types/
   dashboard.ts
+
+AGENTS.md
+CLAUDE.md
 ```
 
 ## Getting Started
@@ -120,6 +123,14 @@ GET /api/customers?page=1&pageSize=8&status=active&plan=pro&query=acme
 Returns paginated customer data with search, status filtering, and plan filtering.
 
 ## Engineering Notes
+
+`AGENTS.md` is the canonical instruction file for AI coding agents working on this repository. `CLAUDE.md` intentionally stays as a small compatibility pointer to `AGENTS.md`.
+
+Before changing Next.js routing, config, rendering behavior, API handlers, metadata, loading states, errors, or caching, check the relevant local Next.js 16 docs in:
+
+```txt
+node_modules/next/dist/docs/
+```
 
 The dashboard is built around the full data-state loop:
 
