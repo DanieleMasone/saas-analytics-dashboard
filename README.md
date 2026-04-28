@@ -1,131 +1,138 @@
 # SaaS Analytics Dashboard
 
-A realistic SaaS analytics dashboard built with Next.js App Router, React, TypeScript, TanStack Query, Recharts, and mock API routes.
+A production-style SaaS analytics dashboard built with Next.js 16 App Router, React, TypeScript, TanStack Query, Recharts, Tailwind CSS, and mock Route Handlers.
 
-The goal of this project is to demonstrate frontend engineering skills that matter in real production dashboards: complex UI state, server-driven data, loading states, error handling, pagination, filtering, caching, responsive layout, and polished dark mode.
-
-## Tech Stack
-
-- Next.js App Router
-- React
-- TypeScript
-- TanStack Query
-- Recharts
-- Tailwind CSS
-- Mock API routes via Next.js Route Handlers
+The project is designed as a portfolio-grade frontend app: it prioritizes real dashboard behaviors over decorative UI, including server-driven data, loading states, recoverable errors, empty states, pagination, filtering, caching, responsive layout, and persisted dark mode.
 
 ## Features
 
-- SaaS-style analytics dashboard
-- KPI metric cards
-- Revenue chart
-- Customer table
-- Filtering by status, plan, and search query
-- Pagination
-- API mock with artificial network latency
-- TanStack Query caching
-- Skeleton loading states
-- Error boundary
-- Responsive layout
-- Dark mode with persisted preference
+- Executive SaaS analytics overview
+- KPI cards for MRR, active accounts, churn, and trial conversion
+- Revenue composition chart with MRR, new business, and expansion
+- Customer table with search, status filter, plan filter, pagination, and empty state
+- Mock API routes with artificial latency
+- TanStack Query caching and manual refresh
+- Skeleton loading states for route and panel-level loading
+- Route-level error boundary for unexpected failures
+- Responsive dashboard shell for desktop and mobile widths
+- Persisted light/dark theme preference
+
+## Tech Stack
+
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- TanStack Query
+- Recharts
+- Tailwind CSS 4
+- Lucide React icons
+- Mock APIs via Next.js Route Handlers
 
 ## Project Structure
 
 ```txt
-src/
-  app/
-    api/
-      metrics/
-      customers/
-      revenue/
-    dashboard/
-      page.tsx
-      loading.tsx
-      error.tsx
-    layout.tsx
+app/
+  api/
+    customers/route.ts
+    metrics/route.ts
+    revenue/route.ts
+  dashboard/
+    error.tsx
+    loading.tsx
     page.tsx
-    globals.css
+  globals.css
+  layout.tsx
+  page.tsx
 
-  components/
-    dashboard/
-    ui/
+components/
+  dashboard/
+  ui/
 
-  lib/
-    api.ts
-    mock-data.ts
-    query-client.ts
-    utils.ts
+lib/
+  api.ts
+  mock-data.ts
+  utils.ts
 
-  providers/
-    ReactQueryProvider.tsx
+providers/
+  react-query-provider.tsx
 
-  types/
-    dashboard.ts
+types/
+  dashboard.ts
 ```
 
-Getting Started
-Requirements
-Node.js 24.15.0 or newer
-npm
-Install dependencies
+## Getting Started
+
+### Requirements
+
+- Node.js 24.10.0 or newer
+- npm 10 or newer
+
+Next.js 16 requires Node.js 20.9.0 or newer; this project pins Node 24 for a consistent local toolchain.
+
+### Install
+
+```bash
 npm install
-Run development server
+```
+
+### Run
+
+```bash
 npm run dev
+```
 
-Open:
+Open [http://localhost:3000](http://localhost:3000). The root route redirects to `/dashboard`.
 
-http://localhost:3000
-Available Scripts
+## Scripts
+
+```bash
 npm run dev
 npm run build
 npm run start
 npm run lint
-Mock API Endpoints
-Metrics
+npm run typecheck
+```
+
+## Mock API
+
+### Metrics
+
+```http
 GET /api/metrics
+```
 
-Returns SaaS KPI data such as revenue, active users, churn rate, and conversion rate.
+Returns KPI data for revenue, active accounts, churn, and conversion.
 
-Revenue
+### Revenue
+
+```http
 GET /api/revenue
+```
 
-Returns chart-ready revenue data.
+Returns chart-ready monthly revenue data.
 
-Customers
-GET /api/customers?page=1&status=active&plan=pro&query=acme
+### Customers
 
-Returns paginated customer data with filtering support.
+```http
+GET /api/customers?page=1&pageSize=8&status=active&plan=pro&query=acme
+```
 
-Engineering Highlights
+Returns paginated customer data with search, status filtering, and plan filtering.
 
-This project intentionally includes patterns commonly used in production dashboards:
+## Engineering Notes
 
-Query caching with TanStack Query
-Explicit loading and error states
-Mock backend behavior through API routes
-Client-side state for filters and pagination
-Reusable UI components
-Typed data contracts
-Responsive dashboard layout
-Accessible contrast-aware dark mode
-Roadmap
-Add date range filtering
-Add CSV export
-Add optimistic table actions
-Add authentication mock
-Add dashboard settings page
-Add Playwright smoke tests
-Purpose
-
-This repository is designed as a portfolio project for demonstrating modern frontend architecture, UX discipline, and production-oriented React/Next.js patterns.
-
-
----
-
-## Nota importante
-
-Per GitHub personale, non fare una dashboard “bella ma vuota”. Deve sembrare un prodotto reale. Quindi cura soprattutto:
+The dashboard is built around the full data-state loop:
 
 ```txt
-loading → error → empty state → data state
+loading -> error -> empty -> data
 ```
+
+Visible UI avoids implementation callouts and behaves like an internal SaaS console. Technical details stay in the code and README; the app itself is focused on the operator workflow.
+
+## Roadmap
+
+- Add date range filtering
+- Add CSV export
+- Add row-level customer actions
+- Add authentication mock
+- Add Playwright smoke tests
