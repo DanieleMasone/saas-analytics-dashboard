@@ -14,7 +14,7 @@ async function fetchJson<T>(url: string): Promise<T> {
     throw new Error(message || `Request failed with status ${response.status}`);
   }
 
-  return response.json() as Promise<T>;
+  return await response.json() as Promise<T>;
 }
 
 export function fetchMetrics() {

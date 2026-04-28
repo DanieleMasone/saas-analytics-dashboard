@@ -1,8 +1,8 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import {Moon, Sun} from "lucide-react";
+import {useEffect, useState} from "react";
+import {Button} from "@/components/ui/button";
 
 type Theme = "light" | "dark";
 
@@ -26,15 +26,15 @@ export function ThemeToggle() {
   const isDark = theme === "dark";
 
   return (
-    <Button
-      aria-label={isDark ? "Use light theme" : "Use dark theme"}
-      onClick={() => setTheme(isDark ? "light" : "dark")}
-      size="icon"
-      suppressHydrationWarning
-      title={isDark ? "Use light theme" : "Use dark theme"}
-      variant="secondary"
-    >
-      {isDark ? <Sun aria-hidden="true" size={17} /> : <Moon aria-hidden="true" size={17} />}
-    </Button>
+      <Button
+          aria-label={isDark ? "Use light theme" : "Use dark theme"}
+          onClick={() => setTheme(isDark ? "light" : "dark")}
+          size="icon"
+          suppressHydrationWarning
+          title={isDark ? "Use light theme" : "Use dark theme"}
+          variant="secondary"
+      >
+        {isDark ? <Sun aria-hidden="true" size={17}/> : <Moon aria-hidden="true" size={17}/>}
+      </Button>
   );
 }

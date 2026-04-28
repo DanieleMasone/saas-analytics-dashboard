@@ -46,18 +46,18 @@ export const metrics: Metric[] = [
 ];
 
 export const revenue: RevenuePoint[] = [
-  { month: "May", revenue: 181200, newBusiness: 42600, expansion: 16900, churn: -9600, customers: 1294 },
-  { month: "Jun", revenue: 190800, newBusiness: 44800, expansion: 18400, churn: -8200, customers: 1348 },
-  { month: "Jul", revenue: 202100, newBusiness: 49100, expansion: 19300, churn: -9100, customers: 1396 },
-  { month: "Aug", revenue: 216500, newBusiness: 52400, expansion: 20700, churn: -8700, customers: 1467 },
-  { month: "Sep", revenue: 224300, newBusiness: 49800, expansion: 22600, churn: -10400, customers: 1512 },
-  { month: "Oct", revenue: 231700, newBusiness: 56300, expansion: 21500, churn: -11900, customers: 1574 },
-  { month: "Nov", revenue: 246800, newBusiness: 61800, expansion: 24600, churn: -9800, customers: 1638 },
-  { month: "Dec", revenue: 252400, newBusiness: 58600, expansion: 27100, churn: -12300, customers: 1691 },
-  { month: "Jan", revenue: 263100, newBusiness: 64200, expansion: 29400, churn: -10800, customers: 1744 },
-  { month: "Feb", revenue: 270900, newBusiness: 67400, expansion: 31300, churn: -11600, customers: 1788 },
-  { month: "Mar", revenue: 279300, newBusiness: 69100, expansion: 34600, churn: -12900, customers: 1819 },
-  { month: "Apr", revenue: 286400, newBusiness: 72100, expansion: 36100, churn: -11800, customers: 1842 },
+  {month: "May", revenue: 181200, newBusiness: 42600, expansion: 16900, churn: -9600, customers: 1294},
+  {month: "Jun", revenue: 190800, newBusiness: 44800, expansion: 18400, churn: -8200, customers: 1348},
+  {month: "Jul", revenue: 202100, newBusiness: 49100, expansion: 19300, churn: -9100, customers: 1396},
+  {month: "Aug", revenue: 216500, newBusiness: 52400, expansion: 20700, churn: -8700, customers: 1467},
+  {month: "Sep", revenue: 224300, newBusiness: 49800, expansion: 22600, churn: -10400, customers: 1512},
+  {month: "Oct", revenue: 231700, newBusiness: 56300, expansion: 21500, churn: -11900, customers: 1574},
+  {month: "Nov", revenue: 246800, newBusiness: 61800, expansion: 24600, churn: -9800, customers: 1638},
+  {month: "Dec", revenue: 252400, newBusiness: 58600, expansion: 27100, churn: -12300, customers: 1691},
+  {month: "Jan", revenue: 263100, newBusiness: 64200, expansion: 29400, churn: -10800, customers: 1744},
+  {month: "Feb", revenue: 270900, newBusiness: 67400, expansion: 31300, churn: -11600, customers: 1788},
+  {month: "Mar", revenue: 279300, newBusiness: 69100, expansion: 34600, churn: -12900, customers: 1819},
+  {month: "Apr", revenue: 286400, newBusiness: 72100, expansion: 36100, churn: -11800, customers: 1842},
 ];
 
 export const customers: Customer[] = [
@@ -363,11 +363,11 @@ export function getCustomers(filters: CustomerFilters): CustomersResponse {
 
   const filtered = customers.filter((customer) => {
     const matchesQuery =
-      query.length === 0 ||
-      [customer.company, customer.owner, customer.region]
-        .join(" ")
-        .toLowerCase()
-        .includes(query);
+        query.length === 0 ||
+        [customer.company, customer.owner, customer.region]
+            .join(" ")
+            .toLowerCase()
+            .includes(query);
     const matchesStatus = status === "all" || customer.status === status;
     const matchesPlan = plan === "all" || customer.plan === plan;
 
@@ -390,12 +390,12 @@ export function getCustomers(filters: CustomerFilters): CustomersResponse {
       active: filtered.filter((customer) => customer.status === "active").length,
       atRisk: filtered.filter((customer) => customer.status === "past_due").length,
       averageHealth:
-        filtered.length === 0
-          ? 0
-          : Math.round(
-              filtered.reduce((total, customer) => total + customer.healthScore, 0) /
-                filtered.length,
-            ),
+          filtered.length === 0
+              ? 0
+              : Math.round(
+                  filtered.reduce((total, customer) => total + customer.healthScore, 0) /
+                  filtered.length,
+              ),
       totalMrr: mrrCustomers.reduce((total, customer) => total + customer.mrr, 0),
       trial: filtered.filter((customer) => customer.status === "trial").length,
     },

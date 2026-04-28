@@ -69,3 +69,8 @@ export type ApiEnvelope<T> = {
   data: T;
   updatedAt: string;
 };
+
+export type DashboardErrorProps = {
+  error: Error & { digest?: string };
+  reset: () => void;
+};

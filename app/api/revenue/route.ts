@@ -1,4 +1,4 @@
-import { revenue, simulateLatency } from "@/lib/mock-data";
+import {revenue, simulateLatency} from "@/lib/mock-data";
 
 export const dynamic = "force-dynamic";
 

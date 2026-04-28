@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
-import { ReactQueryProvider } from "@/providers/react-query-provider";
+import type {Metadata} from "next";
+import {ReactQueryProvider} from "@/providers/react-query-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "SaaS Analytics Dashboard",
   description:
-    "A production-style SaaS analytics dashboard with mock APIs, filtering, caching, loading states, and dark mode.",
+      "A production-style SaaS analytics dashboard with mock APIs, filtering, caching, loading states, and dark mode.",
 };
 
 const themeScript = `
@@ -22,16 +22,16 @@ const themeScript = `
 `;
 
 export default function RootLayout({
-  children,
-}: Readonly<{
+                                     children,
+                                   }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning>
       <body>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+      <script dangerouslySetInnerHTML={{__html: themeScript}}/>
+      <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
-    </html>
+      </html>
   );
 }

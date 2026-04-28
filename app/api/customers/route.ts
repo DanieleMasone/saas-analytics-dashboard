@@ -1,35 +1,35 @@
-import type { NextRequest } from "next/server";
-import { getCustomers, simulateLatency } from "@/lib/mock-data";
-import { customerPlans, customerStatuses } from "@/types/dashboard";
-import type { CustomerPlan, CustomerStatus } from "@/types/dashboard";
+import type {NextRequest} from "next/server";
+import {getCustomers, simulateLatency} from "@/lib/mock-data";
+import {customerPlans, customerStatuses} from "@/types/dashboard";
+import type {CustomerPlan, CustomerStatus} from "@/types/dashboard";
 
 export const dynamic = "force-dynamic";
 
 const isCustomerStatus = (value: string | null): value is CustomerStatus =>
-  Boolean(value && customerStatuses.includes(value as CustomerStatus));
+    Boolean(value && customerStatuses.includes(value as CustomerStatus));
 
 const isCustomerPlan = (value: string | null): value is CustomerPlan =>
-  Boolean(value && customerPlans.includes(value as CustomerPlan));
+    Boolean(value && customerPlans.includes(value as CustomerPlan));
 
 function getPositiveInteger(value: string | null, fallback: number) {
-  const parsed = Number(value);
-  return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
+    const parsed = Number(value);
+    return Number.isInteger(parsed) && parsed > 0 ? parsed : fallback;
 }
 
 export async function GET(request: NextRequest) {
-  await simulateLatency("customers");
+    await simulateLatency("customers");
 
-  const { searchParams } = request.nextUrl;
-  const status = searchParams.get("status");
-  const plan = searchParams.get("plan");
+    const {searchParams} = request.nextUrl;
+    const status = searchParams.get("status");
+    const plan = searchParams.get("plan");
 
-  return Response.json(
-    getCustomers({
-      page: getPositiveInteger(searchParams.get("page"), 1),
-      pageSize: Math.min(getPositiveInteger(searchParams.get("pageSize"), 8), 20),
-      plan: isCustomerPlan(plan) ? plan : "all",
-      query: searchParams.get("query") ?? "",
-      status: isCustomerStatus(status) ? status : "all",
-    }),
-  );
+    return Response.json(
+        getCustomers({
+            page: getPositiveInteger(searchParams.get("page"), 1),
+            pageSize: Math.min(getPositiveInteger(searchParams.get("pageSize"), 8), 20),
+            plan: isCustomerPlan(plan) ? plan : "all",
+            query: searchParams.get("query") ?? "",
+            status: isCustomerStatus(status) ? status : "all",
+        }),
+    );
 }
