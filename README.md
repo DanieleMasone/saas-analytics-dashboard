@@ -16,7 +16,6 @@ A production-style SaaS analytics dashboard built with Next.js 16 App Router, Re
 - API reference: [reference docs](https://danielemasone.github.io/saas-analytics-dashboard/reference/)
 - Coverage report: [coverage HTML](https://danielemasone.github.io/saas-analytics-dashboard/coverage/)
 - Quality index: [quality.html](https://danielemasone.github.io/saas-analytics-dashboard/quality.html)
-- CI workflow: [GitHub Actions](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml)
 
 ## Features
 
@@ -72,10 +71,10 @@ npm run quality
 Coverage thresholds are enforced in `vitest.config.ts`:
 
 ```txt
-statements: 70%
-branches: 60%
-functions: 60%
-lines: 70%
+statements: 90%
+branches: 75%
+functions: 90%
+lines: 90%
 ```
 
 Generated reports:
