@@ -1,24 +1,32 @@
 # SaaS Analytics Dashboard
 
+[![CI and GitHub Pages](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml/badge.svg?branch=master)](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml)
+[![Live Demo](https://img.shields.io/badge/demo-GitHub%20Pages-0e7490?logo=githubpages&logoColor=white)](https://danielemasone.github.io/saas-analytics-dashboard/)
+[![Reference Docs](https://img.shields.io/badge/docs-TypeDoc-2563eb)](https://danielemasone.github.io/saas-analytics-dashboard/reference/)
+[![Coverage](https://img.shields.io/badge/coverage-73%25-15803d)](https://danielemasone.github.io/saas-analytics-dashboard/coverage/)
+[![Next.js](https://img.shields.io/badge/Next.js-16.2.4-black?logo=nextdotjs)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.2.4-61dafb?logo=react&logoColor=0f172a)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+
 A production-style SaaS analytics dashboard built with Next.js 16 App Router, React 19, TypeScript, TanStack Query, Recharts, Tailwind CSS, and typed mock data.
 
-The project is designed as a portfolio-grade frontend app: it favors real dashboard behavior over decorative scaffolding, including server-state caching, loading states, recoverable errors, empty states, pagination, filtering, responsive layout, persisted dark mode, automated tests, coverage reports, static API reference docs, and GitHub Pages publishing.
+## Links
+
+- Live dashboard: [danielemasone.github.io/saas-analytics-dashboard](https://danielemasone.github.io/saas-analytics-dashboard/)
+- API reference: [reference docs](https://danielemasone.github.io/saas-analytics-dashboard/reference/)
+- Coverage report: [coverage HTML](https://danielemasone.github.io/saas-analytics-dashboard/coverage/)
+- Quality index: [quality.html](https://danielemasone.github.io/saas-analytics-dashboard/quality.html)
+- CI workflow: [GitHub Actions](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml)
 
 ## Features
 
-- Executive SaaS analytics overview
-- KPI cards for MRR, active accounts, churn, and trial conversion
-- Revenue composition chart with MRR, new business, expansion, and churn
-- Customer table with search, status filter, plan filter, pagination, and empty state
-- Mock API routes with artificial latency for local server demos
-- Static data mode for GitHub Pages export
-- TanStack Query caching and manual refresh
-- Skeleton loading states for route and panel-level loading
-- Route-level error boundary for unexpected failures
-- Responsive dashboard shell for desktop and mobile widths
-- Persisted light/dark theme preference
-- Vitest and Testing Library coverage across utilities, data, API clients, route handlers, and UI states
-- TypeDoc-generated reference documentation from JSDoc/TSDoc comments
+- Executive SaaS overview with KPI cards, revenue composition, customer health, and account risk.
+- Searchable customer table with status/plan filters, pagination, empty state, and retry state.
+- TanStack Query data flow with loading, error, refresh, and populated states.
+- Mock Route Handlers for local demos and static data mode for GitHub Pages.
+- Persisted light/dark theme preference.
+- Vitest and Testing Library coverage across utilities, data, API clients, Route Handlers, and UI states.
+- TypeDoc reference generated from JSDoc/TSDoc comments.
 
 ## Tech Stack
 
@@ -30,83 +38,38 @@ The project is designed as a portfolio-grade frontend app: it favors real dashbo
 - Tailwind CSS 4
 - Lucide React icons
 - Vitest, V8 coverage, jsdom, and Testing Library
-- TypeDoc for static reference documentation
+- TypeDoc
 - GitHub Actions and GitHub Pages
-
-Test files are colocated with the code they verify. Runtime/build outputs are intentionally ignored:
-
-```txt
-coverage/
-out/
-```
-
-The generated TypeDoc reference in `docs/reference/` is tracked so the repository can expose static documentation even outside the GitHub Pages artifact.
 
 ## Requirements
 
 - Node.js 24.10.0 or newer
 - npm 10 or newer
 
-Next.js 16 requires Node.js 20.9.0 or newer; this project pins Node 24 for a consistent local and CI toolchain.
-
-## Getting Started
-
-Install dependencies:
+## Local Development
 
 ```bash
 npm install
-```
-
-Run the local development server:
-
-```bash
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000). The root route renders the dashboard directly, and `/dashboard` remains available as a dedicated route.
 
-## Scripts
+## Quality Commands
 
 ```bash
-npm run dev
-npm run build
-npm run build:pages
-npm run start
-npm run lint
 npm run typecheck
+npm run lint
 npm run test
-npm run test:watch
 npm run test:coverage
-npm run quality
 npm run docs
 npm run docs:check
+npm run quality
 ```
 
 `npm run quality` runs typecheck, lint, coverage, and documentation validation in one command.
 
-## Testing and Coverage
-
-The test suite uses Vitest with jsdom and Testing Library. Coverage uses the V8 provider and emits text, HTML, and lcov reports.
-
-Run tests:
-
-```bash
-npm run test
-```
-
-Generate coverage:
-
-```bash
-npm run test:coverage
-```
-
-Coverage output:
-
-```txt
-coverage/
-```
-
-The project currently enforces minimum coverage thresholds in `vitest.config.ts`:
+Coverage thresholds are enforced in `vitest.config.ts`:
 
 ```txt
 statements: 70%
@@ -115,63 +78,35 @@ functions: 60%
 lines: 70%
 ```
 
-## JSDoc and Static Docs
-
-This project uses TypeDoc for generated static reference docs. TypeDoc is a better fit than JSDoc templates such as Docdash because the codebase is TypeScript-first and the most useful documentation comes from exported contracts, typed mock APIs, reusable components, and utility functions.
-
-Generate the static HTML reference:
-
-```bash
-npm run docs
-```
-
-Validate documentation generation without writing files:
-
-```bash
-npm run docs:check
-```
-
-The local output is written to:
+Generated reports:
 
 ```txt
+coverage/
 docs/reference/
 ```
 
-The npm scripts call TypeDoc's CLI entrypoint directly so generation also works in restricted Windows shells where the default TypeDoc wrapper may be blocked from spawning a child process.
-
-## GitHub Pages and CI
+## GitHub Pages
 
 The workflow in `.github/workflows/pages.yml` runs on pull requests, pushes to `master`, and manual dispatches.
 
-The CI build performs:
+On `master`, GitHub Pages publishes:
 
 ```txt
-npm ci
-npm run typecheck
-npm run lint
-npm run test:coverage
-npm run docs
-npm run build:pages
-```
-
-On `master`, GitHub Pages publishes the static export from `out/`:
-
-```txt
-/           Static dashboard
-/dashboard/ Static dashboard route
-/reference/ TypeDoc reference
-/coverage/  HTML coverage report
+/             Static dashboard
+/dashboard/   Static dashboard route
+/reference/   TypeDoc reference
+/coverage/    HTML coverage report
 /quality.html Report index
 ```
 
-GitHub Pages does not run a Node.js server. For that reason, the Pages build sets:
+GitHub Pages does not run a Node.js server, so the Pages build uses:
 
 ```txt
 GITHUB_PAGES=true
 NEXT_PUBLIC_DATA_MODE=static
 ```
 
-In static data mode, the client reads the typed mock data directly instead of calling `/api/*`. The Route Handlers are marked `force-static` so Next.js can export them for Pages, while the interactive Pages dashboard keeps filtering and pagination client-side through the same typed mock dataset.
+In static data mode, the client reads typed mock data directly instead of calling `/api/*`. The Route Handlers remain in the app for local demos and are marked `force-static` so Next.js can export them for Pages.
 
 To test the Pages build locally on PowerShell:
 
@@ -181,48 +116,12 @@ $env:NEXT_PUBLIC_DATA_MODE='static'
 npm run build:pages
 ```
 
-## Mock API
+## Agent Notes
 
-### Metrics
-
-```http
-GET /api/metrics
-```
-
-Returns KPI data for revenue, active accounts, churn, and conversion.
-
-### Revenue
-
-```http
-GET /api/revenue
-```
-
-Returns chart-ready monthly revenue data.
-
-### Customers
-
-```http
-GET /api/customers?page=1&pageSize=8&status=active&plan=pro&query=acme
-```
-
-Returns paginated customer data with search, status filtering, and plan filtering.
-
-In the GitHub Pages export this endpoint is emitted as static JSON; the published dashboard uses static data mode for interactive filtering.
-
-## Engineering Notes
-
-`AGENTS.md` is the canonical instruction file for AI coding agents working on this repository. `CLAUDE.md` intentionally stays as a small compatibility pointer to `AGENTS.md`.
+`AGENTS.md` is the canonical instruction file for AI coding agents working on this repository. `CLAUDE.md` stays as a compatibility pointer to `AGENTS.md`.
 
 Before changing Next.js routing, config, rendering behavior, API handlers, metadata, loading states, errors, or caching, check the relevant local Next.js 16 docs in:
 
 ```txt
 node_modules/next/dist/docs/
 ```
-
-The dashboard is built around the full data-state loop:
-
-```txt
-loading -> error -> empty -> data
-```
-
-Visible UI avoids implementation callouts and behaves like an internal SaaS console. Technical details stay in the code and README; the app itself is focused on the operator workflow.

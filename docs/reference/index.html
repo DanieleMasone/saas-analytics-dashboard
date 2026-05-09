@@ -1,21 +1,29 @@
 <!DOCTYPE html><html class="default" lang="en" data-base="./"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>SaaS Analytics Dashboard Reference - v0.1.0</title><meta name="description" content="Documentation for SaaS Analytics Dashboard Reference"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="index.html" class="title">SaaS Analytics Dashboard Reference - v0.1.0</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>SaaS Analytics Dashboard Reference - v0.1.0</h1></div><div class="tsd-panel tsd-typography"><h1 id="saas-analytics-dashboard" class="tsd-anchor-link">SaaS Analytics Dashboard<a href="#saas-analytics-dashboard" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1>
+<p><a href="https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml"><img src="https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml/badge.svg?branch=master" alt="CI and GitHub Pages"></a>
+<a href="https://danielemasone.github.io/saas-analytics-dashboard/"><img src="https://img.shields.io/badge/demo-GitHub%20Pages-0e7490?logo=githubpages&amp;logoColor=white" alt="Live Demo"></a>
+<a href="https://danielemasone.github.io/saas-analytics-dashboard/reference/"><img src="https://img.shields.io/badge/docs-TypeDoc-2563eb" alt="Reference Docs"></a>
+<a href="https://danielemasone.github.io/saas-analytics-dashboard/coverage/"><img src="https://img.shields.io/badge/coverage-73%25-15803d" alt="Coverage"></a>
+<a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-16.2.4-black?logo=nextdotjs" alt="Next.js"></a>
+<a href="https://react.dev/"><img src="https://img.shields.io/badge/React-19.2.4-61dafb?logo=react&amp;logoColor=0f172a" alt="React"></a>
+<a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&amp;logoColor=white" alt="TypeScript"></a></p>
 <p>A production-style SaaS analytics dashboard built with Next.js 16 App Router, React 19, TypeScript, TanStack Query, Recharts, Tailwind CSS, and typed mock data.</p>
-<p>The project is designed as a portfolio-grade frontend app: it favors real dashboard behavior over decorative scaffolding, including server-state caching, loading states, recoverable errors, empty states, pagination, filtering, responsive layout, persisted dark mode, automated tests, coverage reports, static API reference docs, and GitHub Pages publishing.</p>
+<h2 id="links" class="tsd-anchor-link">Links<a href="#links" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<ul>
+<li>Live dashboard: <a href="https://danielemasone.github.io/saas-analytics-dashboard/">danielemasone.github.io/saas-analytics-dashboard</a></li>
+<li>API reference: <a href="https://danielemasone.github.io/saas-analytics-dashboard/reference/">reference docs</a></li>
+<li>Coverage report: <a href="https://danielemasone.github.io/saas-analytics-dashboard/coverage/">coverage HTML</a></li>
+<li>Quality index: <a href="https://danielemasone.github.io/saas-analytics-dashboard/quality.html">quality.html</a></li>
+<li>CI workflow: <a href="https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml">GitHub Actions</a></li>
+</ul>
 <h2 id="features" class="tsd-anchor-link">Features<a href="#features" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <ul>
-<li>Executive SaaS analytics overview</li>
-<li>KPI cards for MRR, active accounts, churn, and trial conversion</li>
-<li>Revenue composition chart with MRR, new business, expansion, and churn</li>
-<li>Customer table with search, status filter, plan filter, pagination, and empty state</li>
-<li>Mock API routes with artificial latency for local server demos</li>
-<li>Static data mode for GitHub Pages export</li>
-<li>TanStack Query caching and manual refresh</li>
-<li>Skeleton loading states for route and panel-level loading</li>
-<li>Route-level error boundary for unexpected failures</li>
-<li>Responsive dashboard shell for desktop and mobile widths</li>
-<li>Persisted light/dark theme preference</li>
-<li>Vitest and Testing Library coverage across utilities, data, API clients, route handlers, and UI states</li>
-<li>TypeDoc-generated reference documentation from JSDoc/TSDoc comments</li>
+<li>Executive SaaS overview with KPI cards, revenue composition, customer health, and account risk.</li>
+<li>Searchable customer table with status/plan filters, pagination, empty state, and retry state.</li>
+<li>TanStack Query data flow with loading, error, refresh, and populated states.</li>
+<li>Mock Route Handlers for local demos and static data mode for GitHub Pages.</li>
+<li>Persisted light/dark theme preference.</li>
+<li>Vitest and Testing Library coverage across utilities, data, API clients, Route Handlers, and UI states.</li>
+<li>TypeDoc reference generated from JSDoc/TSDoc comments.</li>
 </ul>
 <h2 id="tech-stack" class="tsd-anchor-link">Tech Stack<a href="#tech-stack" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <ul>
@@ -27,176 +35,60 @@
 <li>Tailwind CSS 4</li>
 <li>Lucide React icons</li>
 <li>Vitest, V8 coverage, jsdom, and Testing Library</li>
-<li>TypeDoc for static reference documentation</li>
+<li>TypeDoc</li>
 <li>GitHub Actions and GitHub Pages</li>
 </ul>
-<h2 id="project-structure" class="tsd-anchor-link">Project Structure<a href="#project-structure" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<pre><code class="txt">.github/workflows/
-  pages.yml
-
-app/
-  api/
-    customers/route.ts
-    metrics/route.ts
-    revenue/route.ts
-  dashboard/
-    error.tsx
-    loading.tsx
-    page.tsx
-  globals.css
-  layout.tsx
-  page.tsx
-
-components/
-  dashboard/
-  ui/
-
-lib/
-  api.ts
-  mock-data.ts
-  utils.ts
-
-providers/
-  react-query-provider.tsx
-
-tests/
-  setup.ts
-
-types/
-  dashboard.ts
-
-typedoc.json
-vitest.config.ts
-AGENTS.md
-CLAUDE.md
-</code><button type="button">Copy</button></pre>
-
-<p>Test files are colocated with the code they verify. Runtime/build outputs are intentionally ignored:</p>
-<pre><code class="txt">coverage/
-out/
-</code><button type="button">Copy</button></pre>
-
-<p>The generated TypeDoc reference in <code>docs/reference/</code> is tracked so the repository can expose static documentation even outside the GitHub Pages artifact.</p>
 <h2 id="requirements" class="tsd-anchor-link">Requirements<a href="#requirements" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <ul>
 <li>Node.js 24.10.0 or newer</li>
 <li>npm 10 or newer</li>
 </ul>
-<p>Next.js 16 requires Node.js 20.9.0 or newer; this project pins Node 24 for a consistent local and CI toolchain.</p>
-<h2 id="getting-started" class="tsd-anchor-link">Getting Started<a href="#getting-started" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<p>Install dependencies:</p>
-<pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span>
-</code><button type="button">Copy</button></pre>
-
-<p>Run the local development server:</p>
-<pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">dev</span>
+<h2 id="local-development" class="tsd-anchor-link">Local Development<a href="#local-development" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">dev</span>
 </code><button type="button">Copy</button></pre>
 
 <p>Open <a href="http://localhost:3000">http://localhost:3000</a>. The root route renders the dashboard directly, and <code>/dashboard</code> remains available as a dedicated route.</p>
-<h2 id="scripts" class="tsd-anchor-link">Scripts<a href="#scripts" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">dev</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">build</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">build:pages</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">start</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">lint</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">typecheck</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">test</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">test:watch</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">test:coverage</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">quality</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">docs</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">docs:check</span>
+<h2 id="quality-commands" class="tsd-anchor-link">Quality Commands<a href="#quality-commands" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">typecheck</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">lint</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">test</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">test:coverage</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">docs</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">docs:check</span><br/><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">quality</span>
 </code><button type="button">Copy</button></pre>
 
 <p><code>npm run quality</code> runs typecheck, lint, coverage, and documentation validation in one command.</p>
-<h2 id="testing-and-coverage" class="tsd-anchor-link">Testing and Coverage<a href="#testing-and-coverage" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<p>The test suite uses Vitest with jsdom and Testing Library. Coverage uses the V8 provider and emits text, HTML, and lcov reports.</p>
-<p>Run tests:</p>
-<pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">test</span>
-</code><button type="button">Copy</button></pre>
-
-<p>Generate coverage:</p>
-<pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">test:coverage</span>
-</code><button type="button">Copy</button></pre>
-
-<p>Coverage output:</p>
-<pre><code class="txt">coverage/
-</code><button type="button">Copy</button></pre>
-
-<p>The project currently enforces minimum coverage thresholds in <code>vitest.config.ts</code>:</p>
+<p>Coverage thresholds are enforced in <code>vitest.config.ts</code>:</p>
 <pre><code class="txt">statements: 70%
 branches: 60%
 functions: 60%
 lines: 70%
 </code><button type="button">Copy</button></pre>
 
-<h2 id="jsdoc-and-static-docs" class="tsd-anchor-link">JSDoc and Static Docs<a href="#jsdoc-and-static-docs" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<p>This project uses TypeDoc for generated static reference docs. TypeDoc is a better fit than JSDoc templates such as Docdash because the codebase is TypeScript-first and the most useful documentation comes from exported contracts, typed mock APIs, reusable components, and utility functions.</p>
-<p>Generate the static HTML reference:</p>
-<pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">docs</span>
+<p>Generated reports:</p>
+<pre><code class="txt">coverage/
+docs/reference/
 </code><button type="button">Copy</button></pre>
 
-<p>Validate documentation generation without writing files:</p>
-<pre><code class="bash"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">run</span><span class="hl-1"> </span><span class="hl-2">docs:check</span>
-</code><button type="button">Copy</button></pre>
-
-<p>The local output is written to:</p>
-<pre><code class="txt">docs/reference/
-</code><button type="button">Copy</button></pre>
-
-<p>The npm scripts call TypeDoc's CLI entrypoint directly so generation also works in restricted Windows shells where the default TypeDoc wrapper may be blocked from spawning a child process.</p>
-<h2 id="github-pages-and-ci" class="tsd-anchor-link">GitHub Pages and CI<a href="#github-pages-and-ci" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<h2 id="github-pages" class="tsd-anchor-link">GitHub Pages<a href="#github-pages" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <p>The workflow in <code>.github/workflows/pages.yml</code> runs on pull requests, pushes to <code>master</code>, and manual dispatches.</p>
-<p>The CI build performs:</p>
-<pre><code class="txt">npm ci
-npm run typecheck
-npm run lint
-npm run test:coverage
-npm run docs
-npm run build:pages
-</code><button type="button">Copy</button></pre>
-
-<p>On <code>master</code>, GitHub Pages publishes the static export from <code>out/</code>:</p>
-<pre><code class="txt">/           Static dashboard
-/dashboard/ Static dashboard route
-/reference/ TypeDoc reference
-/coverage/  HTML coverage report
+<p>On <code>master</code>, GitHub Pages publishes:</p>
+<pre><code class="txt">/             Static dashboard
+/dashboard/   Static dashboard route
+/reference/   TypeDoc reference
+/coverage/    HTML coverage report
 /quality.html Report index
 </code><button type="button">Copy</button></pre>
 
-<p>GitHub Pages does not run a Node.js server. For that reason, the Pages build sets:</p>
+<p>GitHub Pages does not run a Node.js server, so the Pages build uses:</p>
 <pre><code class="txt">GITHUB_PAGES=true
 NEXT_PUBLIC_DATA_MODE=static
 </code><button type="button">Copy</button></pre>
 
-<p>In static data mode, the client reads the typed mock data directly instead of calling <code>/api/*</code>. The Route Handlers are marked <code>force-static</code> so Next.js can export them for Pages, while the interactive Pages dashboard keeps filtering and pagination client-side through the same typed mock dataset.</p>
+<p>In static data mode, the client reads typed mock data directly instead of calling <code>/api/*</code>. The Route Handlers remain in the app for local demos and are marked <code>force-static</code> so Next.js can export them for Pages.</p>
 <p>To test the Pages build locally on PowerShell:</p>
 <pre><code class="powershell"><span class="hl-3">$env:GITHUB_PAGES</span><span class="hl-1">=</span><span class="hl-2">&#39;true&#39;</span><br/><span class="hl-3">$env:NEXT_PUBLIC_DATA_MODE</span><span class="hl-1">=</span><span class="hl-2">&#39;static&#39;</span><br/><span class="hl-1">npm run build:pages</span>
 </code><button type="button">Copy</button></pre>
 
-<h2 id="mock-api" class="tsd-anchor-link">Mock API<a href="#mock-api" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<h3 id="metrics" class="tsd-anchor-link">Metrics<a href="#metrics" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<pre><code class="http"><span class="hl-4">GET</span><span class="hl-1"> /api/metrics</span>
-</code><button type="button">Copy</button></pre>
-
-<p>Returns KPI data for revenue, active accounts, churn, and conversion.</p>
-<h3 id="revenue" class="tsd-anchor-link">Revenue<a href="#revenue" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<pre><code class="http"><span class="hl-4">GET</span><span class="hl-1"> /api/revenue</span>
-</code><button type="button">Copy</button></pre>
-
-<p>Returns chart-ready monthly revenue data.</p>
-<h3 id="customers" class="tsd-anchor-link">Customers<a href="#customers" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<pre><code class="http"><span class="hl-4">GET</span><span class="hl-1"> /api/customers?page=1&amp;pageSize=8&amp;status=active&amp;plan=pro&amp;query=acme</span>
-</code><button type="button">Copy</button></pre>
-
-<p>Returns paginated customer data with search, status filtering, and plan filtering.</p>
-<p>In the GitHub Pages export this endpoint is emitted as static JSON; the published dashboard uses static data mode for interactive filtering.</p>
-<h2 id="engineering-notes" class="tsd-anchor-link">Engineering Notes<a href="#engineering-notes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<p><code>AGENTS.md</code> is the canonical instruction file for AI coding agents working on this repository. <code>CLAUDE.md</code> intentionally stays as a small compatibility pointer to <code>AGENTS.md</code>.</p>
+<h2 id="agent-notes" class="tsd-anchor-link">Agent Notes<a href="#agent-notes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
+<p><code>AGENTS.md</code> is the canonical instruction file for AI coding agents working on this repository. <code>CLAUDE.md</code> stays as a compatibility pointer to <code>AGENTS.md</code>.</p>
 <p>Before changing Next.js routing, config, rendering behavior, API handlers, metadata, loading states, errors, or caching, check the relevant local Next.js 16 docs in:</p>
 <pre><code class="txt">node_modules/next/dist/docs/
 </code><button type="button">Copy</button></pre>
 
-<p>The dashboard is built around the full data-state loop:</p>
-<pre><code class="txt">loading -&gt; error -&gt; empty -&gt; data
-</code><button type="button">Copy</button></pre>
-
-<p>Visible UI avoids implementation callouts and behaves like an internal SaaS console. Technical details stay in the code and README; the app itself is focused on the operator workflow.</p>
-<h2 id="roadmap" class="tsd-anchor-link">Roadmap<a href="#roadmap" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<ul>
-<li>Add date range filtering</li>
-<li>Add CSV export</li>
-<li>Add row-level customer actions</li>
-<li>Add authentication mock</li>
-<li>Add Playwright smoke tests</li>
-</ul>
-</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#saas-analytics-dashboard"><span>Saa<wbr/>S <wbr/>Analytics <wbr/>Dashboard</span></a><ul><li><a href="#features"><span>Features</span></a></li><li><a href="#tech-stack"><span>Tech <wbr/>Stack</span></a></li><li><a href="#project-structure"><span>Project <wbr/>Structure</span></a></li><li><a href="#requirements"><span>Requirements</span></a></li><li><a href="#getting-started"><span>Getting <wbr/>Started</span></a></li><li><a href="#scripts"><span>Scripts</span></a></li><li><a href="#testing-and-coverage"><span>Testing and <wbr/>Coverage</span></a></li><li><a href="#jsdoc-and-static-docs"><span>JS<wbr/>Doc and <wbr/>Static <wbr/>Docs</span></a></li><li><a href="#github-pages-and-ci"><span>Git<wbr/>Hub <wbr/>Pages and <wbr/>CI</span></a></li><li><a href="#mock-api"><span>Mock <wbr/>API</span></a></li><li><ul><li><a href="#metrics"><span>Metrics</span></a></li><li><a href="#revenue"><span>Revenue</span></a></li><li><a href="#customers"><span>Customers</span></a></li></ul></li><li><a href="#engineering-notes"><span>Engineering <wbr/>Notes</span></a></li><li><a href="#roadmap"><span>Roadmap</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">SaaS Analytics Dashboard Reference - v0.1.0</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer></footer><div class="overlay"></div></body></html>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#saas-analytics-dashboard"><span>Saa<wbr/>S <wbr/>Analytics <wbr/>Dashboard</span></a><ul><li><a href="#links"><span>Links</span></a></li><li><a href="#features"><span>Features</span></a></li><li><a href="#tech-stack"><span>Tech <wbr/>Stack</span></a></li><li><a href="#requirements"><span>Requirements</span></a></li><li><a href="#local-development"><span>Local <wbr/>Development</span></a></li><li><a href="#quality-commands"><span>Quality <wbr/>Commands</span></a></li><li><a href="#github-pages"><span>Git<wbr/>Hub <wbr/>Pages</span></a></li><li><a href="#agent-notes"><span>Agent <wbr/>Notes</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">SaaS Analytics Dashboard Reference - v0.1.0</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer></footer><div class="overlay"></div></body></html>
