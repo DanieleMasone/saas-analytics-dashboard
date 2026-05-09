@@ -184,7 +184,7 @@ The npm scripts call TypeDoc's CLI entrypoint directly so generation also works 
 
 ## GitHub Pages and CI
 
-The workflow in `.github/workflows/pages.yml` runs on pull requests, pushes to `main`, and manual dispatches.
+The workflow in `.github/workflows/pages.yml` runs on pull requests, pushes to `master`, and manual dispatches.
 
 The CI build performs:
 
@@ -197,7 +197,7 @@ npm run docs
 npm run build:pages
 ```
 
-On `main`, GitHub Pages publishes the static export from `out/`:
+On `master`, GitHub Pages publishes the static export from `out/`:
 
 ```txt
 /           Static dashboard

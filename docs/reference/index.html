@@ -135,7 +135,7 @@ lines: 70%
 
 <p>The npm scripts call TypeDoc's CLI entrypoint directly so generation also works in restricted Windows shells where the default TypeDoc wrapper may be blocked from spawning a child process.</p>
 <h2 id="github-pages-and-ci" class="tsd-anchor-link">GitHub Pages and CI<a href="#github-pages-and-ci" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
-<p>The workflow in <code>.github/workflows/pages.yml</code> runs on pull requests, pushes to <code>main</code>, and manual dispatches.</p>
+<p>The workflow in <code>.github/workflows/pages.yml</code> runs on pull requests, pushes to <code>master</code>, and manual dispatches.</p>
 <p>The CI build performs:</p>
 <pre><code class="txt">npm ci
 npm run typecheck
@@ -145,7 +145,7 @@ npm run docs
 npm run build:pages
 </code><button type="button">Copy</button></pre>
 
-<p>On <code>main</code>, GitHub Pages publishes the static export from <code>out/</code>:</p>
+<p>On <code>master</code>, GitHub Pages publishes the static export from <code>out/</code>:</p>
 <pre><code class="txt">/           Static dashboard
 /dashboard/ Static dashboard route
 /reference/ TypeDoc reference
