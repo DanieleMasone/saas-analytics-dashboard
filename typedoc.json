@@ -28,7 +28,7 @@
   "excludePrivate": true,
   "excludeProtected": true,
   "githubPages": false,
-  "highlightLanguages": ["bash", "http", "json", "ts", "tsx", "txt"],
+  "highlightLanguages": ["bash", "http", "json", "powershell", "ts", "tsx", "txt"],
   "hideGenerator": true,
   "includeVersion": true
 }

@@ -253,7 +253,7 @@ export function CustomerTable({
                                 {customer.company}
                               </p>
                               <p className="text-sm text-slate-500 dark:text-slate-400">
-                                {customer.owner} · {customer.region}
+                                {customer.owner} - {customer.region}
                               </p>
                             </div>
                           </div>
@@ -288,7 +288,7 @@ export function CustomerTable({
                 <p className="text-sm text-slate-500 dark:text-slate-400">
                   Showing {formatNumber(data?.data.length ?? 0)} of {formatNumber(data?.total ?? 0)}{" "}
                   customers
-                  {isFetching ? " · refreshing" : ""}
+                  {isFetching ? " - refreshing" : ""}
                 </p>
                 <div className="flex items-center gap-2">
                   <Button

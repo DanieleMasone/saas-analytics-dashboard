@@ -6,6 +6,15 @@ import type {
   RevenuePoint,
 } from "@/types/dashboard";
 
+const isStaticDataMode = () => process.env.NEXT_PUBLIC_DATA_MODE === "static";
+
+function createEnvelope<T>(data: T): ApiEnvelope<T> {
+  return {
+    data,
+    updatedAt: new Date().toISOString(),
+  };
+}
+
 // Centralize API error handling so TanStack Query can expose consistent error states.
 async function fetchJson<T>(url: string): Promise<T> {
   const response = await fetch(url);
@@ -19,17 +28,32 @@ async function fetchJson<T>(url: string): Promise<T> {
 }
 
 /** Fetch KPI metrics for the executive overview cards. */
-export function fetchMetrics() {
+export async function fetchMetrics() {
+  if (isStaticDataMode()) {
+    const {metrics} = await import("@/lib/mock-data");
+    return createEnvelope(metrics);
+  }
+
   return fetchJson<ApiEnvelope<Metric[]>>("/api/metrics");
 }
 
 /** Fetch monthly revenue points for the composition chart. */
-export function fetchRevenue() {
+export async function fetchRevenue() {
+  if (isStaticDataMode()) {
+    const {revenue} = await import("@/lib/mock-data");
+    return createEnvelope(revenue);
+  }
+
   return fetchJson<ApiEnvelope<RevenuePoint[]>>("/api/revenue");
 }
 
 /** Fetch paginated and filtered customer accounts for the customer table. */
-export function fetchCustomers(filters: CustomerFilters) {
+export async function fetchCustomers(filters: CustomerFilters) {
+  if (isStaticDataMode()) {
+    const {getCustomers} = await import("@/lib/mock-data");
+    return getCustomers(filters);
+  }
+
   const params = new URLSearchParams();
 
   // Only send active filters; the route handler treats omitted values as "all".

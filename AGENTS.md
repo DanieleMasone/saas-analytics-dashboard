@@ -18,7 +18,13 @@ Pay attention to deprecations and Next.js 16-specific conventions.
 - Prefer the existing npm scripts:
   - `npm run typecheck`
   - `npm run lint`
+  - `npm run test`
+  - `npm run test:coverage`
   - `npm run build`
+  - `npm run build:pages`
+  - `npm run docs`
+  - `npm run docs:check`
+  - `npm run quality`
   - `npm run dev`
 
 ## Implementation Notes
@@ -28,5 +34,8 @@ Pay attention to deprecations and Next.js 16-specific conventions.
 - Use the existing App Router structure at the repository root (`app/`, `components/`, `lib/`, `providers/`, `types/`).
 - Keep mock data typed and colocated in `lib/mock-data.ts`.
 - Use Route Handlers under `app/api/**/route.ts` for mock API endpoints.
+- Keep the GitHub Pages static data mode working with `NEXT_PUBLIC_DATA_MODE=static`.
 - Use TanStack Query for client-side server state and Recharts for dashboard charts.
+- Use Vitest and Testing Library for unit/component coverage.
+- Use TypeDoc for generated JSDoc/TSDoc reference docs.
 - Keep changes focused; avoid unrelated refactors or generated file churn.

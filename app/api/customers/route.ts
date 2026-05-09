@@ -3,7 +3,7 @@ import {getCustomers, simulateLatency} from "@/lib/mock-data";
 import {customerPlans, customerStatuses} from "@/types/dashboard";
 import type {CustomerPlan, CustomerStatus} from "@/types/dashboard";
 
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 // Keep query parsing defensive so malformed URLs still return a valid dashboard state.
 const isCustomerStatus = (value: string | null): value is CustomerStatus =>
@@ -18,10 +18,10 @@ function getPositiveInteger(value: string | null, fallback: number) {
 }
 
 /** Return paginated customer data after validating URL search params. */
-export async function GET(request: NextRequest) {
+export async function GET(request?: NextRequest) {
     await simulateLatency("customers");
 
-    const {searchParams} = request.nextUrl;
+    const searchParams = request?.nextUrl.searchParams ?? new URLSearchParams();
     const status = searchParams.get("status");
     const plan = searchParams.get("plan");
 
