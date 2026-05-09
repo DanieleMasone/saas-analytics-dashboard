@@ -1,4 +1,4 @@
-import type {ReactNode} from "react";
+import {cloneElement, isValidElement, type ReactElement, type ReactNode} from "react";
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {RevenueChart} from "@/components/dashboard/revenue-chart";
@@ -7,6 +7,17 @@ import {revenue} from "@/lib/mock-data";
 vi.mock("recharts", () => {
   const Passthrough = ({children}: { children?: ReactNode }) => <div>{children}</div>;
   const Marker = ({name}: { name?: string }) => <div data-testid="chart-marker">{name}</div>;
+  const MockTooltip = ({content}: { content?: ReactNode }) => (
+      <div data-testid="chart-tooltip">
+        {isValidElement(content)
+            ? cloneElement(content as ReactElement<Record<string, unknown>>, {
+              active: true,
+              label: "Apr",
+              payload: [{color: "#0891b2", name: "MRR", value: 286400}],
+            })
+            : null}
+      </div>
+  );
 
   return {
     Area: Marker,
@@ -15,13 +26,21 @@ vi.mock("recharts", () => {
     ComposedChart: Passthrough,
     Legend: Marker,
     ResponsiveContainer: Passthrough,
-    Tooltip: Marker,
+    Tooltip: MockTooltip,
     XAxis: Marker,
     YAxis: Marker,
   };
 });
 
 describe("RevenueChart", () => {
+  it("renders loading skeletons while revenue data is pending", () => {
+    const {container} = render(
+        <RevenueChart data={[]} isError={false} isLoading onRetry={vi.fn()}/>,
+    );
+
+    expect(container.querySelectorAll(".animate-pulse")).toHaveLength(3);
+  });
+
   it("renders the populated chart state with current MRR", () => {
     render(<RevenueChart data={revenue} isError={false} isLoading={false} onRetry={vi.fn()}/>);
 
@@ -29,7 +48,9 @@ describe("RevenueChart", () => {
     expect(screen.getByText("$286,400")).toBeInTheDocument();
     expect(screen.getByText("New business")).toBeInTheDocument();
     expect(screen.getByText("Expansion")).toBeInTheDocument();
-    expect(screen.getByText("MRR")).toBeInTheDocument();
+    expect(screen.getAllByText("MRR")).toHaveLength(2);
+    expect(screen.getByText("Apr")).toBeInTheDocument();
+    expect(screen.getByText("$286.4K")).toBeInTheDocument();
   });
 
   it("renders a recoverable error state", async () => {

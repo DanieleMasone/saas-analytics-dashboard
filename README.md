@@ -3,7 +3,7 @@
 [![CI and GitHub Pages](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml/badge.svg?branch=master)](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml)
 [![Live Demo](https://img.shields.io/badge/demo-GitHub%20Pages-0e7490?logo=githubpages&logoColor=white)](https://danielemasone.github.io/saas-analytics-dashboard/)
 [![Reference Docs](https://img.shields.io/badge/docs-TypeDoc-2563eb)](https://danielemasone.github.io/saas-analytics-dashboard/reference/)
-[![Coverage](https://img.shields.io/badge/coverage-73%25-15803d)](https://danielemasone.github.io/saas-analytics-dashboard/coverage/)
+[![Coverage](https://img.shields.io/badge/coverage-94%25-15803d)](https://danielemasone.github.io/saas-analytics-dashboard/coverage/)
 [![Next.js](https://img.shields.io/badge/Next.js-16.2.4-black?logo=nextdotjs)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.2.4-61dafb?logo=react&logoColor=0f172a)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)

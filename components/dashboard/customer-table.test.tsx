@@ -22,11 +22,17 @@ function renderCustomerTable(overrides: Partial<CustomerTableProps> = {}) {
     ...overrides,
   };
 
-  render(<CustomerTable {...props}/>);
-  return props;
+  const view = render(<CustomerTable {...props}/>);
+  return {...props, ...view};
 }
 
 describe("CustomerTable", () => {
+  it("renders row skeletons while customers are loading", () => {
+    const {container} = renderCustomerTable({data: undefined, isLoading: true});
+
+    expect(container.querySelectorAll(".animate-pulse")).toHaveLength(8);
+  });
+
   it("renders customer rows with pagination metadata", () => {
     renderCustomerTable();
 
@@ -36,6 +42,23 @@ describe("CustomerTable", () => {
     expect(screen.getByText("Showing 8 of 20 customers")).toBeInTheDocument();
     expect(screen.getByRole("button", {name: "Previous page"})).toBeDisabled();
     expect(screen.getByRole("button", {name: "Next page"})).toBeEnabled();
+  });
+
+  it("shows refresh state and emits pagination changes", async () => {
+    const user = userEvent.setup();
+    const {onChangeFilters} = renderCustomerTable({
+      data: getCustomers({page: 2, pageSize: 8}),
+      filters: {...defaultFilters, page: 2},
+      isFetching: true,
+    });
+
+    expect(screen.getByText("Showing 8 of 20 customers - refreshing")).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", {name: "Previous page"}));
+    await user.click(screen.getByRole("button", {name: "Next page"}));
+
+    expect(onChangeFilters).toHaveBeenCalledWith({page: 1});
+    expect(onChangeFilters).toHaveBeenCalledWith({page: 3});
   });
 
   it("emits normalized filter changes", () => {
