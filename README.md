@@ -33,49 +33,6 @@ The project is designed as a portfolio-grade frontend app: it favors real dashbo
 - TypeDoc for static reference documentation
 - GitHub Actions and GitHub Pages
 
-## Project Structure
-
-```txt
-.github/workflows/
-  pages.yml
-
-app/
-  api/
-    customers/route.ts
-    metrics/route.ts
-    revenue/route.ts
-  dashboard/
-    error.tsx
-    loading.tsx
-    page.tsx
-  globals.css
-  layout.tsx
-  page.tsx
-
-components/
-  dashboard/
-  ui/
-
-lib/
-  api.ts
-  mock-data.ts
-  utils.ts
-
-providers/
-  react-query-provider.tsx
-
-tests/
-  setup.ts
-
-types/
-  dashboard.ts
-
-typedoc.json
-vitest.config.ts
-AGENTS.md
-CLAUDE.md
-```
-
 Test files are colocated with the code they verify. Runtime/build outputs are intentionally ignored:
 
 ```txt
@@ -269,11 +226,3 @@ loading -> error -> empty -> data
 ```
 
 Visible UI avoids implementation callouts and behaves like an internal SaaS console. Technical details stay in the code and README; the app itself is focused on the operator workflow.
-
-## Roadmap
-
-- Add date range filtering
-- Add CSV export
-- Add row-level customer actions
-- Add authentication mock
-- Add Playwright smoke tests
