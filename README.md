@@ -23,6 +23,7 @@ A production-style SaaS analytics dashboard built with Next.js 16 App Router, Re
 - Customer health page for risk distribution, low-usage accounts, and follow-up prioritization.
 - TanStack Query data flow with loading, error, refresh, and populated states.
 - Accessible landmarks, named data regions, keyboard focus states, and screen-reader summaries for charts and health meters.
+- Responsive dashboard shell with real route navigation, collapsible mobile menu, and actionable notification panel.
 - Shared Tailwind style primitives for dashboard surfaces, form controls, and accessible native meters.
 - Mock Route Handlers for local demos and static data mode for GitHub Pages.
 - Persisted light/dark theme preference.

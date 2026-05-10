@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   LifeBuoy,
   ListChecks,
+  Menu,
   PanelLeft,
   RefreshCcw,
   Settings,
@@ -14,7 +15,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
-import type {ReactNode} from "react";
+import {useId, useState, type ReactNode} from "react";
 import {ThemeToggle} from "@/components/dashboard/theme-toggle";
 import {Button} from "@/components/ui/button";
 import {uiStyles} from "@/components/ui/style-primitives";
@@ -49,11 +50,31 @@ const navItems: NavItem[] = [
   {href: "/settings", icon: Settings, label: "Settings", section: "settings"},
 ];
 
+const notifications = [
+  {
+    description: "Delivery has 3 blockers before the May customer health release.",
+    label: "Delivery risk",
+    tone: "text-amber-700 dark:text-amber-200",
+  },
+  {
+    description: "Past-due accounts need billing follow-up before renewal review.",
+    label: "Customer health",
+    tone: "text-rose-700 dark:text-rose-300",
+  },
+  {
+    description: "Expansion continues to outpace churn in the latest revenue period.",
+    label: "Revenue motion",
+    tone: "text-emerald-700 dark:text-emerald-300",
+  },
+];
+
 function NavigationLinks({
   activeSection,
+  onNavigate,
   layout = "sidebar",
 }: {
   activeSection: DashboardSection;
+  onNavigate?: () => void;
   layout?: "mobile" | "sidebar";
 }) {
   return (
@@ -73,6 +94,7 @@ function NavigationLinks({
             )}
             href={item.href}
             key={item.section}
+            onClick={onNavigate}
           >
             <item.icon aria-hidden="true" size={17}/>
             <span className="truncate">{item.label}</span>
@@ -93,6 +115,11 @@ export function DashboardShell({
   onRefresh,
   title,
 }: DashboardShellProps) {
+  const mobileNavId = useId();
+  const notificationsId = useId();
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-slate-100 text-slate-950 dark:bg-slate-950 dark:text-slate-50">
       <div className="mx-auto flex max-w-370 gap-6 px-4 py-4 sm:px-6 lg:px-8">
@@ -144,8 +171,27 @@ export function DashboardShell({
                 </p>
               </div>
 
-              <div className="flex flex-wrap items-center gap-2">
-                <Button aria-label="Notifications" size="icon" title="Notifications" variant="secondary">
+              <div className="relative flex flex-wrap items-center gap-2">
+                <Button
+                  aria-controls={mobileNavId}
+                  aria-expanded={isMobileNavOpen}
+                  className="lg:hidden"
+                  onClick={() => setIsMobileNavOpen((current) => !current)}
+                  title="Menu"
+                  variant="secondary"
+                >
+                  <Menu aria-hidden="true" size={17}/>
+                  Menu
+                </Button>
+                <Button
+                  aria-controls={notificationsId}
+                  aria-expanded={isNotificationsOpen}
+                  aria-label="Notifications"
+                  onClick={() => setIsNotificationsOpen((current) => !current)}
+                  size="icon"
+                  title="Notifications"
+                  variant="secondary"
+                >
                   <Bell aria-hidden="true" size={17}/>
                 </Button>
                 <ThemeToggle/>
@@ -164,12 +210,52 @@ export function DashboardShell({
                     Refresh
                   </Button>
                 ) : null}
+
+                {isNotificationsOpen ? (
+                  <section
+                    aria-label="Notifications panel"
+                    className={cn(
+                      "absolute right-0 top-12 z-20 w-76 max-w-[calc(100vw-2rem)] p-3",
+                      uiStyles.surface,
+                    )}
+                    id={notificationsId}
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <h2 className="text-sm font-semibold text-slate-950 dark:text-white">Notifications</h2>
+                      <span className="rounded-md bg-cyan-50 px-2 py-1 text-xs font-medium text-cyan-800 dark:bg-cyan-950/40 dark:text-cyan-200">
+                        {notifications.length} active
+                      </span>
+                    </div>
+                    <ul className="mt-3 space-y-2">
+                      {notifications.map((notification) => (
+                        <li className={cn("p-3", uiStyles.insetSurface)} key={notification.label}>
+                          <p className={cn("text-sm font-semibold", notification.tone)}>
+                            {notification.label}
+                          </p>
+                          <p className="mt-1 text-sm leading-5 text-slate-600 dark:text-slate-300">
+                            {notification.description}
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ) : null}
               </div>
             </div>
 
-            <nav aria-label="Mobile dashboard navigation" className="mt-4 grid gap-2 sm:grid-cols-3 lg:hidden">
-              <NavigationLinks activeSection={activeSection} layout="mobile"/>
-            </nav>
+            {isMobileNavOpen ? (
+              <nav
+                aria-label="Mobile dashboard navigation"
+                className="mt-4 grid gap-2 sm:grid-cols-3 lg:hidden"
+                id={mobileNavId}
+              >
+                <NavigationLinks
+                  activeSection={activeSection}
+                  layout="mobile"
+                  onNavigate={() => setIsMobileNavOpen(false)}
+                />
+              </nav>
+            ) : null}
           </header>
 
           {children}
@@ -178,4 +264,3 @@ export function DashboardShell({
     </div>
   );
 }
-
