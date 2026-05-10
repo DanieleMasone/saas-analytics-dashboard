@@ -10,8 +10,9 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
+# testing and generated reports
+/coverage/
+/docs/reference/
 
 # next.js
 /.next/
@@ -20,8 +21,13 @@
 # production
 /build
 
-# misc
+# editor and OS files
+.idea/
+.vscode/
 .DS_Store
+Thumbs.db
+
+# misc
 *.pem
 
 # debug

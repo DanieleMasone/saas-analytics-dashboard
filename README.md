@@ -13,7 +13,6 @@ A production-style SaaS analytics dashboard built with Next.js 16 App Router, Re
 - Live dashboard: [danielemasone.github.io/saas-analytics-dashboard](https://danielemasone.github.io/saas-analytics-dashboard/)
 - API reference: [reference docs](https://danielemasone.github.io/saas-analytics-dashboard/reference/)
 - Coverage report: [coverage HTML](https://danielemasone.github.io/saas-analytics-dashboard/coverage/)
-- Quality index: [quality.html](https://danielemasone.github.io/saas-analytics-dashboard/quality.html)
 
 ## Features
 
@@ -80,7 +79,7 @@ functions: 90%
 lines: 90%
 ```
 
-Generated reports:
+Generated reports are local/CI artifacts and are ignored by Git:
 
 ```txt
 coverage/
@@ -107,7 +106,6 @@ On `master`, GitHub Pages publishes:
 /api/delivery/ Static Jira-like delivery KPI JSON
 /reference/   TypeDoc reference
 /coverage/    HTML coverage report
-/quality.html Report index
 ```
 
 GitHub Pages does not run a Node.js server, so the Pages build uses:
