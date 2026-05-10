@@ -35,12 +35,15 @@ export function DashboardLoading() {
                   <Skeleton className="h-36" key={index}/>
               ))}
             </div>
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+              {Array.from({length: 4}).map((_, index) => (
+                  <Skeleton className="h-32" key={index}/>
+              ))}
+            </div>
             <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_360px]">
               <Skeleton className="h-105"/>
               <Skeleton className="h-105"/>
             </div>
-            <Skeleton className="h-140"/>
-            <Skeleton className="h-130"/>
           </main>
         </div>
       </div>

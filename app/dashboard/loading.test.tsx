@@ -6,6 +6,6 @@ describe("dashboard loading route", () => {
     const {container} = render(<Loading/>);
 
     expect(screen.getByRole("status", {name: "Loading dashboard"})).toBeInTheDocument();
-    expect(container.querySelectorAll(".animate-pulse")).toHaveLength(18);
+    expect(container.querySelectorAll(".animate-pulse")).toHaveLength(20);
   });
 });

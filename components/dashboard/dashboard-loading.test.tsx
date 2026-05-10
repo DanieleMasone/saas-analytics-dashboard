@@ -10,6 +10,6 @@ describe("DashboardLoading", () => {
         "true",
     );
     expect(container.firstChild).toHaveClass("min-h-screen");
-    expect(container.querySelectorAll(".animate-pulse")).toHaveLength(18);
+    expect(container.querySelectorAll(".animate-pulse")).toHaveLength(20);
   });
 });

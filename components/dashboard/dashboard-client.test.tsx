@@ -1,13 +1,11 @@
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import {render, screen, waitFor} from "@testing-library/react";
+import {render, screen, waitFor, within} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {DashboardClient} from "@/components/dashboard/dashboard-client";
 import {fetchCustomers, fetchDelivery, fetchMetrics, fetchRevenue} from "@/lib/api";
 import {getCustomers, jiraDelivery, metrics, revenue} from "@/lib/mock-data";
 import type {
-  CustomerFilters,
   CustomersResponse,
-  JiraDeliveryResponse,
   Metric,
   RevenuePoint,
 } from "@/types/dashboard";
@@ -21,92 +19,42 @@ vi.mock("@/lib/api", () => ({
 
 vi.mock("@/components/dashboard/kpi-card", () => ({
   KpiCard: ({metric}: { metric: Metric }) => (
-      <article data-testid="kpi-card">{metric.label}</article>
+    <article data-testid="kpi-card">{metric.label}</article>
   ),
 }));
 
 vi.mock("@/components/dashboard/revenue-chart", () => ({
   RevenueChart: ({
-                   data,
-                   isError,
-                   isLoading,
-                   onRetry,
-                 }: {
+    data,
+    isError,
+    isLoading,
+    onRetry,
+  }: {
     data: RevenuePoint[];
     isError: boolean;
     isLoading: boolean;
     onRetry: () => void;
   }) => (
-      <section data-testid="revenue-chart">
-        revenue:{data.length}:loading:{String(isLoading)}:error:{String(isError)}
-        <button onClick={onRetry} type="button">Retry revenue</button>
-      </section>
+    <section data-testid="revenue-chart">
+      revenue:{data.length}:loading:{String(isLoading)}:error:{String(isError)}
+      <button onClick={onRetry} type="button">Retry revenue</button>
+    </section>
   ),
 }));
 
 vi.mock("@/components/dashboard/ops-summary", () => ({
   OpsSummary: ({
-                customers,
-                isLoading,
-                revenue,
-              }: {
+    customers,
+    isLoading,
+    revenue,
+  }: {
     customers?: CustomersResponse;
     isLoading: boolean;
     revenue?: RevenuePoint[];
   }) => (
-      <aside data-testid="ops-summary">
-        ops:{customers?.total ?? 0}:{revenue?.length ?? 0}:loading:{String(isLoading)}
-      </aside>
-  ),
-}));
-
-vi.mock("@/components/dashboard/delivery-insights", () => ({
-  DeliveryInsights: ({
-                       data,
-                       isError,
-                       isLoading,
-                       onRetry,
-                     }: {
-    data?: JiraDeliveryResponse;
-    isError: boolean;
-    isLoading: boolean;
-    onRetry: () => void;
-  }) => (
-      <section data-testid="delivery-insights">
-        delivery:{data?.summary.sprintName ?? "none"}:loading:{String(isLoading)}:error:
-        {String(isError)}
-        <button onClick={onRetry} type="button">Retry delivery</button>
-      </section>
-  ),
-}));
-
-vi.mock("@/components/dashboard/customer-table", () => ({
-  CustomerTable: ({
-                   data,
-                   filters,
-                   isError,
-                   isFetching,
-                   isLoading,
-                   onChangeFilters,
-                   onRetry,
-                 }: {
-    data?: CustomersResponse;
-    filters: Required<Pick<CustomerFilters, "page">> &
-        Pick<CustomerFilters, "plan" | "query" | "status">;
-    isError: boolean;
-    isFetching: boolean;
-    isLoading: boolean;
-    onChangeFilters: (filters: Partial<CustomerFilters>) => void;
-    onRetry: () => void;
-  }) => (
-      <section data-testid="customer-table">
-        customers:{data?.total ?? 0}:page:{filters.page}:query:{filters.query}:loading:
-        {String(isLoading)}:fetching:{String(isFetching)}:error:{String(isError)}
-        <button onClick={() => onChangeFilters({page: 2, query: "north"})} type="button">
-          Mock filter
-        </button>
-        <button onClick={onRetry} type="button">Retry customers</button>
-      </section>
+    <aside data-testid="ops-summary">
+      ops:{customers?.total ?? 0}:{revenue?.length ?? 0}:loading:{String(isLoading)}
+    </aside>
   ),
 }));
 
@@ -130,9 +78,9 @@ function renderDashboardClient() {
   });
 
   return render(
-      <QueryClientProvider client={queryClient}>
-        <DashboardClient/>
-      </QueryClientProvider>,
+    <QueryClientProvider client={queryClient}>
+      <DashboardClient/>
+    </QueryClientProvider>,
   );
 }
 
@@ -153,34 +101,34 @@ function mockSuccessfulQueries() {
 }
 
 describe("DashboardClient", () => {
-  it("renders dashboard loading and populated states", async () => {
+  it("renders a lean overview with navigation and populated focus cards", async () => {
     mockSuccessfulQueries();
 
     renderDashboardClient();
 
     expect(screen.getByRole("main", {name: "SaaS Analytics Dashboard"})).toBeInTheDocument();
-    expect(screen.getByRole("button", {name: "Overview"})).toHaveAttribute(
-        "aria-current",
-        "page",
-    );
+    expect(screen.getAllByRole("link", {name: "Overview"}).every((link) =>
+      link.getAttribute("aria-current") === "page",
+    )).toBe(true);
     expect(screen.getByRole("region", {name: "Executive metrics"})).toHaveAttribute(
-        "aria-busy",
-        "true",
+      "aria-busy",
+      "true",
     );
     expect(screen.getByRole("heading", {name: "SaaS Analytics Dashboard"})).toBeInTheDocument();
     expect(screen.getByTestId("revenue-chart")).toHaveTextContent("loading:true");
-    expect(screen.getByTestId("delivery-insights")).toHaveTextContent("loading:true");
-    expect(screen.getByTestId("customer-table")).toHaveTextContent("loading:true");
 
     expect(await screen.findByText("Monthly recurring revenue")).toBeInTheDocument();
     expect(screen.getAllByTestId("kpi-card")).toHaveLength(4);
     expect(screen.getByTestId("revenue-chart")).toHaveTextContent("revenue:12");
-    expect(screen.getByTestId("delivery-insights")).toHaveTextContent("delivery:Sprint 24.10");
     expect(screen.getByTestId("ops-summary")).toHaveTextContent("ops:20:12");
-    expect(screen.getByTestId("customer-table")).toHaveTextContent("customers:20:page:1");
+
+    const focus = within(screen.getByRole("region", {name: "Management focus"}));
+    expect(focus.getByText("$286.4K")).toBeInTheDocument();
+    expect(focus.getByText("86%")).toBeInTheDocument();
+    expect(focus.getByRole("link", {name: /Customers/i})).toHaveAttribute("href", "/customers");
   });
 
-  it("refreshes all dashboard queries from the toolbar", async () => {
+  it("refreshes all overview queries from the toolbar", async () => {
     const user = userEvent.setup();
     mockSuccessfulQueries();
 
@@ -196,28 +144,7 @@ describe("DashboardClient", () => {
     expect(fetchCustomersMock).toHaveBeenCalledTimes(2);
   });
 
-  it("updates customer filters from the table", async () => {
-    const user = userEvent.setup();
-    mockSuccessfulQueries();
-
-    renderDashboardClient();
-
-    await screen.findByText("Monthly recurring revenue");
-    await user.click(screen.getByRole("button", {name: "Mock filter"}));
-
-    await waitFor(() =>
-        expect(fetchCustomersMock).toHaveBeenLastCalledWith({
-          page: 2,
-          pageSize: 8,
-          plan: "all",
-          query: "north",
-          status: "all",
-        }),
-    );
-    expect(screen.getByTestId("customer-table")).toHaveTextContent("page:2:query:north");
-  });
-
-  it("retries panel queries through child recovery callbacks", async () => {
+  it("keeps child revenue recovery available from the overview", async () => {
     const user = userEvent.setup();
     mockSuccessfulQueries();
 
@@ -227,15 +154,9 @@ describe("DashboardClient", () => {
 
     await user.click(screen.getByRole("button", {name: "Retry revenue"}));
     await waitFor(() => expect(fetchRevenueMock).toHaveBeenCalledTimes(2));
-
-    await user.click(screen.getByRole("button", {name: "Retry delivery"}));
-    await waitFor(() => expect(fetchDeliveryMock).toHaveBeenCalledTimes(2));
-
-    await user.click(screen.getByRole("button", {name: "Retry customers"}));
-    await waitFor(() => expect(fetchCustomersMock).toHaveBeenCalledTimes(2));
   });
 
-  it("keeps the dashboard usable when metrics fail", async () => {
+  it("keeps the overview usable when metrics fail", async () => {
     fetchMetricsMock.mockRejectedValue(new Error("Metrics failed"));
     fetchRevenueMock.mockResolvedValue({
       data: revenue,
@@ -250,10 +171,10 @@ describe("DashboardClient", () => {
     renderDashboardClient();
 
     expect(await screen.findByRole("alert")).toHaveTextContent(
-        "Metrics failed to load. The rest of the dashboard remains usable.",
+      "Metrics failed to load. The rest of the dashboard remains usable.",
     );
     expect(screen.getByTestId("revenue-chart")).toHaveTextContent("revenue:12");
-    expect(screen.getByTestId("delivery-insights")).toHaveTextContent("delivery:Sprint 24.10");
-    expect(screen.getByTestId("customer-table")).toHaveTextContent("customers:20");
+    expect(screen.getByTestId("ops-summary")).toHaveTextContent("ops:20");
+    expect(screen.getByRole("region", {name: "Management focus"})).toBeInTheDocument();
   });
 });

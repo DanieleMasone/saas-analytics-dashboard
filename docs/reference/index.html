@@ -8,15 +8,22 @@
 <h2 id="links" class="tsd-anchor-link">Links<a href="#links" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <ul>
 <li>Live dashboard: <a href="https://danielemasone.github.io/saas-analytics-dashboard/">danielemasone.github.io/saas-analytics-dashboard</a></li>
+<li>Revenue view: <a href="https://danielemasone.github.io/saas-analytics-dashboard/revenue/">revenue</a></li>
+<li>Customers view: <a href="https://danielemasone.github.io/saas-analytics-dashboard/customers/">customers</a></li>
+<li>Delivery view: <a href="https://danielemasone.github.io/saas-analytics-dashboard/delivery/">delivery</a></li>
+<li>Health view: <a href="https://danielemasone.github.io/saas-analytics-dashboard/health/">health</a></li>
+<li>Settings view: <a href="https://danielemasone.github.io/saas-analytics-dashboard/settings/">settings</a></li>
 <li>API reference: <a href="https://danielemasone.github.io/saas-analytics-dashboard/reference/">reference docs</a></li>
 <li>Coverage report: <a href="https://danielemasone.github.io/saas-analytics-dashboard/coverage/">coverage HTML</a></li>
 <li>Quality index: <a href="https://danielemasone.github.io/saas-analytics-dashboard/quality.html">quality.html</a></li>
 </ul>
 <h2 id="features" class="tsd-anchor-link">Features<a href="#features" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2>
 <ul>
-<li>Executive SaaS overview with KPI cards, revenue composition, customer health, and account risk.</li>
-<li>Searchable customer table with status/plan filters, pagination, empty state, and retry state.</li>
-<li>Jira-like delivery KPI examples for sprint predictability, cycle time, blockers, scope change, and issue risk.</li>
+<li>Lean executive overview with KPI cards, management focus links, revenue composition, and operating pulse.</li>
+<li>Focused Revenue, Customers, Delivery, Health, and Settings pages backed by real App Router routes.</li>
+<li>Searchable customer table with status/plan filters, pagination, empty state, and retry state on the Customers page.</li>
+<li>Jira-like delivery KPI examples for sprint predictability, cycle time, blockers, scope change, and issue risk on the Delivery page.</li>
+<li>Customer health page for risk distribution, low-usage accounts, and follow-up prioritization.</li>
 <li>TanStack Query data flow with loading, error, refresh, and populated states.</li>
 <li>Accessible landmarks, named data regions, keyboard focus states, and screen-reader summaries for charts and health meters.</li>
 <li>Shared Tailwind style primitives for dashboard surfaces, form controls, and accessible native meters.</li>
@@ -69,7 +76,15 @@ docs/reference/
 <p>The workflow in <code>.github/workflows/pages.yml</code> runs on pull requests, pushes to <code>master</code>, and manual dispatches.</p>
 <p>On <code>master</code>, GitHub Pages publishes:</p>
 <pre><code class="txt">/             Static dashboard
-/dashboard/   Static dashboard route
+/dashboard/   Static overview route
+/revenue/     Focused revenue route
+/customers/   Focused customer route
+/delivery/    Focused delivery route
+/health/      Focused health route
+/settings/    Workspace settings route
+/api/metrics/ Static KPI JSON
+/api/revenue/ Static revenue JSON
+/api/customers/ Static customer JSON
 /api/delivery/ Static Jira-like delivery KPI JSON
 /reference/   TypeDoc reference
 /coverage/    HTML coverage report

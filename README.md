@@ -11,15 +11,22 @@ A production-style SaaS analytics dashboard built with Next.js 16 App Router, Re
 ## Links
 
 - Live dashboard: [danielemasone.github.io/saas-analytics-dashboard](https://danielemasone.github.io/saas-analytics-dashboard/)
+- Revenue view: [revenue](https://danielemasone.github.io/saas-analytics-dashboard/revenue/)
+- Customers view: [customers](https://danielemasone.github.io/saas-analytics-dashboard/customers/)
+- Delivery view: [delivery](https://danielemasone.github.io/saas-analytics-dashboard/delivery/)
+- Health view: [health](https://danielemasone.github.io/saas-analytics-dashboard/health/)
+- Settings view: [settings](https://danielemasone.github.io/saas-analytics-dashboard/settings/)
 - API reference: [reference docs](https://danielemasone.github.io/saas-analytics-dashboard/reference/)
 - Coverage report: [coverage HTML](https://danielemasone.github.io/saas-analytics-dashboard/coverage/)
 - Quality index: [quality.html](https://danielemasone.github.io/saas-analytics-dashboard/quality.html)
 
 ## Features
 
-- Executive SaaS overview with KPI cards, revenue composition, customer health, and account risk.
-- Searchable customer table with status/plan filters, pagination, empty state, and retry state.
-- Jira-like delivery KPI examples for sprint predictability, cycle time, blockers, scope change, and issue risk.
+- Lean executive overview with KPI cards, management focus links, revenue composition, and operating pulse.
+- Focused Revenue, Customers, Delivery, Health, and Settings pages backed by real App Router routes.
+- Searchable customer table with status/plan filters, pagination, empty state, and retry state on the Customers page.
+- Jira-like delivery KPI examples for sprint predictability, cycle time, blockers, scope change, and issue risk on the Delivery page.
+- Customer health page for risk distribution, low-usage accounts, and follow-up prioritization.
 - TanStack Query data flow with loading, error, refresh, and populated states.
 - Accessible landmarks, named data regions, keyboard focus states, and screen-reader summaries for charts and health meters.
 - Shared Tailwind style primitives for dashboard surfaces, form controls, and accessible native meters.
@@ -93,7 +100,15 @@ On `master`, GitHub Pages publishes:
 
 ```txt
 /             Static dashboard
-/dashboard/   Static dashboard route
+/dashboard/   Static overview route
+/revenue/     Focused revenue route
+/customers/   Focused customer route
+/delivery/    Focused delivery route
+/health/      Focused health route
+/settings/    Workspace settings route
+/api/metrics/ Static KPI JSON
+/api/revenue/ Static revenue JSON
+/api/customers/ Static customer JSON
 /api/delivery/ Static Jira-like delivery KPI JSON
 /reference/   TypeDoc reference
 /coverage/    HTML coverage report
