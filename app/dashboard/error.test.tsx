@@ -10,6 +10,7 @@ describe("DashboardError", () => {
     render(<DashboardError error={new Error("Query boundary failed")} unstable_retry={unstableRetry}/>);
 
     expect(screen.getByRole("heading", {name: "Dashboard unavailable"})).toBeInTheDocument();
+    expect(screen.getByRole("alert", {name: "Dashboard unavailable"})).toBeInTheDocument();
     expect(screen.getByText("Query boundary failed")).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", {name: "Try again"}));

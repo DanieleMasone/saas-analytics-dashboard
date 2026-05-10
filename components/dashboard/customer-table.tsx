@@ -56,11 +56,20 @@ const statusTone: Record<CustomerStatus, "amber" | "emerald" | "rose" | "slate">
   trial: "amber",
 };
 
-function HealthBar({value}: { value: number }) {
+function HealthBar({label, value}: { label: string; value: number }) {
   return (
       <div className="flex min-w-32 items-center gap-3">
-        <div className="h-2 flex-1 rounded-md bg-slate-200 dark:bg-slate-800">
+        <div
+            aria-label={`${label} health score`}
+            aria-valuemax={100}
+            aria-valuemin={0}
+            aria-valuenow={value}
+            aria-valuetext={`${value} out of 100`}
+            className="h-2 flex-1 rounded-md bg-slate-200 dark:bg-slate-800"
+            role="meter"
+        >
           <div
+              aria-hidden="true"
               className={cn(
                   "h-2 rounded-md",
                   value >= 80 ? "bg-emerald-500" : value >= 60 ? "bg-amber-500" : "bg-rose-500",
@@ -68,7 +77,7 @@ function HealthBar({value}: { value: number }) {
               style={{width: `${value}%`}}
           />
         </div>
-        <span className="w-8 text-right text-sm font-medium text-slate-700 dark:text-slate-200">
+        <span aria-hidden="true" className="w-8 text-right text-sm font-medium text-slate-700 dark:text-slate-200">
         {value}
       </span>
       </div>
@@ -77,7 +86,12 @@ function HealthBar({value}: { value: number }) {
 
 function TableSkeleton() {
   return (
-      <div className="space-y-3 p-4">
+      <div
+          aria-label="Loading customer accounts"
+          aria-live="polite"
+          className="space-y-3 p-4"
+          role="status"
+      >
         {Array.from({length: 8}).map((_, index) => (
             <Skeleton className="h-12 w-full" key={index}/>
         ))}
@@ -101,11 +115,13 @@ export function CustomerTable({
   // This component keeps expected API states explicit: error, loading, empty, and data.
   return (
       <section
+          aria-busy={isLoading || isFetching}
+          aria-labelledby="customer-accounts-title"
           className="rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
         <div className="border-b border-slate-200 p-4 dark:border-slate-800">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <h2 className="text-lg font-semibold text-slate-950 dark:text-white">
+              <h2 className="text-lg font-semibold text-slate-950 dark:text-white" id="customer-accounts-title">
                 Customer accounts
               </h2>
               <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
@@ -184,7 +200,7 @@ export function CustomerTable({
         </div>
 
         {isError ? (
-            <div className="flex min-h-64 flex-col items-center justify-center p-8 text-center">
+            <div className="flex min-h-64 flex-col items-center justify-center p-8 text-center" role="alert">
               <SearchX className="text-rose-500" size={32}/>
               <h3 className="mt-4 text-base font-semibold text-slate-950 dark:text-white">
                 Customers failed to load
@@ -200,7 +216,7 @@ export function CustomerTable({
         ) : isLoading ? (
             <TableSkeleton/>
         ) : data?.data.length === 0 ? (
-            <div className="flex min-h-64 flex-col items-center justify-center p-8 text-center">
+            <div className="flex min-h-64 flex-col items-center justify-center p-8 text-center" role="status">
               <SearchX className="text-slate-400" size={34}/>
               <h3 className="mt-4 text-base font-semibold text-slate-950 dark:text-white">
                 No customers match these filters
@@ -221,6 +237,10 @@ export function CustomerTable({
             <>
               <div className="overflow-x-auto">
                 <table className="w-full min-w-225 border-collapse text-left">
+                  <caption className="sr-only">
+                    Customer account list with plan, status, recurring revenue, health, usage,
+                    and activity columns.
+                  </caption>
                   <thead
                       className="bg-slate-50 text-xs font-semibold uppercase text-slate-500 dark:bg-slate-950/60 dark:text-slate-400">
                   <tr>
@@ -270,7 +290,7 @@ export function CustomerTable({
                           {formatCurrency(customer.mrr)}
                         </td>
                         <td className="px-4 py-4">
-                          <HealthBar value={customer.healthScore}/>
+                          <HealthBar label={customer.company} value={customer.healthScore}/>
                         </td>
                         <td className="px-4 py-4 text-sm text-slate-700 dark:text-slate-200">
                           {formatPercent(customer.usage / 100, true)}
@@ -290,7 +310,7 @@ export function CustomerTable({
                   customers
                   {isFetching ? " - refreshing" : ""}
                 </p>
-                <div className="flex items-center gap-2">
+                <nav aria-label="Customer pagination" className="flex items-center gap-2">
                   <Button
                       aria-label="Previous page"
                       disabled={(data?.page ?? 1) <= 1}
@@ -302,6 +322,7 @@ export function CustomerTable({
                     <ChevronLeft aria-hidden="true" size={18}/>
                   </Button>
                   <span
+                      aria-live="polite"
                       className="min-w-24 text-center text-sm font-medium text-slate-700 dark:text-slate-200">
                 Page {data?.page ?? 1} / {data?.totalPages ?? 1}
               </span>
@@ -319,7 +340,7 @@ export function CustomerTable({
                   >
                     <ChevronRight aria-hidden="true" size={18}/>
                   </Button>
-                </div>
+                </nav>
               </div>
             </>
         )}

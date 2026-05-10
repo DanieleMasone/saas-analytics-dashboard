@@ -126,6 +126,15 @@ describe("DashboardClient", () => {
 
     renderDashboardClient();
 
+    expect(screen.getByRole("main", {name: "SaaS Analytics Dashboard"})).toBeInTheDocument();
+    expect(screen.getByRole("button", {name: "Overview"})).toHaveAttribute(
+        "aria-current",
+        "page",
+    );
+    expect(screen.getByRole("region", {name: "Executive metrics"})).toHaveAttribute(
+        "aria-busy",
+        "true",
+    );
     expect(screen.getByRole("heading", {name: "SaaS Analytics Dashboard"})).toBeInTheDocument();
     expect(screen.getByTestId("revenue-chart")).toHaveTextContent("loading:true");
     expect(screen.getByTestId("customer-table")).toHaveTextContent("loading:true");
@@ -173,6 +182,21 @@ describe("DashboardClient", () => {
     expect(screen.getByTestId("customer-table")).toHaveTextContent("page:2:query:north");
   });
 
+  it("retries panel queries through child recovery callbacks", async () => {
+    const user = userEvent.setup();
+    mockSuccessfulQueries();
+
+    renderDashboardClient();
+
+    await screen.findByText("Monthly recurring revenue");
+
+    await user.click(screen.getByRole("button", {name: "Retry revenue"}));
+    await waitFor(() => expect(fetchRevenueMock).toHaveBeenCalledTimes(2));
+
+    await user.click(screen.getByRole("button", {name: "Retry customers"}));
+    await waitFor(() => expect(fetchCustomersMock).toHaveBeenCalledTimes(2));
+  });
+
   it("keeps the dashboard usable when metrics fail", async () => {
     fetchMetricsMock.mockRejectedValue(new Error("Metrics failed"));
     fetchRevenueMock.mockResolvedValue({
@@ -183,7 +207,9 @@ describe("DashboardClient", () => {
 
     renderDashboardClient();
 
-    expect(await screen.findByText("Metrics failed to load. The rest of the dashboard remains usable.")).toBeInTheDocument();
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+        "Metrics failed to load. The rest of the dashboard remains usable.",
+    );
     expect(screen.getByTestId("revenue-chart")).toHaveTextContent("revenue:12");
     expect(screen.getByTestId("customer-table")).toHaveTextContent("customers:20");
   });

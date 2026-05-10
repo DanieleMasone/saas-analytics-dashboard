@@ -30,16 +30,32 @@ describe("CustomerTable", () => {
   it("renders row skeletons while customers are loading", () => {
     const {container} = renderCustomerTable({data: undefined, isLoading: true});
 
+    expect(screen.getByRole("status", {name: "Loading customer accounts"})).toBeInTheDocument();
+    expect(screen.getByRole("region", {name: "Customer accounts"})).toHaveAttribute(
+        "aria-busy",
+        "true",
+    );
     expect(container.querySelectorAll(".animate-pulse")).toHaveLength(8);
   });
 
   it("renders customer rows with pagination metadata", () => {
     renderCustomerTable();
 
+    expect(screen.getByRole("region", {name: "Customer accounts"})).toHaveAttribute(
+        "aria-busy",
+        "false",
+    );
     expect(screen.getByRole("heading", {name: "Customer accounts"})).toBeInTheDocument();
+    expect(screen.getByText(/Customer account list with plan/i)).toBeInTheDocument();
     expect(screen.getByText("Northstar Labs")).toBeInTheDocument();
     expect(screen.getByText("Marta Rossi - EMEA")).toBeInTheDocument();
+    expect(screen.getAllByRole("meter")).toHaveLength(8);
+    expect(screen.getByRole("meter", {name: "Northstar Labs health score"})).toHaveAttribute(
+        "aria-valuenow",
+        "94",
+    );
     expect(screen.getByText("Showing 8 of 20 customers")).toBeInTheDocument();
+    expect(screen.getByRole("navigation", {name: "Customer pagination"})).toBeInTheDocument();
     expect(screen.getByRole("button", {name: "Previous page"})).toBeDisabled();
     expect(screen.getByRole("button", {name: "Next page"})).toBeEnabled();
   });
@@ -53,6 +69,10 @@ describe("CustomerTable", () => {
     });
 
     expect(screen.getByText("Showing 8 of 20 customers - refreshing")).toBeInTheDocument();
+    expect(screen.getByRole("region", {name: "Customer accounts"})).toHaveAttribute(
+        "aria-busy",
+        "true",
+    );
 
     await user.click(screen.getByRole("button", {name: "Previous page"}));
     await user.click(screen.getByRole("button", {name: "Next page"}));
@@ -75,6 +95,22 @@ describe("CustomerTable", () => {
     expect(onChangeFilters).toHaveBeenCalledWith({page: 1, plan: "pro"});
   });
 
+  it("clears active filters from the toolbar action", async () => {
+    const user = userEvent.setup();
+    const {onChangeFilters} = renderCustomerTable({
+      filters: {...defaultFilters, query: "north"},
+    });
+
+    await user.click(screen.getAllByRole("button", {name: "Clear filters"})[0]);
+
+    expect(onChangeFilters).toHaveBeenCalledWith({
+      page: 1,
+      plan: "all",
+      query: "",
+      status: "all",
+    });
+  });
+
   it("shows empty state actions for filtered zero-result sets", async () => {
     const user = userEvent.setup();
     const {onChangeFilters} = renderCustomerTable({
@@ -83,6 +119,7 @@ describe("CustomerTable", () => {
     });
 
     expect(screen.getByText("No customers match these filters")).toBeInTheDocument();
+    expect(screen.getByRole("status")).toHaveTextContent("No customers match these filters");
 
     await user.click(screen.getAllByRole("button", {name: "Clear filters"}).at(-1)!);
     expect(onChangeFilters).toHaveBeenCalledWith({
@@ -97,6 +134,7 @@ describe("CustomerTable", () => {
     const user = userEvent.setup();
     const {onRetry} = renderCustomerTable({data: undefined, isError: true});
 
+    expect(screen.getByRole("alert")).toHaveTextContent("Customers failed to load");
     await user.click(screen.getByRole("button", {name: "Retry"}));
     expect(onRetry).toHaveBeenCalledTimes(1);
   });

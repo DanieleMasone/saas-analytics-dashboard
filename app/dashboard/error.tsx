@@ -12,6 +12,8 @@ export default function DashboardError({
       <main
           className="flex min-h-screen items-center justify-center bg-slate-100 p-6 text-slate-950 dark:bg-slate-950 dark:text-slate-50">
         <section
+            aria-labelledby="dashboard-error-title"
+            role="alert"
             className="w-full max-w-lg rounded-lg border border-rose-200 bg-white p-6 dark:border-rose-900/70 dark:bg-slate-900">
           <div className="flex items-start gap-3">
             <div
@@ -19,7 +21,9 @@ export default function DashboardError({
               <AlertTriangle aria-hidden="true" size={20}/>
             </div>
             <div className="min-w-0">
-              <h1 className="text-xl font-semibold">Dashboard unavailable</h1>
+              <h1 className="text-xl font-semibold" id="dashboard-error-title">
+                Dashboard unavailable
+              </h1>
               <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
                 {error.message || "The dashboard could not be rendered."}
               </p>

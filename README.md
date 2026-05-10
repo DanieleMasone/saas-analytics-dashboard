@@ -3,7 +3,7 @@
 [![CI and GitHub Pages](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml/badge.svg?branch=master)](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml)
 [![Live Demo](https://img.shields.io/badge/demo-GitHub%20Pages-0e7490?logo=githubpages&logoColor=white)](https://danielemasone.github.io/saas-analytics-dashboard/)
 [![Reference Docs](https://img.shields.io/badge/docs-TypeDoc-2563eb)](https://danielemasone.github.io/saas-analytics-dashboard/reference/)
-[![Coverage](https://img.shields.io/badge/coverage-94%25-15803d)](https://danielemasone.github.io/saas-analytics-dashboard/coverage/)
+[![Coverage](https://img.shields.io/badge/coverage-96%25-15803d)](https://danielemasone.github.io/saas-analytics-dashboard/coverage/)
 [![Next.js](https://img.shields.io/badge/Next.js-16.2.4-black?logo=nextdotjs)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19.2.4-61dafb?logo=react&logoColor=0f172a)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -22,6 +22,7 @@ A production-style SaaS analytics dashboard built with Next.js 16 App Router, Re
 - Executive SaaS overview with KPI cards, revenue composition, customer health, and account risk.
 - Searchable customer table with status/plan filters, pagination, empty state, and retry state.
 - TanStack Query data flow with loading, error, refresh, and populated states.
+- Accessible landmarks, named data regions, keyboard focus states, and screen-reader summaries for charts and health meters.
 - Mock Route Handlers for local demos and static data mode for GitHub Pages.
 - Persisted light/dark theme preference.
 - Vitest and Testing Library coverage across utilities, data, API clients, Route Handlers, and UI states.

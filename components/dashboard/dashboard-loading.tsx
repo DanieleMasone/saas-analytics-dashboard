@@ -4,6 +4,10 @@ import {Skeleton} from "@/components/ui/skeleton";
 export function DashboardLoading() {
   return (
       <div
+          aria-busy="true"
+          aria-label="Loading dashboard"
+          aria-live="polite"
+          role="status"
           className="min-h-screen bg-slate-100 px-4 py-4 text-slate-950 dark:bg-slate-950 dark:text-slate-50 sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-370 gap-6">
           <aside

@@ -90,6 +90,7 @@ export function DashboardClient() {
       <div className="min-h-screen bg-slate-100 text-slate-950 dark:bg-slate-950 dark:text-slate-50">
         <div className="mx-auto flex max-w-370 gap-6 px-4 py-4 sm:px-6 lg:px-8">
           <aside
+              aria-label="Dashboard workspace"
               className="sticky top-4 hidden h-[calc(100vh-2rem)] w-64 shrink-0 rounded-lg border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900 lg:flex lg:flex-col">
             <div className="flex items-center gap-3 px-2">
               <div
@@ -105,6 +106,7 @@ export function DashboardClient() {
             <nav className="mt-8 space-y-1" aria-label="Dashboard navigation">
               {navItems.map((item) => (
                   <button
+                      aria-current={item.active ? "page" : undefined}
                       className={cn(
                           "flex h-10 w-full items-center gap-3 rounded-md px-3 text-sm font-medium transition-colors",
                           item.active
@@ -132,7 +134,7 @@ export function DashboardClient() {
             </div>
           </aside>
 
-          <main className="min-w-0 flex-1 space-y-5">
+          <main aria-labelledby="dashboard-title" className="min-w-0 flex-1 space-y-5">
             <header
                 className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-5">
               <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
@@ -145,7 +147,7 @@ export function DashboardClient() {
                     Executive overview
                   </span>
                   </div>
-                  <h1 className="mt-2 text-3xl font-semibold text-slate-950 dark:text-white">
+                  <h1 className="mt-2 text-3xl font-semibold text-slate-950 dark:text-white" id="dashboard-title">
                     SaaS Analytics Dashboard
                   </h1>
                   <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-300">
@@ -164,7 +166,12 @@ export function DashboardClient() {
                     <Bell aria-hidden="true" size={17}/>
                   </Button>
                   <ThemeToggle/>
-                  <Button disabled={isRefreshing} onClick={refreshDashboard} variant="primary">
+                  <Button
+                      aria-busy={isRefreshing}
+                      disabled={isRefreshing}
+                      onClick={refreshDashboard}
+                      variant="primary"
+                  >
                     <RefreshCcw
                         aria-hidden="true"
                         className={cn(isRefreshing && "animate-spin")}
@@ -176,7 +183,12 @@ export function DashboardClient() {
               </div>
             </header>
 
-            <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <section
+                aria-busy={metricsQuery.isLoading || metricsQuery.isFetching}
+                aria-label="Executive metrics"
+                aria-live="polite"
+                className="grid gap-4 md:grid-cols-2 xl:grid-cols-4"
+            >
               {metricsQuery.isLoading
                   ? Array.from({length: 4}).map((_, index) => (
                       <Skeleton className="h-40" key={index}/>
@@ -188,6 +200,7 @@ export function DashboardClient() {
 
             {metricsQuery.isError ? (
                 <div
+                    role="alert"
                     className="rounded-lg border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900 dark:border-rose-900/70 dark:bg-rose-950/20 dark:text-rose-100">
                   Metrics failed to load. The rest of the dashboard remains usable.
                 </div>
