@@ -11,11 +11,6 @@ A production-style SaaS analytics dashboard built with Next.js 16 App Router, Re
 ## Links
 
 - Live dashboard: [danielemasone.github.io/saas-analytics-dashboard](https://danielemasone.github.io/saas-analytics-dashboard/)
-- Revenue view: [revenue](https://danielemasone.github.io/saas-analytics-dashboard/revenue/)
-- Customers view: [customers](https://danielemasone.github.io/saas-analytics-dashboard/customers/)
-- Delivery view: [delivery](https://danielemasone.github.io/saas-analytics-dashboard/delivery/)
-- Health view: [health](https://danielemasone.github.io/saas-analytics-dashboard/health/)
-- Settings view: [settings](https://danielemasone.github.io/saas-analytics-dashboard/settings/)
 - API reference: [reference docs](https://danielemasone.github.io/saas-analytics-dashboard/reference/)
 - Coverage report: [coverage HTML](https://danielemasone.github.io/saas-analytics-dashboard/coverage/)
 - Quality index: [quality.html](https://danielemasone.github.io/saas-analytics-dashboard/quality.html)
