@@ -12,7 +12,8 @@ import {
 import {AlertTriangle, RotateCcw} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {Skeleton} from "@/components/ui/skeleton";
-import {formatCurrency, formatNumber} from "@/lib/utils";
+import {uiStyles} from "@/components/ui/style-primitives";
+import {cn, formatCurrency, formatNumber} from "@/lib/utils";
 import type {RevenuePoint} from "@/types/dashboard";
 
 /** Props for the revenue composition chart panel. */
@@ -27,6 +28,23 @@ type TooltipPayload = {
   color?: string;
   name?: string;
   value?: number;
+};
+
+const chartColors = {
+  cursor: "rgba(148, 163, 184, 0.12)",
+  expansion: "#f59e0b",
+  grid: "#d7dee8",
+  newBusiness: "#10b981",
+  revenue: "#0891b2",
+  revenueFillEnd: "#0891b2",
+  revenueFillStart: "#0891b2",
+  tick: "#64748b",
+} as const;
+
+const seriesMarkerClass: Record<string, string> = {
+  Expansion: "bg-amber-500",
+  MRR: "bg-cyan-600",
+  "New business": "bg-emerald-500",
 };
 
 // Recharts passes a broad tooltip payload; this local shape keeps rendering typed.
@@ -50,8 +68,7 @@ function ChartTooltip({
               <div className="flex min-w-44 items-center justify-between gap-4" key={entry.name}>
             <span className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
               <span
-                  className="h-2.5 w-2.5 rounded-sm"
-                  style={{backgroundColor: entry.color}}
+                  className={cn("h-2.5 w-2.5 rounded-sm", seriesMarkerClass[entry.name ?? ""] ?? "bg-slate-400")}
               />
               {entry.name}
             </span>
@@ -74,7 +91,7 @@ export function RevenueChart({data, isError, isLoading, onRetry}: RevenueChartPr
             aria-label="Loading revenue composition"
             aria-live="polite"
             role="status"
-            className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            className={cn("p-5", uiStyles.surface)}>
           <Skeleton className="h-7 w-48"/>
           <Skeleton className="mt-3 h-4 w-72 max-w-full"/>
           <Skeleton className="mt-8 h-80 w-full"/>
@@ -86,14 +103,14 @@ export function RevenueChart({data, isError, isLoading, onRetry}: RevenueChartPr
     return (
         <section
             aria-labelledby="revenue-chart-error-title"
-            className="rounded-lg border border-rose-200 bg-white p-5 shadow-sm dark:border-rose-900/70 dark:bg-slate-900">
+            className={cn("p-5", uiStyles.dangerSurface)}>
           <div className="flex items-start gap-3" role="alert">
             <AlertTriangle aria-hidden="true" className="mt-0.5 text-rose-600 dark:text-rose-300" size={20}/>
             <div>
-              <h2 className="text-lg font-semibold text-slate-950 dark:text-white" id="revenue-chart-error-title">
+              <h2 className={uiStyles.sectionHeading} id="revenue-chart-error-title">
                 Revenue data failed to load
               </h2>
-              <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+              <p className={cn("mt-2", uiStyles.bodyText)}>
                 The revenue service returned an error. Retry the query to recover this panel.
               </p>
               <Button className="mt-4" onClick={onRetry} variant="danger">
@@ -114,13 +131,13 @@ export function RevenueChart({data, isError, isLoading, onRetry}: RevenueChartPr
   return (
       <section
           aria-labelledby="revenue-chart-title"
-          className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          className={cn("p-5", uiStyles.surface)}>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h2 className="text-lg font-semibold text-slate-950 dark:text-white" id="revenue-chart-title">
+            <h2 className={uiStyles.sectionHeading} id="revenue-chart-title">
               Revenue composition
             </h2>
-            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+            <p className={cn("mt-1", uiStyles.subtleText)}>
               MRR, new business, expansion, and churn over the last 12 months.
             </p>
           </div>
@@ -145,33 +162,33 @@ export function RevenueChart({data, isError, isLoading, onRetry}: RevenueChartPr
               <ComposedChart data={data} margin={{bottom: 8, left: 0, right: 6, top: 10}}>
                 <defs>
                   <linearGradient id="revenue-fill" x1="0" x2="0" y1="0" y2="1">
-                    <stop offset="5%" stopColor="#0891b2" stopOpacity={0.28}/>
-                    <stop offset="95%" stopColor="#0891b2" stopOpacity={0.02}/>
+                    <stop offset="5%" stopColor={chartColors.revenueFillStart} stopOpacity={0.28}/>
+                    <stop offset="95%" stopColor={chartColors.revenueFillEnd} stopOpacity={0.02}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid stroke="#d7dee8" strokeDasharray="4 4" vertical={false}/>
+                <CartesianGrid stroke={chartColors.grid} strokeDasharray="4 4" vertical={false}/>
                 <XAxis
                     axisLine={false}
                     dataKey="month"
-                    tick={{fill: "#64748b", fontSize: 12}}
+                    tick={{fill: chartColors.tick, fontSize: 12}}
                     tickLine={false}
                 />
                 <YAxis
                     axisLine={false}
-                    tick={{fill: "#64748b", fontSize: 12}}
+                    tick={{fill: chartColors.tick, fontSize: 12}}
                     tickFormatter={(value) => formatNumber(Number(value))}
                     tickLine={false}
                     width={58}
                 />
-                <Tooltip content={<ChartTooltip/>} cursor={{fill: "rgba(148, 163, 184, 0.12)"}}/>
+                <Tooltip content={<ChartTooltip/>} cursor={{fill: chartColors.cursor}}/>
                 <Legend iconType="square" wrapperStyle={{fontSize: 12, paddingTop: 12}}/>
-                <Bar dataKey="newBusiness" fill="#10b981" name="New business" radius={[4, 4, 0, 0]}/>
-                <Bar dataKey="expansion" fill="#f59e0b" name="Expansion" radius={[4, 4, 0, 0]}/>
+                <Bar dataKey="newBusiness" fill={chartColors.newBusiness} name="New business" radius={[4, 4, 0, 0]}/>
+                <Bar dataKey="expansion" fill={chartColors.expansion} name="Expansion" radius={[4, 4, 0, 0]}/>
                 <Area
                     dataKey="revenue"
                     fill="url(#revenue-fill)"
                     name="MRR"
-                    stroke="#0891b2"
+                    stroke={chartColors.revenue}
                     strokeWidth={3}
                     type="monotone"
                 />

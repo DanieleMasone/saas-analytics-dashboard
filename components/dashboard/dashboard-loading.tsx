@@ -1,4 +1,6 @@
 import {Skeleton} from "@/components/ui/skeleton";
+import {uiStyles} from "@/components/ui/style-primitives";
+import {cn} from "@/lib/utils";
 
 /** Route-level skeleton matching the dashboard's final layout. */
 export function DashboardLoading() {
@@ -11,7 +13,7 @@ export function DashboardLoading() {
           className="min-h-screen bg-slate-100 px-4 py-4 text-slate-950 dark:bg-slate-950 dark:text-slate-50 sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-370 gap-6">
           <aside
-              className="hidden w-64 shrink-0 rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900 lg:block">
+              className={cn("hidden w-64 shrink-0 p-4 lg:block", uiStyles.surface)}>
             <Skeleton className="h-9 w-36"/>
             <div className="mt-8 space-y-3">
               {Array.from({length: 6}).map((_, index) => (
@@ -21,7 +23,7 @@ export function DashboardLoading() {
           </aside>
           <main className="min-w-0 flex-1 space-y-5">
             <div
-                className="flex flex-col gap-4 rounded-lg border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900 sm:flex-row sm:items-center sm:justify-between">
+                className={cn("flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between", uiStyles.surface)}>
               <div>
                 <Skeleton className="h-8 w-56"/>
                 <Skeleton className="mt-3 h-4 w-80 max-w-full"/>

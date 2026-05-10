@@ -6,6 +6,7 @@ import {
   CircleDollarSign,
   UsersRound,
 } from "lucide-react";
+import {uiStyles} from "@/components/ui/style-primitives";
 import {cn, formatDelta, formatMetricValue} from "@/lib/utils";
 import type {Metric} from "@/types/dashboard";
 
@@ -30,7 +31,7 @@ export function KpiCard({metric}: { metric: Metric }) {
       <article
           aria-describedby={captionId}
           aria-labelledby={headingId}
-          className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          className={cn("p-4", uiStyles.surface)}>
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <h3 className="text-sm font-medium text-slate-500 dark:text-slate-400" id={headingId}>
@@ -40,8 +41,7 @@ export function KpiCard({metric}: { metric: Metric }) {
               {formatMetricValue(metric)}
             </p>
           </div>
-          <div
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200">
+          <div className={uiStyles.iconFrame}>
             <Icon aria-hidden="true" size={20}/>
           </div>
         </div>

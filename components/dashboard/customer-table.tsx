@@ -8,7 +8,9 @@ import {
 } from "lucide-react";
 import {Badge} from "@/components/ui/badge";
 import {Button} from "@/components/ui/button";
+import {MeterBar, type MeterTone} from "@/components/ui/meter-bar";
 import {Skeleton} from "@/components/ui/skeleton";
+import {uiStyles} from "@/components/ui/style-primitives";
 import {
   cn,
   formatCurrency,
@@ -56,27 +58,22 @@ const statusTone: Record<CustomerStatus, "amber" | "emerald" | "rose" | "slate">
   trial: "amber",
 };
 
+function healthTone(value: number): MeterTone {
+  if (value >= 80) return "emerald";
+  if (value >= 60) return "amber";
+  return "rose";
+}
+
 function HealthBar({label, value}: { label: string; value: number }) {
   return (
       <div className="flex min-w-32 items-center gap-3">
-        <div
-            aria-label={`${label} health score`}
-            aria-valuemax={100}
-            aria-valuemin={0}
-            aria-valuenow={value}
-            aria-valuetext={`${value} out of 100`}
-            className="h-2 flex-1 rounded-md bg-slate-200 dark:bg-slate-800"
-            role="meter"
-        >
-          <div
-              aria-hidden="true"
-              className={cn(
-                  "h-2 rounded-md",
-                  value >= 80 ? "bg-emerald-500" : value >= 60 ? "bg-amber-500" : "bg-rose-500",
-              )}
-              style={{width: `${value}%`}}
-          />
-        </div>
+        <MeterBar
+            className="flex-1"
+            label={`${label} health score`}
+            tone={healthTone(value)}
+            value={value}
+            valueText={`${value} out of 100`}
+        />
         <span aria-hidden="true" className="w-8 text-right text-sm font-medium text-slate-700 dark:text-slate-200">
         {value}
       </span>
@@ -117,14 +114,14 @@ export function CustomerTable({
       <section
           aria-busy={isLoading || isFetching}
           aria-labelledby="customer-accounts-title"
-          className="rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          className={uiStyles.surface}>
         <div className="border-b border-slate-200 p-4 dark:border-slate-800">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <h2 className="text-lg font-semibold text-slate-950 dark:text-white" id="customer-accounts-title">
+              <h2 className={uiStyles.sectionHeading} id="customer-accounts-title">
                 Customer accounts
               </h2>
-              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              <p className={cn("mt-1", uiStyles.subtleText)}>
                 Search, segment, and page through customer accounts.
               </p>
             </div>
@@ -137,7 +134,7 @@ export function CustomerTable({
                     size={16}
                 />
                 <input
-                    className="h-10 w-full rounded-md border border-slate-300 bg-white pl-9 pr-3 text-sm text-slate-950 placeholder:text-slate-400 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+                    className={cn("w-full pl-9 pr-3 placeholder:text-slate-400", uiStyles.field)}
                     onChange={(event) =>
                         onChangeFilters({page: 1, query: event.currentTarget.value})
                     }
@@ -149,7 +146,7 @@ export function CustomerTable({
                 Status
               </label>
               <select
-                  className="h-10 rounded-md border border-slate-300 bg-white px-3 text-sm text-slate-950 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+                  className={cn("px-3", uiStyles.field)}
                   id="status-filter"
                   onChange={(event) =>
                       onChangeFilters({
@@ -169,7 +166,7 @@ export function CustomerTable({
                 Plan
               </label>
               <select
-                  className="h-10 rounded-md border border-slate-300 bg-white px-3 text-sm text-slate-950 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+                  className={cn("px-3", uiStyles.field)}
                   id="plan-filter"
                   onChange={(event) =>
                       onChangeFilters({
@@ -205,7 +202,7 @@ export function CustomerTable({
               <h3 className="mt-4 text-base font-semibold text-slate-950 dark:text-white">
                 Customers failed to load
               </h3>
-              <p className="mt-2 max-w-md text-sm leading-6 text-slate-600 dark:text-slate-300">
+              <p className={cn("mt-2 max-w-md", uiStyles.bodyText)}>
                 Retry the customer data request without losing your active filters.
               </p>
               <Button className="mt-5" onClick={onRetry} variant="danger">
@@ -221,7 +218,7 @@ export function CustomerTable({
               <h3 className="mt-4 text-base font-semibold text-slate-950 dark:text-white">
                 No customers match these filters
               </h3>
-              <p className="mt-2 max-w-md text-sm leading-6 text-slate-600 dark:text-slate-300">
+              <p className={cn("mt-2 max-w-md", uiStyles.bodyText)}>
                 Adjust the search term, status, or plan to widen the result set.
               </p>
               <Button

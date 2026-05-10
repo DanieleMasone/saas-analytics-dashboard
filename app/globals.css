@@ -57,3 +57,70 @@ select:focus-visible {
   background: #a5f3fc;
   color: #0f172a;
 }
+
+.meter-bar {
+  --meter-fill: #0891b2;
+  --meter-track: #e2e8f0;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  display: block;
+  height: 0.5rem;
+  overflow: hidden;
+  width: 100%;
+}
+
+.dark .meter-bar {
+  --meter-track: #1e293b;
+}
+
+.meter-bar[data-tone="amber"] {
+  --meter-fill: #d97706;
+}
+
+.meter-bar[data-tone="cyan"] {
+  --meter-fill: #0891b2;
+}
+
+.meter-bar[data-tone="emerald"] {
+  --meter-fill: #059669;
+}
+
+.meter-bar[data-tone="rose"] {
+  --meter-fill: #e11d48;
+}
+
+.dark .meter-bar[data-tone="amber"] {
+  --meter-fill: #fbbf24;
+}
+
+.dark .meter-bar[data-tone="cyan"] {
+  --meter-fill: #22d3ee;
+}
+
+.dark .meter-bar[data-tone="emerald"] {
+  --meter-fill: #34d399;
+}
+
+.dark .meter-bar[data-tone="rose"] {
+  --meter-fill: #fb7185;
+}
+
+.meter-bar::-webkit-meter-bar {
+  background: var(--meter-track);
+  border: 0;
+  border-radius: 999px;
+}
+
+.meter-bar::-webkit-meter-even-less-good-value,
+.meter-bar::-webkit-meter-optimum-value,
+.meter-bar::-webkit-meter-suboptimum-value {
+  background: var(--meter-fill);
+  border-radius: 999px;
+}
+
+.meter-bar::-moz-meter-bar {
+  background: var(--meter-fill);
+  border-radius: 999px;
+}

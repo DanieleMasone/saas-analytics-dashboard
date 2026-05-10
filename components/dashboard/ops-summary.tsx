@@ -8,7 +8,8 @@ import {
 } from "lucide-react";
 import {Badge} from "@/components/ui/badge";
 import {Skeleton} from "@/components/ui/skeleton";
-import {formatCurrency, formatNumber} from "@/lib/utils";
+import {uiStyles} from "@/components/ui/style-primitives";
+import {cn, formatCurrency, formatNumber} from "@/lib/utils";
 import type {CustomersResponse, RevenuePoint} from "@/types/dashboard";
 
 /** Props for the operating pulse summary panel. */
@@ -27,7 +28,7 @@ export function OpsSummary({customers, isLoading, revenue}: OpsSummaryProps) {
             aria-label="Loading operating pulse"
             aria-live="polite"
             role="status"
-            className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+            className={cn("p-5", uiStyles.surface)}>
           <Skeleton className="h-7 w-44"/>
           <Skeleton className="mt-3 h-4 w-60"/>
           <div className="mt-6 space-y-3">
@@ -47,13 +48,13 @@ export function OpsSummary({customers, isLoading, revenue}: OpsSummaryProps) {
   return (
       <aside
           aria-labelledby="ops-summary-title"
-          className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+          className={cn("p-5", uiStyles.surface)}>
         <div className="flex items-start justify-between gap-3">
           <div>
-            <h2 className="text-lg font-semibold text-slate-950 dark:text-white" id="ops-summary-title">
+            <h2 className={uiStyles.sectionHeading} id="ops-summary-title">
               Operating pulse
             </h2>
-            <p className="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400">
+            <p className={cn("mt-1 leading-6", uiStyles.subtleText)}>
               A compact read on health, revenue movement, and account risk.
             </p>
           </div>
@@ -61,8 +62,8 @@ export function OpsSummary({customers, isLoading, revenue}: OpsSummaryProps) {
         </div>
 
         <dl className="mt-6 grid gap-3">
-          <div className="flex items-center justify-between gap-3 rounded-md border border-slate-200 p-3 dark:border-slate-800">
-            <dt className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+          <div className={cn("flex items-center justify-between gap-3 p-3", uiStyles.insetSurface)}>
+            <dt className={cn("flex items-center gap-2", uiStyles.subtleText)}>
               <Flame aria-hidden="true" size={16}/>
               Filtered MRR
             </dt>
@@ -70,8 +71,8 @@ export function OpsSummary({customers, isLoading, revenue}: OpsSummaryProps) {
                 {formatCurrency(customers?.summary.totalMrr ?? 0, true)}
               </dd>
           </div>
-          <div className="flex items-center justify-between gap-3 rounded-md border border-slate-200 p-3 dark:border-slate-800">
-            <dt className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+          <div className={cn("flex items-center justify-between gap-3 p-3", uiStyles.insetSurface)}>
+            <dt className={cn("flex items-center gap-2", uiStyles.subtleText)}>
               <ShieldCheck aria-hidden="true" size={16}/>
               Average health
             </dt>
@@ -79,8 +80,8 @@ export function OpsSummary({customers, isLoading, revenue}: OpsSummaryProps) {
                 {customers?.summary.averageHealth ?? 0}
               </dd>
           </div>
-          <div className="flex items-center justify-between gap-3 rounded-md border border-slate-200 p-3 dark:border-slate-800">
-            <dt className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+          <div className={cn("flex items-center justify-between gap-3 p-3", uiStyles.insetSurface)}>
+            <dt className={cn("flex items-center gap-2", uiStyles.subtleText)}>
               <ArrowUpRight aria-hidden="true" size={16}/>
               MRR growth
             </dt>

@@ -22,6 +22,7 @@ import {RevenueChart} from "@/components/dashboard/revenue-chart";
 import {ThemeToggle} from "@/components/dashboard/theme-toggle";
 import {Button} from "@/components/ui/button";
 import {Skeleton} from "@/components/ui/skeleton";
+import {uiStyles} from "@/components/ui/style-primitives";
 import {fetchCustomers, fetchDelivery, fetchMetrics, fetchRevenue} from "@/lib/api";
 import {cn} from "@/lib/utils";
 import type {CustomerFilters} from "@/types/dashboard";
@@ -103,7 +104,7 @@ export function DashboardClient() {
         <div className="mx-auto flex max-w-370 gap-6 px-4 py-4 sm:px-6 lg:px-8">
           <aside
               aria-label="Dashboard workspace"
-              className="sticky top-4 hidden h-[calc(100vh-2rem)] w-64 shrink-0 rounded-lg border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900 lg:flex lg:flex-col">
+              className={cn("sticky top-4 hidden h-[calc(100vh-2rem)] w-64 shrink-0 p-4 lg:flex lg:flex-col", uiStyles.surface)}>
             <div className="flex items-center gap-3 px-2">
               <div
                   className="flex h-10 w-10 items-center justify-center rounded-md bg-cyan-700 text-white dark:bg-cyan-400 dark:text-slate-950">
@@ -148,7 +149,7 @@ export function DashboardClient() {
 
           <main aria-labelledby="dashboard-title" className="min-w-0 flex-1 space-y-5">
             <header
-                className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-5">
+                className={cn("p-4 sm:p-5", uiStyles.surface)}>
               <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
                 <div className="min-w-0">
                   <div
