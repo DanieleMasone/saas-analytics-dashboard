@@ -1,4 +1,4 @@
-import {getCustomers, simulateLatency} from "@/lib/mock-data";
+import {getCustomers, getJiraDelivery, simulateLatency} from "@/lib/mock-data";
 
 describe("mock dashboard data", () => {
   it("filters customers by search text, status, and plan", () => {
@@ -51,5 +51,17 @@ describe("mock dashboard data", () => {
 
     await vi.advanceTimersByTimeAsync(1);
     expect(onSettled).toHaveBeenCalledTimes(1);
+  });
+
+  it("returns Jira-like delivery data for manager execution analysis", () => {
+    const response = getJiraDelivery();
+
+    expect(response.summary.completionRate).toBeGreaterThan(0);
+    expect(response.trends.at(-1)?.week).toBe("Current");
+    expect(response.risks).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({key: "SAD-142", priority: "critical", status: "blocked"}),
+        ]),
+    );
   });
 });

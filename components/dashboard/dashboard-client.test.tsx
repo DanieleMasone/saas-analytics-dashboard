@@ -2,12 +2,19 @@ import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {render, screen, waitFor} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {DashboardClient} from "@/components/dashboard/dashboard-client";
-import {fetchCustomers, fetchMetrics, fetchRevenue} from "@/lib/api";
-import {getCustomers, metrics, revenue} from "@/lib/mock-data";
-import type {CustomerFilters, CustomersResponse, Metric, RevenuePoint} from "@/types/dashboard";
+import {fetchCustomers, fetchDelivery, fetchMetrics, fetchRevenue} from "@/lib/api";
+import {getCustomers, jiraDelivery, metrics, revenue} from "@/lib/mock-data";
+import type {
+  CustomerFilters,
+  CustomersResponse,
+  JiraDeliveryResponse,
+  Metric,
+  RevenuePoint,
+} from "@/types/dashboard";
 
 vi.mock("@/lib/api", () => ({
   fetchCustomers: vi.fn(),
+  fetchDelivery: vi.fn(),
   fetchMetrics: vi.fn(),
   fetchRevenue: vi.fn(),
 }));
@@ -53,6 +60,26 @@ vi.mock("@/components/dashboard/ops-summary", () => ({
   ),
 }));
 
+vi.mock("@/components/dashboard/delivery-insights", () => ({
+  DeliveryInsights: ({
+                       data,
+                       isError,
+                       isLoading,
+                       onRetry,
+                     }: {
+    data?: JiraDeliveryResponse;
+    isError: boolean;
+    isLoading: boolean;
+    onRetry: () => void;
+  }) => (
+      <section data-testid="delivery-insights">
+        delivery:{data?.summary.sprintName ?? "none"}:loading:{String(isLoading)}:error:
+        {String(isError)}
+        <button onClick={onRetry} type="button">Retry delivery</button>
+      </section>
+  ),
+}));
+
 vi.mock("@/components/dashboard/customer-table", () => ({
   CustomerTable: ({
                    data,
@@ -89,6 +116,7 @@ vi.mock("@/components/dashboard/theme-toggle", () => ({
 
 const fetchMetricsMock = vi.mocked(fetchMetrics);
 const fetchRevenueMock = vi.mocked(fetchRevenue);
+const fetchDeliveryMock = vi.mocked(fetchDelivery);
 const fetchCustomersMock = vi.mocked(fetchCustomers);
 
 function renderDashboardClient() {
@@ -117,6 +145,10 @@ function mockSuccessfulQueries() {
     data: revenue,
     updatedAt: "2026-05-09T12:00:00.000Z",
   });
+  fetchDeliveryMock.mockResolvedValue({
+    data: jiraDelivery,
+    updatedAt: "2026-05-09T12:00:00.000Z",
+  });
   fetchCustomersMock.mockImplementation((filters) => Promise.resolve(getCustomers(filters)));
 }
 
@@ -137,11 +169,13 @@ describe("DashboardClient", () => {
     );
     expect(screen.getByRole("heading", {name: "SaaS Analytics Dashboard"})).toBeInTheDocument();
     expect(screen.getByTestId("revenue-chart")).toHaveTextContent("loading:true");
+    expect(screen.getByTestId("delivery-insights")).toHaveTextContent("loading:true");
     expect(screen.getByTestId("customer-table")).toHaveTextContent("loading:true");
 
     expect(await screen.findByText("Monthly recurring revenue")).toBeInTheDocument();
     expect(screen.getAllByTestId("kpi-card")).toHaveLength(4);
     expect(screen.getByTestId("revenue-chart")).toHaveTextContent("revenue:12");
+    expect(screen.getByTestId("delivery-insights")).toHaveTextContent("delivery:Sprint 24.10");
     expect(screen.getByTestId("ops-summary")).toHaveTextContent("ops:20:12");
     expect(screen.getByTestId("customer-table")).toHaveTextContent("customers:20:page:1");
   });
@@ -158,6 +192,7 @@ describe("DashboardClient", () => {
 
     await waitFor(() => expect(fetchMetricsMock).toHaveBeenCalledTimes(2));
     expect(fetchRevenueMock).toHaveBeenCalledTimes(2);
+    expect(fetchDeliveryMock).toHaveBeenCalledTimes(2);
     expect(fetchCustomersMock).toHaveBeenCalledTimes(2);
   });
 
@@ -193,6 +228,9 @@ describe("DashboardClient", () => {
     await user.click(screen.getByRole("button", {name: "Retry revenue"}));
     await waitFor(() => expect(fetchRevenueMock).toHaveBeenCalledTimes(2));
 
+    await user.click(screen.getByRole("button", {name: "Retry delivery"}));
+    await waitFor(() => expect(fetchDeliveryMock).toHaveBeenCalledTimes(2));
+
     await user.click(screen.getByRole("button", {name: "Retry customers"}));
     await waitFor(() => expect(fetchCustomersMock).toHaveBeenCalledTimes(2));
   });
@@ -203,6 +241,10 @@ describe("DashboardClient", () => {
       data: revenue,
       updatedAt: "2026-05-09T12:00:00.000Z",
     });
+    fetchDeliveryMock.mockResolvedValue({
+      data: jiraDelivery,
+      updatedAt: "2026-05-09T12:00:00.000Z",
+    });
     fetchCustomersMock.mockImplementation((filters) => Promise.resolve(getCustomers(filters)));
 
     renderDashboardClient();
@@ -211,6 +253,7 @@ describe("DashboardClient", () => {
         "Metrics failed to load. The rest of the dashboard remains usable.",
     );
     expect(screen.getByTestId("revenue-chart")).toHaveTextContent("revenue:12");
+    expect(screen.getByTestId("delivery-insights")).toHaveTextContent("delivery:Sprint 24.10");
     expect(screen.getByTestId("customer-table")).toHaveTextContent("customers:20");
   });
 });

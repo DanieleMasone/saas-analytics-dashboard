@@ -7,6 +7,7 @@ import {
   Bell,
   LayoutDashboard,
   LifeBuoy,
+  ListChecks,
   PanelLeft,
   RefreshCcw,
   Settings,
@@ -14,13 +15,14 @@ import {
 } from "lucide-react";
 import {useMemo, useState} from "react";
 import {CustomerTable} from "@/components/dashboard/customer-table";
+import {DeliveryInsights} from "@/components/dashboard/delivery-insights";
 import {KpiCard} from "@/components/dashboard/kpi-card";
 import {OpsSummary} from "@/components/dashboard/ops-summary";
 import {RevenueChart} from "@/components/dashboard/revenue-chart";
 import {ThemeToggle} from "@/components/dashboard/theme-toggle";
 import {Button} from "@/components/ui/button";
 import {Skeleton} from "@/components/ui/skeleton";
-import {fetchCustomers, fetchMetrics, fetchRevenue} from "@/lib/api";
+import {fetchCustomers, fetchDelivery, fetchMetrics, fetchRevenue} from "@/lib/api";
 import {cn} from "@/lib/utils";
 import type {CustomerFilters} from "@/types/dashboard";
 
@@ -30,6 +32,7 @@ const navItems = [
   {icon: LayoutDashboard, label: "Overview", active: true},
   {icon: BarChart3, label: "Revenue", active: false},
   {icon: UsersRound, label: "Customers", active: false},
+  {icon: ListChecks, label: "Delivery", active: false},
   {icon: Activity, label: "Health", active: false},
   {icon: Settings, label: "Settings", active: false},
 ];
@@ -66,6 +69,11 @@ export function DashboardClient() {
     queryKey: ["revenue"],
   });
 
+  const deliveryQuery = useQuery({
+    queryFn: fetchDelivery,
+    queryKey: ["delivery"],
+  });
+
   const customersQuery = useQuery({
     // Preserve the current table while the next filtered page is fetched.
     placeholderData: keepPreviousData,
@@ -74,7 +82,10 @@ export function DashboardClient() {
   });
 
   const isRefreshing =
-      metricsQuery.isFetching || revenueQuery.isFetching || customersQuery.isFetching;
+      metricsQuery.isFetching ||
+      revenueQuery.isFetching ||
+      deliveryQuery.isFetching ||
+      customersQuery.isFetching;
 
   const updateFilters = (nextFilters: Partial<CustomerFilters>) => {
     setFilters((current) => ({...current, ...nextFilters}));
@@ -83,6 +94,7 @@ export function DashboardClient() {
   const refreshDashboard = () => {
     void metricsQuery.refetch();
     void revenueQuery.refetch();
+    void deliveryQuery.refetch();
     void customersQuery.refetch();
   };
 
@@ -151,8 +163,8 @@ export function DashboardClient() {
                     SaaS Analytics Dashboard
                   </h1>
                   <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-300">
-                    Monitor recurring revenue, customer health, account risk, and expansion
-                    movement from one operating view.
+                    Monitor recurring revenue, customer health, delivery execution, account risk,
+                    and expansion movement from one operating view.
                   </p>
                 </div>
 
@@ -219,6 +231,13 @@ export function DashboardClient() {
                   revenue={revenueQuery.data?.data}
               />
             </div>
+
+            <DeliveryInsights
+                data={deliveryQuery.data?.data}
+                isError={deliveryQuery.isError}
+                isLoading={deliveryQuery.isLoading}
+                onRetry={() => void deliveryQuery.refetch()}
+            />
 
             <CustomerTable
                 data={customersQuery.data}

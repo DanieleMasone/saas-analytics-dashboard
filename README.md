@@ -21,6 +21,7 @@ A production-style SaaS analytics dashboard built with Next.js 16 App Router, Re
 
 - Executive SaaS overview with KPI cards, revenue composition, customer health, and account risk.
 - Searchable customer table with status/plan filters, pagination, empty state, and retry state.
+- Jira-like delivery KPI examples for sprint predictability, cycle time, blockers, scope change, and issue risk.
 - TanStack Query data flow with loading, error, refresh, and populated states.
 - Accessible landmarks, named data regions, keyboard focus states, and screen-reader summaries for charts and health meters.
 - Mock Route Handlers for local demos and static data mode for GitHub Pages.
@@ -94,6 +95,7 @@ On `master`, GitHub Pages publishes:
 ```txt
 /             Static dashboard
 /dashboard/   Static dashboard route
+/api/delivery/ Static Jira-like delivery KPI JSON
 /reference/   TypeDoc reference
 /coverage/    HTML coverage report
 /quality.html Report index

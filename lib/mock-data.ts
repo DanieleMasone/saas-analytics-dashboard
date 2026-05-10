@@ -2,6 +2,7 @@ import type {
   Customer,
   CustomerFilters,
   CustomersResponse,
+  JiraDeliveryResponse,
   Metric,
   RevenuePoint,
 } from "@/types/dashboard";
@@ -61,6 +62,75 @@ export const revenue: RevenuePoint[] = [
   {month: "Mar", revenue: 279300, newBusiness: 69100, expansion: 34600, churn: -12900, customers: 1819},
   {month: "Apr", revenue: 286400, newBusiness: 72100, expansion: 36100, churn: -11800, customers: 1842},
 ];
+
+/** Jira-like delivery fixtures returned by `/api/delivery`. */
+export const jiraDelivery: JiraDeliveryResponse = {
+  risks: [
+    {
+      ageDays: 9,
+      customerImpact: "Enterprise SSO expansion for Zenith Health",
+      dueDate: "2026-05-14",
+      key: "SAD-142",
+      managerSignal: "Blocked by IdP vendor response; needs escalation before release freeze.",
+      owner: "Elena Ferri",
+      priority: "critical",
+      status: "blocked",
+      storyPoints: 8,
+      team: "Identity",
+      title: "Unblock SAML provisioning edge cases",
+      type: "story",
+    },
+    {
+      ageDays: 6,
+      customerImpact: "Renewal confidence for Mercury Finance",
+      dueDate: "2026-05-13",
+      key: "SAD-155",
+      managerSignal: "Regression risk is high because test coverage still misses webhook retries.",
+      owner: "Marco Rinaldi",
+      priority: "high",
+      status: "review",
+      storyPoints: 5,
+      team: "Billing",
+      title: "Verify invoice webhook retry path",
+      type: "bug",
+    },
+    {
+      ageDays: 4,
+      customerImpact: "Trial activation for Pioneer AI",
+      dueDate: "2026-05-16",
+      key: "SAD-161",
+      managerSignal: "Scope grew after sales discovery; keep in sprint only if onboarding is protected.",
+      owner: "Giulia Greco",
+      priority: "medium",
+      status: "in_progress",
+      storyPoints: 3,
+      team: "Growth",
+      title: "Add activation checklist event tracking",
+      type: "task",
+    },
+  ],
+  summary: {
+    blockerCount: 3,
+    completedPoints: 55,
+    completionRate: 86,
+    cycleTimeDays: 3.8,
+    dueDate: "2026-05-17",
+    escapedBugs: 2,
+    leadTimeDays: 6.4,
+    plannedPoints: 64,
+    releaseName: "May customer health release",
+    scopeChangeRate: 14,
+    sprintName: "Sprint 24.10",
+    teamConfidence: 78,
+  },
+  trends: [
+    {blockers: 2, committed: 52, completed: 49, created: 34, resolved: 31, week: "W-5"},
+    {blockers: 1, committed: 58, completed: 54, created: 38, resolved: 36, week: "W-4"},
+    {blockers: 4, committed: 61, completed: 50, created: 42, resolved: 33, week: "W-3"},
+    {blockers: 3, committed: 60, completed: 57, created: 36, resolved: 40, week: "W-2"},
+    {blockers: 3, committed: 64, completed: 55, created: 39, resolved: 37, week: "Current"},
+  ],
+};
 
 /** Customer account fixtures used by the searchable, paginated API route. */
 export const customers: Customer[] = [
@@ -348,6 +418,7 @@ export const customers: Customer[] = [
 
 const latencyByEndpoint = {
   customers: 650,
+  delivery: 560,
   metrics: 420,
   revenue: 520,
 };
@@ -408,4 +479,9 @@ export function getCustomers(filters: CustomerFilters): CustomersResponse {
       trial: filtered.filter((customer) => customer.status === "trial").length,
     },
   };
+}
+
+/** Return Jira-like delivery KPI data for manager-facing delivery analysis. */
+export function getJiraDelivery(): JiraDeliveryResponse {
+  return jiraDelivery;
 }

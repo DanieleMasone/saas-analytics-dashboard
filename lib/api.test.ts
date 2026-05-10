@@ -1,4 +1,4 @@
-import {fetchCustomers, fetchMetrics, fetchRevenue} from "@/lib/api";
+import {fetchCustomers, fetchDelivery, fetchMetrics, fetchRevenue} from "@/lib/api";
 
 const originalDataMode = process.env.NEXT_PUBLIC_DATA_MODE;
 
@@ -27,6 +27,22 @@ describe("dashboard API client", () => {
     );
 
     await expect(fetchRevenue()).rejects.toThrow("Revenue unavailable");
+  });
+
+  it("fetches Jira-like delivery KPI data", async () => {
+    const payload = {
+      data: {
+        risks: [],
+        summary: {completionRate: 86},
+        trends: [],
+      },
+      updatedAt: "2026-05-09T12:00:00.000Z",
+    };
+    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify(payload)));
+    vi.stubGlobal("fetch", fetchMock);
+
+    await expect(fetchDelivery()).resolves.toEqual(payload);
+    expect(fetchMock).toHaveBeenCalledWith("/api/delivery");
   });
 
   it("serializes only active customer filters", async () => {
@@ -64,10 +80,12 @@ describe("dashboard API client", () => {
     vi.stubGlobal("fetch", fetchMock);
 
     const metrics = await fetchMetrics();
+    const delivery = await fetchDelivery();
     const customers = await fetchCustomers({query: "northstar"});
 
     expect(fetchMock).not.toHaveBeenCalled();
     expect(metrics.data[0].id).toBe("mrr");
+    expect(delivery.data.summary.sprintName).toBe("Sprint 24.10");
     expect(customers.data[0].company).toBe("Northstar Labs");
   });
 });

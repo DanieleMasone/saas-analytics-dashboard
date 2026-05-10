@@ -2,6 +2,7 @@ import type {
   ApiEnvelope,
   CustomerFilters,
   CustomersResponse,
+  JiraDeliveryResponse,
   Metric,
   RevenuePoint,
 } from "@/types/dashboard";
@@ -45,6 +46,16 @@ export async function fetchRevenue() {
   }
 
   return fetchJson<ApiEnvelope<RevenuePoint[]>>("/api/revenue");
+}
+
+/** Fetch Jira-like delivery KPI signals for manager execution analysis. */
+export async function fetchDelivery() {
+  if (isStaticDataMode()) {
+    const {jiraDelivery} = await import("@/lib/mock-data");
+    return createEnvelope(jiraDelivery);
+  }
+
+  return fetchJson<ApiEnvelope<JiraDeliveryResponse>>("/api/delivery");
 }
 
 /** Fetch paginated and filtered customer accounts for the customer table. */

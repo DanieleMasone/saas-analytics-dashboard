@@ -37,6 +37,7 @@ export function DashboardLoading() {
               <Skeleton className="h-105"/>
               <Skeleton className="h-105"/>
             </div>
+            <Skeleton className="h-140"/>
             <Skeleton className="h-130"/>
           </main>
         </div>

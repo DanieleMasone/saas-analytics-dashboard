@@ -8,6 +8,9 @@ export type CustomerStatus = (typeof customerStatuses)[number];
 export type CustomerPlan = (typeof customerPlans)[number];
 export type MetricFormat = "currency" | "number" | "percentage";
 export type TrendDirection = "up" | "down" | "neutral";
+export type JiraIssuePriority = "low" | "medium" | "high" | "critical";
+export type JiraIssueStatus = "todo" | "in_progress" | "blocked" | "review" | "done";
+export type JiraIssueType = "story" | "bug" | "task" | "risk";
 
 /** KPI card contract used by the executive dashboard overview. */
 export type Metric = {
@@ -28,6 +31,55 @@ export type RevenuePoint = {
   expansion: number;
   churn: number;
   customers: number;
+};
+
+/** Jira-like delivery summary that lets managers read execution risk beside SaaS KPIs. */
+export type JiraDeliverySummary = {
+  sprintName: string;
+  releaseName: string;
+  dueDate: string;
+  plannedPoints: number;
+  completedPoints: number;
+  completionRate: number;
+  scopeChangeRate: number;
+  cycleTimeDays: number;
+  leadTimeDays: number;
+  blockerCount: number;
+  escapedBugs: number;
+  teamConfidence: number;
+};
+
+/** Weekly delivery trend points normally derived from Jira sprint and issue history. */
+export type JiraDeliveryTrendPoint = {
+  week: string;
+  committed: number;
+  completed: number;
+  created: number;
+  resolved: number;
+  blockers: number;
+};
+
+/** Prioritized Jira-style issue that needs management attention. */
+export type JiraRiskIssue = {
+  key: string;
+  title: string;
+  team: string;
+  owner: string;
+  type: JiraIssueType;
+  priority: JiraIssuePriority;
+  status: JiraIssueStatus;
+  storyPoints: number;
+  ageDays: number;
+  dueDate: string;
+  customerImpact: string;
+  managerSignal: string;
+};
+
+/** Delivery health response consumed by the Jira KPI panel. */
+export type JiraDeliveryResponse = {
+  summary: JiraDeliverySummary;
+  trends: JiraDeliveryTrendPoint[];
+  risks: JiraRiskIssue[];
 };
 
 /** Customer account record returned by the paginated mock API. */
