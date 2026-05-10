@@ -171,11 +171,11 @@ export function DashboardShell({
                 </p>
               </div>
 
-              <div className="relative flex flex-wrap items-center gap-2">
+              <div className="relative flex w-full flex-wrap items-center gap-2 sm:w-auto sm:justify-end">
                 <Button
                   aria-controls={mobileNavId}
                   aria-expanded={isMobileNavOpen}
-                  className="lg:hidden"
+                  className="min-w-24 lg:hidden"
                   onClick={() => setIsMobileNavOpen((current) => !current)}
                   title="Menu"
                   variant="secondary"

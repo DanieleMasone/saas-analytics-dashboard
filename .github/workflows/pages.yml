@@ -48,6 +48,7 @@ jobs:
       - name: Build static dashboard for Pages
         env:
           GITHUB_PAGES: "true"
+          NEXT_PUBLIC_BASE_PATH: saas-analytics-dashboard
           NEXT_PUBLIC_DATA_MODE: static
         run: npm run build:pages
 

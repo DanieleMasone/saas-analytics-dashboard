@@ -1,15 +1,20 @@
 import {render, screen, waitFor} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import {renderToString} from "react-dom/server";
 import {ThemeToggle} from "@/components/dashboard/theme-toggle";
 
 describe("ThemeToggle", () => {
+  it("renders the same deterministic control before browser preferences are read", () => {
+    expect(renderToString(<ThemeToggle/>)).toContain("Use dark theme");
+  });
+
   it("persists theme changes and updates the root class", async () => {
     const user = userEvent.setup();
 
     render(<ThemeToggle/>);
 
     const button = screen.getByRole("button", {name: "Use dark theme"});
-    await waitFor(() => expect(window.localStorage.getItem("dashboard-theme")).toBe("light"));
+    expect(window.localStorage.getItem("dashboard-theme")).toBeNull();
 
     await user.click(button);
 
