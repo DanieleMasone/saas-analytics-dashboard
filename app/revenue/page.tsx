@@ -1,6 +1,5 @@
-import {RevenuePageClient} from "@/components/dashboard/revenue-page-client";
+import {RevenuePageClient} from "@/components/dashboard/revenue-page-client/revenue-page-client";
 
 export default function RevenuePage() {
   return <RevenuePageClient/>;
 }
-

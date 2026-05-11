@@ -1,5 +1,5 @@
 import type {NextRequest} from "next/server";
-import {getCustomers, simulateLatency} from "@/lib/mock-data";
+import {getCustomers, simulateLatency} from "@/lib/mock-data/mock-data";
 import {customerPlans, customerStatuses} from "@/types/dashboard";
 import type {CustomerPlan, CustomerStatus} from "@/types/dashboard";
 

@@ -10,8 +10,8 @@ function normalizeBasePath(value?: string) {
 }
 
 const basePath = isGithubPages
-  ? normalizeBasePath(process.env.NEXT_PUBLIC_BASE_PATH || repositoryName || githubPagesBasePath)
-  : "";
+    ? normalizeBasePath(process.env.NEXT_PUBLIC_BASE_PATH || repositoryName || githubPagesBasePath)
+    : "";
 
 const nextConfig: NextConfig = {
   assetPrefix: basePath ? `${basePath}/` : undefined,

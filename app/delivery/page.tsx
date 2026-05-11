@@ -1,6 +1,5 @@
-import {DeliveryPageClient} from "@/components/dashboard/delivery-page-client";
+import {DeliveryPageClient} from "@/components/dashboard/delivery-page-client/delivery-page-client";
 
 export default function DeliveryPage() {
   return <DeliveryPageClient/>;
 }
-

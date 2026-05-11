@@ -4,11 +4,14 @@ import {afterEach, beforeEach, vi} from "vitest";
 import {cleanup} from "@testing-library/react";
 
 class ResizeObserverMock {
-  observe() {}
+  observe() {
+  }
 
-  unobserve() {}
+  unobserve() {
+  }
 
-  disconnect() {}
+  disconnect() {
+  }
 }
 
 beforeEach(() => {
