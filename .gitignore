@@ -12,7 +12,7 @@
 
 # testing and generated reports
 /coverage/
-/docs/reference/
+/docs/
 
 # next.js
 /.next/
