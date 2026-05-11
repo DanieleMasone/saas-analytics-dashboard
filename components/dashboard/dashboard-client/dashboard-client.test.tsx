@@ -10,20 +10,20 @@ import type {
   RevenuePoint,
 } from "@/types/dashboard";
 
-vi.mock("@/lib/api", () => ({
+vi.mock("@/lib/api/api", () => ({
   fetchCustomers: vi.fn(),
   fetchDelivery: vi.fn(),
   fetchMetrics: vi.fn(),
   fetchRevenue: vi.fn(),
 }));
 
-vi.mock("@/components/dashboard/kpi-card", () => ({
+vi.mock("@/components/dashboard/kpi-card/kpi-card", () => ({
   KpiCard: ({metric}: { metric: Metric }) => (
       <article data-testid="kpi-card">{metric.label}</article>
   ),
 }));
 
-vi.mock("@/components/dashboard/revenue-chart", () => ({
+vi.mock("@/components/dashboard/revenue-chart/revenue-chart", () => ({
   RevenueChart: ({
                    data,
                    isError,
@@ -42,7 +42,7 @@ vi.mock("@/components/dashboard/revenue-chart", () => ({
   ),
 }));
 
-vi.mock("@/components/dashboard/ops-summary", () => ({
+vi.mock("@/components/dashboard/ops-summary/ops-summary", () => ({
   OpsSummary: ({
                  customers,
                  isLoading,
@@ -58,7 +58,7 @@ vi.mock("@/components/dashboard/ops-summary", () => ({
   ),
 }));
 
-vi.mock("@/components/dashboard/theme-toggle", () => ({
+vi.mock("@/components/dashboard/theme-toggle/theme-toggle", () => ({
   ThemeToggle: () => <button aria-label="Use dark theme" type="button"/>,
 }));
 

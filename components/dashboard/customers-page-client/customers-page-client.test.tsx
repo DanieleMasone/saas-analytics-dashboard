@@ -6,11 +6,11 @@ import {fetchCustomers} from "@/lib/api/api";
 import {getCustomers} from "@/lib/mock-data/mock-data";
 import type {CustomerFilters, CustomersResponse} from "@/types/dashboard";
 
-vi.mock("@/lib/api", () => ({
+vi.mock("@/lib/api/api", () => ({
   fetchCustomers: vi.fn(),
 }));
 
-vi.mock("@/components/dashboard/customer-table", () => ({
+vi.mock("@/components/dashboard/customer-table/customer-table", () => ({
   CustomerTable: ({
                     data,
                     filters,

@@ -6,11 +6,11 @@ import {fetchDelivery} from "@/lib/api/api";
 import {jiraDelivery} from "@/lib/mock-data/mock-data";
 import type {JiraDeliveryResponse} from "@/types/dashboard";
 
-vi.mock("@/lib/api", () => ({
+vi.mock("@/lib/api/api", () => ({
   fetchDelivery: vi.fn(),
 }));
 
-vi.mock("@/components/dashboard/delivery-insights", () => ({
+vi.mock("@/components/dashboard/delivery-insights/delivery-insights", () => ({
   DeliveryInsights: ({
                        data,
                        isError,

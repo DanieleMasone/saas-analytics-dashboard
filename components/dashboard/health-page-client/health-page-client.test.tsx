@@ -5,7 +5,7 @@ import {HealthPageClient} from "@/components/dashboard/health-page-client/health
 import {fetchCustomers} from "@/lib/api/api";
 import {getCustomers} from "@/lib/mock-data/mock-data";
 
-vi.mock("@/lib/api", () => ({
+vi.mock("@/lib/api/api", () => ({
   fetchCustomers: vi.fn(),
 }));
 

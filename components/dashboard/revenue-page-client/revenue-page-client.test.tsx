@@ -6,11 +6,11 @@ import {fetchRevenue} from "@/lib/api/api";
 import {revenue} from "@/lib/mock-data/mock-data";
 import type {RevenuePoint} from "@/types/dashboard";
 
-vi.mock("@/lib/api", () => ({
+vi.mock("@/lib/api/api", () => ({
   fetchRevenue: vi.fn(),
 }));
 
-vi.mock("@/components/dashboard/revenue-chart", () => ({
+vi.mock("@/components/dashboard/revenue-chart/revenue-chart", () => ({
   RevenueChart: ({
                    data,
                    isError,

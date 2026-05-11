@@ -5,23 +5,23 @@ import HealthPage from "@/app/health/page";
 import RevenuePage from "@/app/revenue/page";
 import SettingsPage from "@/app/settings/page";
 
-vi.mock("@/components/dashboard/revenue-page-client", () => ({
+vi.mock("@/components/dashboard/revenue-page-client/revenue-page-client", () => ({
   RevenuePageClient: () => <div data-testid="revenue-page-client">Revenue client</div>,
 }));
 
-vi.mock("@/components/dashboard/customers-page-client", () => ({
+vi.mock("@/components/dashboard/customers-page-client/customers-page-client", () => ({
   CustomersPageClient: () => <div data-testid="customers-page-client">Customers client</div>,
 }));
 
-vi.mock("@/components/dashboard/delivery-page-client", () => ({
+vi.mock("@/components/dashboard/delivery-page-client/delivery-page-client", () => ({
   DeliveryPageClient: () => <div data-testid="delivery-page-client">Delivery client</div>,
 }));
 
-vi.mock("@/components/dashboard/health-page-client", () => ({
+vi.mock("@/components/dashboard/health-page-client/health-page-client", () => ({
   HealthPageClient: () => <div data-testid="health-page-client">Health client</div>,
 }));
 
-vi.mock("@/components/dashboard/settings-page-client", () => ({
+vi.mock("@/components/dashboard/settings-page-client/settings-page-client", () => ({
   SettingsPageClient: () => <div data-testid="settings-page-client">Settings client</div>,
 }));
 
