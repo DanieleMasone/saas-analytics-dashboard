@@ -1,5 +1,6 @@
 import {jiraDelivery, simulateLatency} from "@/lib/mock-data/mock-data";
 
+/** Keep the mock delivery endpoint exportable in GitHub Pages builds. */
 export const dynamic = "force-static";
 
 /** Return Jira-like delivery KPI data with demo latency. */

@@ -3,6 +3,7 @@ import {getCustomers, simulateLatency} from "@/lib/mock-data/mock-data";
 import {customerPlans, customerStatuses} from "@/types/dashboard";
 import type {CustomerPlan, CustomerStatus} from "@/types/dashboard";
 
+/** Keep the mock customer endpoint exportable in GitHub Pages builds. */
 export const dynamic = "force-static";
 
 // Keep query parsing defensive so malformed URLs still return a valid dashboard state.

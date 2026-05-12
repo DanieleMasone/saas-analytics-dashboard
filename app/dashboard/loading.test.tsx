@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import Loading from "@/app/dashboard/loading/loading";
+import Loading from "@/app/dashboard/loading";
 
 describe("dashboard loading route", () => {
   it("renders the full route skeleton", () => {

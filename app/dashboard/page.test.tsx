@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import DashboardPage from "@/app/dashboard/page/page";
+import DashboardPage from "@/app/dashboard/page";
 
 vi.mock("@/components/dashboard/dashboard-client/dashboard-client", () => ({
   DashboardClient: () => <div data-testid="dashboard-client">Dashboard client shell</div>,

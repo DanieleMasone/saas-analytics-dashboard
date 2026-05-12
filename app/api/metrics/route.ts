@@ -1,5 +1,6 @@
 import {metrics, simulateLatency} from "@/lib/mock-data/mock-data";
 
+/** Keep the mock KPI endpoint exportable in GitHub Pages builds. */
 export const dynamic = "force-static";
 
 /** Return SaaS KPI data with demo latency. */

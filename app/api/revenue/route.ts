@@ -1,5 +1,6 @@
 import {revenue, simulateLatency} from "@/lib/mock-data/mock-data";
 
+/** Keep the mock revenue endpoint exportable in GitHub Pages builds. */
 export const dynamic = "force-static";
 
 /** Return monthly revenue data with demo latency. */

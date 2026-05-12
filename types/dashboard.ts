@@ -4,12 +4,25 @@ export const customerStatuses = ["active", "trial", "past_due", "churned"] as co
 /** Supported commercial plans for customer segmentation. */
 export const customerPlans = ["starter", "pro", "scale", "enterprise"] as const;
 
+/** Union derived from the supported customer lifecycle states. */
 export type CustomerStatus = (typeof customerStatuses)[number];
+
+/** Union derived from the supported commercial plan names. */
 export type CustomerPlan = (typeof customerPlans)[number];
+
+/** Presentation formats supported by KPI cards. */
 export type MetricFormat = "currency" | "number" | "percentage";
+
+/** Direction values used to render KPI trend movement. */
 export type TrendDirection = "up" | "down" | "neutral";
+
+/** Jira-style priority levels used by delivery risk cards. */
 export type JiraIssuePriority = "low" | "medium" | "high" | "critical";
+
+/** Jira-style workflow statuses used by delivery risk cards. */
 export type JiraIssueStatus = "todo" | "in_progress" | "blocked" | "review" | "done";
+
+/** Jira-style issue categories used by the delivery sample data. */
 export type JiraIssueType = "story" | "bug" | "task" | "risk";
 
 /** KPI card contract used by the executive dashboard overview. */

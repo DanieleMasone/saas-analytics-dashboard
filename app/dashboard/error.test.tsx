@@ -1,6 +1,6 @@
 import {render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import DashboardError from "@/app/dashboard/error/error";
+import DashboardError from "@/app/dashboard/error";
 
 describe("DashboardError", () => {
   it("shows the provided error and retries through Next.js unstable_retry", async () => {

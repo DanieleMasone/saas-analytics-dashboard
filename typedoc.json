@@ -24,7 +24,6 @@
     "components/dashboard/revenue-chart/revenue-chart.tsx",
     "components/dashboard/ops-summary/ops-summary.tsx",
     "components/dashboard/kpi-card/kpi-card.tsx",
-    "components/dashboard/kpi-card/kpi-card.tsx",
     "components/dashboard/dashboard-loading/dashboard-loading.tsx",
     "app/api/customers/route.ts",
     "app/api/delivery/route.ts",
