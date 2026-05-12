@@ -135,3 +135,9 @@ Generated reports are intentionally ignored by Git and published as CI artifacts
 coverage/
 docs/reference/
 ```
+
+## License
+
+Released under the MIT License. See [LICENSE](LICENSE).
+
+Copyright (c) 2026 Daniele Masone.
