@@ -40,7 +40,7 @@ The dashboard is organized as focused workspaces instead of a single overloaded 
 | `/customers` | Searchable customer table with filters, pagination, health, usage, and retry states. |
 | `/delivery` | Jira-like sprint predictability, cycle time, blockers, scope change, and risk queue. |
 | `/health` | Customer health distribution, low-usage accounts, and follow-up prioritization. |
-| `/settings` | Workspace preferences, data-source notes, and static deployment context. |
+| `/settings` | Alert subscriptions, operating guardrails, alert preview, data-source notes, and static deployment context. |
 
 ## Architecture
 

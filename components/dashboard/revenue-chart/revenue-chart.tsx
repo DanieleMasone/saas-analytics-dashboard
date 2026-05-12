@@ -152,13 +152,13 @@ export function RevenueChart({data, isError, isLoading, onRetry}: RevenueChartPr
         <div
             aria-describedby="revenue-chart-description"
             aria-label="Revenue composition chart"
-            className="mt-6 h-85 min-w-0"
+            className="mt-6 min-h-80 min-w-0 overflow-hidden"
             role="img"
         >
           <p className="sr-only" id="revenue-chart-description">{chartSummary}</p>
-          {/* ResponsiveContainer needs a stable parent height to avoid a blank chart. */}
-          <div aria-hidden="true" className="h-full w-full">
-            <ResponsiveContainer height="100%" width="100%">
+          {/* Recharts needs a numeric height and minWidth in grid/flex layouts to avoid negative measurements. */}
+          <div aria-hidden="true" className="min-h-80 w-full min-w-0">
+            <ResponsiveContainer height={320} minWidth={0} width="100%">
               <ComposedChart data={data} margin={{bottom: 8, left: 0, right: 6, top: 10}}>
                 <defs>
                   <linearGradient id="revenue-fill" x1="0" x2="0" y1="0" y2="1">

@@ -6,6 +6,21 @@ import {revenue} from "@/lib/mock-data/mock-data";
 
 vi.mock("recharts", () => {
   const Passthrough = ({children}: { children?: ReactNode }) => <div>{children}</div>;
+  const MockResponsiveContainer = ({
+                                     children,
+                                     height,
+                                     minWidth,
+                                     width,
+                                   }: {
+    children?: ReactNode;
+    height?: number | string;
+    minWidth?: number;
+    width?: number | string;
+  }) => (
+      <div data-height={height} data-min-width={minWidth} data-testid="responsive-container" data-width={width}>
+        {children}
+      </div>
+  );
   const Marker = ({name}: { name?: string }) => <div data-testid="chart-marker">{name}</div>;
   const AxisMarker = ({tickFormatter}: { tickFormatter?: (value: number) => string }) => (
       <div data-testid="axis-marker">{tickFormatter?.(286400)}</div>
@@ -28,7 +43,7 @@ vi.mock("recharts", () => {
     CartesianGrid: Marker,
     ComposedChart: Passthrough,
     Legend: Marker,
-    ResponsiveContainer: Passthrough,
+    ResponsiveContainer: MockResponsiveContainer,
     Tooltip: MockTooltip,
     XAxis: Marker,
     YAxis: AxisMarker,
@@ -63,6 +78,9 @@ describe("RevenueChart", () => {
     expect(screen.getByText("286.4K")).toBeInTheDocument();
     expect(screen.getByText("Apr")).toBeInTheDocument();
     expect(screen.getByText("$286.4K")).toBeInTheDocument();
+    expect(screen.getByTestId("responsive-container")).toHaveAttribute("data-height", "320");
+    expect(screen.getByTestId("responsive-container")).toHaveAttribute("data-min-width", "0");
+    expect(screen.getByTestId("responsive-container")).toHaveAttribute("data-width", "100%");
   });
 
   it("renders a recoverable error state", async () => {
