@@ -5,12 +5,28 @@ import {useEffect, useSyncExternalStore} from "react";
 import {Button} from "@/components/ui/button/button";
 
 type Theme = "light" | "dark";
+const themeDatasetKey = "dashboardTheme";
 const themeStorageKey = "dashboard-theme";
 const themeChangeEvent = "dashboard-theme-change";
 
-function getStoredTheme(): Theme {
+function isTheme(value: string | undefined | null): value is Theme {
+  return value === "light" || value === "dark";
+}
+
+function getDomTheme(): Theme | null {
+  const datasetTheme = document.documentElement.dataset[themeDatasetKey];
+  if (isTheme(datasetTheme)) return datasetTheme;
+  if (document.documentElement.classList.contains("dark")) return "dark";
+
+  return null;
+}
+
+function getBrowserTheme(): Theme {
+  const domTheme = getDomTheme();
+  if (domTheme) return domTheme;
+
   const stored = window.localStorage.getItem(themeStorageKey);
-  if (stored === "light" || stored === "dark") return stored;
+  if (isTheme(stored)) return stored;
 
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
@@ -33,19 +49,24 @@ function subscribeToThemeChanges(onStoreChange: () => void) {
   };
 }
 
-function persistTheme(theme: Theme) {
+function applyTheme(theme: Theme) {
   document.documentElement.classList.toggle("dark", theme === "dark");
+  document.documentElement.dataset[themeDatasetKey] = theme;
+}
+
+function persistTheme(theme: Theme) {
+  applyTheme(theme);
   window.localStorage.setItem(themeStorageKey, theme);
   window.dispatchEvent(new Event(themeChangeEvent));
 }
 
 /** Persisted light/dark theme toggle used in the dashboard header. */
 export function ThemeToggle() {
-  const theme = useSyncExternalStore(subscribeToThemeChanges, getStoredTheme, getServerTheme);
+  const theme = useSyncExternalStore(subscribeToThemeChanges, getBrowserTheme, getServerTheme);
 
   // The layout script handles first paint; this keeps later browser changes in sync.
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
+    applyTheme(theme);
   }, [theme]);
 
   const isDark = theme === "dark";

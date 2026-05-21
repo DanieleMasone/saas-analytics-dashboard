@@ -25,9 +25,9 @@ const variants: Record<ButtonVariant, string> = {
 };
 
 const sizes: Record<ButtonSize, string> = {
-    icon: "h-9 w-9 p-0",
-    md: "h-10 px-3",
-    sm: "h-8 px-2.5 text-sm",
+  icon: "h-10 w-10 p-0",
+  md: "h-10 px-3",
+  sm: "h-8 px-2.5 text-sm",
 };
 
 /** Small design-system button primitive shared by dashboard actions. */

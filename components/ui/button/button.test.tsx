@@ -22,6 +22,6 @@ describe("Button", () => {
     );
 
     const button = screen.getByRole("button", {name: "Icon action"});
-    expect(button).toHaveClass("h-9", "w-9", "bg-cyan-700", "custom-class");
+    expect(button).toHaveClass("h-10", "w-10", "bg-cyan-700", "custom-class");
   });
 });

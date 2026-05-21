@@ -180,7 +180,7 @@ function buildAlertPreview(
 export function SettingsPageClient() {
   const [preferences, setPreferences] = useState<Record<PreferenceKey, boolean>>(defaultPreferences);
   const [guardrails, setGuardrails] = useState<Record<GuardrailKey, number>>(defaultGuardrails);
-  const dataMode = process.env.NEXT_PUBLIC_DATA_MODE === "static" ? "Static demo" : "Mock API";
+  const dataMode = process.env.NEXT_PUBLIC_DATA_MODE === "static" ? "Demo data" : "Workspace data";
   const alertPreview = useMemo(
       () => buildAlertPreview(preferences, guardrails),
       [guardrails, preferences],
@@ -245,7 +245,7 @@ export function SettingsPageClient() {
             </h2>
           </div>
           <p className={cn("mt-1", uiStyles.subtleText)}>
-            Tune thresholds used by the alert preview without changing the mock data model.
+            Tune thresholds used by the manager alert preview.
           </p>
 
           <div className="mt-5 grid gap-3 lg:grid-cols-3">
@@ -284,7 +284,7 @@ export function SettingsPageClient() {
             <div>
               <h2 className={uiStyles.sectionHeading} id="data-sources-title">Data sources</h2>
               <p className={cn("mt-1", uiStyles.subtleText)}>
-                Revenue, customer, and Jira-style delivery samples available to the workspace.
+                Revenue, customer, and delivery signals available to the workspace.
               </p>
             </div>
             <Badge tone="cyan">{dataMode}</Badge>
@@ -295,7 +295,7 @@ export function SettingsPageClient() {
               <Database aria-hidden="true" className="text-cyan-700 dark:text-cyan-300" size={18}/>
               <h3 className="mt-3 text-sm font-semibold text-slate-950 dark:text-white">SaaS metrics</h3>
               <p className={cn("mt-2", uiStyles.bodyText)}>
-                Revenue, customer, and operating KPI feeds are ready for local and static demos.
+                Revenue, customer, and operating KPI feeds are available for manager review.
               </p>
               <Badge className="mt-3" tone="emerald">Ready</Badge>
             </li>
@@ -309,9 +309,9 @@ export function SettingsPageClient() {
             </li>
             <li className={cn("p-4", uiStyles.insetSurface)}>
               <LockKeyhole aria-hidden="true" className="text-slate-700 dark:text-slate-200" size={18}/>
-              <h3 className="mt-3 text-sm font-semibold text-slate-950 dark:text-white">Publishing</h3>
+              <h3 className="mt-3 text-sm font-semibold text-slate-950 dark:text-white">Report pack</h3>
               <p className={cn("mt-2", uiStyles.bodyText)}>
-                The workspace is prepared for GitHub Pages static publishing and reference reports.
+                Dashboard, reference, and coverage reports are bundled for review.
               </p>
               <Badge className="mt-3" tone="slate">Configured</Badge>
             </li>

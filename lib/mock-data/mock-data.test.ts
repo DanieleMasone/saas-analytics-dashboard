@@ -1,4 +1,4 @@
-import {getCustomers, getJiraDelivery, simulateLatency} from "@/lib/mock-data/mock-data";
+import {getCustomers, jiraDelivery, simulateLatency} from "@/lib/mock-data/mock-data";
 
 describe("mock dashboard data", () => {
   it("filters customers by search text, status, and plan", () => {
@@ -54,7 +54,7 @@ describe("mock dashboard data", () => {
   });
 
   it("returns Jira-like delivery data for manager execution analysis", () => {
-    const response = getJiraDelivery();
+    const response = jiraDelivery;
 
     expect(response.summary.completionRate).toBeGreaterThan(0);
     expect(response.trends.at(-1)?.week).toBe("Current");

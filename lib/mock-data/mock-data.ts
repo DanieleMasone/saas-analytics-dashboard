@@ -423,7 +423,6 @@ const latencyByEndpoint = {
   revenue: 520,
 };
 
-// Artificial latency keeps loading and refresh states visible during portfolio demos.
 /** Delay mock Route Handler responses to exercise loading and refresh states. */
 export function simulateLatency(endpoint: keyof typeof latencyByEndpoint) {
   return new Promise((resolve) => {
@@ -479,9 +478,4 @@ export function getCustomers(filters: CustomerFilters): CustomersResponse {
       trial: filtered.filter((customer) => customer.status === "trial").length,
     },
   };
-}
-
-/** Return Jira-like delivery KPI data for manager-facing delivery analysis. */
-export function getJiraDelivery(): JiraDeliveryResponse {
-  return jiraDelivery;
 }

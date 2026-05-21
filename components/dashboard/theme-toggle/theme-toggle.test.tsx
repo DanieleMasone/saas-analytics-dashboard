@@ -31,4 +31,13 @@ describe("ThemeToggle", () => {
     await waitFor(() => expect(document.documentElement).toHaveClass("dark"));
     expect(screen.getByRole("button", {name: "Use light theme"})).toBeInTheDocument();
   });
+
+  it("uses the pre-hydration DOM theme as the initial action source", () => {
+    document.documentElement.classList.add("dark");
+    document.documentElement.dataset.dashboardTheme = "dark";
+
+    render(<ThemeToggle/>);
+
+    expect(screen.getByRole("button", {name: "Use light theme"})).toBeInTheDocument();
+  });
 });

@@ -15,9 +15,12 @@ const themeScript = `
     const stored = localStorage.getItem("dashboard-theme");
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const shouldUseDark = stored ? stored === "dark" : prefersDark;
+    const theme = shouldUseDark ? "dark" : "light";
     document.documentElement.classList.toggle("dark", shouldUseDark);
+    document.documentElement.dataset.dashboardTheme = theme;
   } catch {
     document.documentElement.classList.remove("dark");
+    document.documentElement.dataset.dashboardTheme = "light";
   }
 })();
 `;

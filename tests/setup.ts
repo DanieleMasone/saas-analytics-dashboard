@@ -35,6 +35,7 @@ beforeEach(() => {
 afterEach(() => {
   cleanup();
   document.documentElement.className = "";
+  delete document.documentElement.dataset.dashboardTheme;
   window.localStorage.clear();
   vi.useRealTimers();
   vi.unstubAllGlobals();
