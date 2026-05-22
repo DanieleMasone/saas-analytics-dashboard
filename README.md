@@ -74,12 +74,14 @@ Key implementation choices:
 | Quality | ESLint, TypeScript, Vitest, Testing Library, V8 coverage |
 | Docs and deploy | TypeDoc, GitHub Actions, GitHub Pages |
 
+Exact dependency and runtime versions are declared in `package.json` and `package-lock.json`. The badges above should be updated whenever those versions are intentionally changed.
+
 ## Run Locally
 
 Requirements:
 
-- Node.js 24.10.0 or newer
-- npm 10 or newer
+- Node.js version declared in `package.json` `engines` (currently `>=24.10.0`)
+- npm version declared in `package.json` `engines` (currently `>=10`)
 
 ```bash
 npm install
@@ -97,6 +99,8 @@ npm run test
 npm run test:coverage
 npm run docs
 npm run docs:check
+npm run build
+npm run build:pages
 npm run quality
 ```
 
