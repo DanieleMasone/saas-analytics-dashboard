@@ -110,10 +110,10 @@ export function DeliveryInsights({
   return (
       <section
           aria-labelledby="delivery-title"
-          className={cn("p-5", uiStyles.surface)}
+          className={cn("min-w-0 p-4 sm:p-5", uiStyles.surface)}
       >
         <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
-          <div>
+          <div className="min-w-0">
             <div className="flex items-center gap-2">
               <ListChecks aria-hidden="true" className="text-cyan-700 dark:text-cyan-300" size={18}/>
               <h2 className={uiStyles.sectionHeading} id="delivery-title">
@@ -132,7 +132,7 @@ export function DeliveryInsights({
           </div>
         </div>
 
-        <dl aria-label="Jira delivery KPI cards" className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        <dl aria-label="Jira delivery KPI cards" className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           <div className={cn("p-3", uiStyles.insetSurface)}>
             <dt className={cn("flex items-center gap-2", uiStyles.subtleText)}>
               <GitPullRequest aria-hidden="true" size={16}/>
@@ -205,10 +205,10 @@ export function DeliveryInsights({
           </div>
         </dl>
 
-        <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
-          <div className={cn("p-4", uiStyles.insetSurface)}>
-            <div className="flex items-start justify-between gap-3">
-              <div>
+        <div className="mt-5 grid min-w-0 gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
+          <div className={cn("min-w-0 p-4", uiStyles.insetSurface)}>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div className="min-w-0">
                 <h3 className="text-sm font-semibold text-slate-950 dark:text-white">
                   Delivery trend
                 </h3>
@@ -221,7 +221,46 @@ export function DeliveryInsights({
               </Badge>
             </div>
 
-            <div className="mt-4 overflow-x-auto">
+            <ul aria-label="Jira weekly delivery trend" className="mt-4 grid gap-3 sm:hidden">
+              {trends.map((point) => (
+                  <li className={cn("p-3", uiStyles.insetSurface)} key={point.week}>
+                    <div className="flex items-center justify-between gap-3">
+                      <h4 className="text-sm font-semibold text-slate-950 dark:text-white">{point.week}</h4>
+                      <Badge tone={point.blockers > 1 ? "amber" : "emerald"}>
+                        {formatNumber(point.blockers)} blockers
+                      </Badge>
+                    </div>
+                    <dl className="mt-3 grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <dt className={uiStyles.subtleText}>Committed</dt>
+                        <dd className="mt-1 font-medium text-slate-950 dark:text-white">
+                          {formatNumber(point.committed)}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className={uiStyles.subtleText}>Completed</dt>
+                        <dd className="mt-1 font-medium text-slate-950 dark:text-white">
+                          {formatNumber(point.completed)}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className={uiStyles.subtleText}>Created</dt>
+                        <dd className="mt-1 font-medium text-slate-950 dark:text-white">
+                          {formatNumber(point.created)}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className={uiStyles.subtleText}>Resolved</dt>
+                        <dd className="mt-1 font-medium text-slate-950 dark:text-white">
+                          {formatNumber(point.resolved)}
+                        </dd>
+                      </div>
+                    </dl>
+                  </li>
+              ))}
+            </ul>
+
+            <div className="mt-4 hidden overflow-x-auto sm:block">
               <table className="w-full min-w-150 text-left text-sm">
                 <caption className="sr-only">
                   Jira weekly delivery trend with committed, completed, created, resolved, and blocker
@@ -263,27 +302,27 @@ export function DeliveryInsights({
 
           <aside
               aria-labelledby="delivery-manager-title"
-              className={cn("p-4", uiStyles.insetSurface)}
+              className={cn("min-w-0 p-4", uiStyles.insetSurface)}
           >
             <h3 className="text-sm font-semibold text-slate-950 dark:text-white" id="delivery-manager-title">
               Manager readout
             </h3>
             <dl className="mt-4 space-y-3">
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
                 <dt className={uiStyles.subtleText}>Sprint</dt>
                 <dd className="text-sm font-medium text-slate-950 dark:text-white">{summary.sprintName}</dd>
               </div>
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
                 <dt className={uiStyles.subtleText}>Release date</dt>
                 <dd className="text-sm font-medium text-slate-950 dark:text-white">{formatDate(summary.dueDate)}</dd>
               </div>
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
                 <dt className={uiStyles.subtleText}>Current throughput</dt>
                 <dd className="text-sm font-medium text-slate-950 dark:text-white">
                   {formatNumber(currentTrend?.resolved ?? 0)} resolved
                 </dd>
               </div>
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
                 <dt className={uiStyles.subtleText}>New intake</dt>
                 <dd className="text-sm font-medium text-slate-950 dark:text-white">
                   {formatNumber(currentTrend?.created ?? 0)} created
@@ -297,13 +336,13 @@ export function DeliveryInsights({
           <h3 className="text-sm font-semibold text-slate-950 dark:text-white">
             Jira risk queue
           </h3>
-          <ul className="mt-3 grid gap-3 lg:grid-cols-3">
+          <ul aria-label="Jira risk queue" className="mt-3 grid min-w-0 gap-3 lg:grid-cols-3">
             {risks.map((issue) => (
                 <li
-                    className={cn("p-3", uiStyles.insetSurface)}
+                    className={cn("min-w-0 p-3", uiStyles.insetSurface)}
                     key={issue.key}
                 >
-                  <article aria-labelledby={`${issue.key}-title`}>
+                  <article aria-labelledby={`${issue.key}-title`} className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
                       <Badge tone={priorityTone[issue.priority]}>{issue.priority}</Badge>
                       <Badge tone={issue.status === "blocked" ? "rose" : "slate"}>
@@ -313,11 +352,11 @@ export function DeliveryInsights({
                         {issue.key}
                       </span>
                     </div>
-                    <h4 className="mt-3 text-sm font-semibold text-slate-950 dark:text-white"
+                    <h4 className="mt-3 break-words text-sm font-semibold text-slate-950 dark:text-white"
                         id={`${issue.key}-title`}>
                       {issue.title}
                     </h4>
-                    <p className="mt-2 text-sm leading-5 text-slate-600 dark:text-slate-300">
+                    <p className="mt-2 break-words text-sm leading-5 text-slate-600 dark:text-slate-300">
                       {issue.managerSignal}
                     </p>
                     <dl className="mt-3 grid grid-cols-2 gap-2 text-xs">

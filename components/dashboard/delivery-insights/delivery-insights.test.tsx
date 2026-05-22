@@ -1,4 +1,4 @@
-import {render, screen} from "@testing-library/react";
+import {render, screen, within} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {DeliveryInsights} from "@/components/dashboard/delivery-insights/delivery-insights";
 import {jiraDelivery} from "@/lib/mock-data/mock-data";
@@ -38,8 +38,11 @@ describe("DeliveryInsights", () => {
     );
     expect(screen.getByText("SAD-142")).toBeInTheDocument();
     expect(screen.getByText("Jira weekly delivery trend with committed, completed, created, resolved, and blocker counts.")).toBeInTheDocument();
+    expect(within(screen.getByRole("list", {name: "Jira weekly delivery trend"})).getAllByRole("listitem")).toHaveLength(
+        jiraDelivery.trends.length,
+    );
     expect(screen.getByRole("complementary", {name: "Manager readout"})).toBeInTheDocument();
-    expect(screen.getAllByRole("listitem")).toHaveLength(3);
+    expect(within(screen.getByRole("list", {name: "Jira risk queue"})).getAllByRole("listitem")).toHaveLength(3);
   });
 
   it("keeps a recoverable error state", async () => {
