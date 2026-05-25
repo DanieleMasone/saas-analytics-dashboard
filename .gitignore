@@ -13,6 +13,8 @@
 # testing and generated reports
 /coverage/
 /docs/
+/playwright-report/
+/test-results/
 
 # next.js
 /.next/

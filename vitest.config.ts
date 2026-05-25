@@ -30,6 +30,7 @@ export default defineConfig({
     css: false,
     environment: "jsdom",
     globals: true,
+    include: ["app/**/*.test.{ts,tsx}", "components/**/*.test.{ts,tsx}", "lib/**/*.test.ts", "providers/**/*.test.tsx"],
     maxWorkers: 1,
     pool: "threads",
     setupFiles: ["./tests/setup.ts"],

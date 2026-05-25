@@ -20,6 +20,7 @@ Pay attention to deprecations and conventions for the installed Next.js version.
   - `npm run lint`
   - `npm run test`
   - `npm run test:coverage`
+  - `npm run test:e2e`
   - `npm run build`
   - `npm run build:pages`
   - `npm run docs`
@@ -37,8 +38,17 @@ Pay attention to deprecations and conventions for the installed Next.js version.
 - Keep the GitHub Pages static data mode working with `NEXT_PUBLIC_DATA_MODE=static`.
 - Use TanStack Query for client-side server state and Recharts for dashboard charts.
 - Use Vitest and Testing Library for unit/component coverage.
+- Use Playwright for focused end-to-end coverage of route smoke, navigation, responsive behavior, and critical accessibility regressions.
 - Use TypeDoc for generated JSDoc/TSDoc reference docs.
 - Keep changes focused; avoid unrelated refactors or generated file churn.
+
+## Testing Policy
+
+- Vitest remains responsible for unit and component coverage.
+- Playwright should stay pragmatic: cover public route smoke, real navigation, mobile usability, document-level overflow, key accessible names, keyboard reachability, and critical regressions such as theme persistence.
+- Do not duplicate Vitest implementation-detail assertions in Playwright.
+- Do not add broad visual regression tooling unless there is a clear product need.
+- Keep Playwright browser coverage limited to Desktop Chromium and a Pixel-like Mobile Chromium profile unless a specific browser issue needs coverage.
 
 ## Dependency And Version Policy
 
@@ -49,7 +59,7 @@ Pay attention to deprecations and conventions for the installed Next.js version.
 - Use `npm install <package>@<version>` or `npm install <package>@latest` only after compatibility is checked.
 - Update `package-lock.json` intentionally with dependency changes.
 - If Next.js changes, re-check the relevant guides under `node_modules/next/dist/docs/`, especially App Router, Route Handlers, static export, and config behavior.
-- After dependency changes, run all available quality gates: `npm run typecheck`, `npm run lint`, `npm run test`, `npm run test:coverage`, `npm run docs:check`, `npm run build`, and `npm run build:pages`.
+- After dependency changes, run all available quality gates: `npm run typecheck`, `npm run lint`, `npm run test`, `npm run test:coverage`, `npm run test:e2e`, `npm run docs:check`, `npm run build`, and `npm run build:pages`.
 - Update README badges, requirements, and version claims when dependency or engine versions change.
 
 ## Stability Policy

@@ -22,11 +22,11 @@ function getDomTheme(): Theme | null {
 }
 
 function getBrowserTheme(): Theme {
-  const domTheme = getDomTheme();
-  if (domTheme) return domTheme;
-
   const stored = window.localStorage.getItem(themeStorageKey);
   if (isTheme(stored)) return stored;
+
+  const domTheme = getDomTheme();
+  if (domTheme) return domTheme;
 
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
@@ -66,7 +66,7 @@ export function ThemeToggle() {
 
   // The layout script handles first paint; this keeps later browser changes in sync.
   useEffect(() => {
-    applyTheme(theme);
+    applyTheme(getBrowserTheme());
   }, [theme]);
 
   const isDark = theme === "dark";

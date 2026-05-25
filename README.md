@@ -28,7 +28,7 @@ The goal is not just to show a UI, but to demonstrate how I structure a product-
 - TanStack Query server-state flows with loading, error, retry, refresh, empty, and populated states.
 - Accessible dashboards with semantic landmarks, named regions, keyboard-friendly controls, native meters, chart summaries, and mobile navigation.
 - Component-level UI primitives for buttons, badges, skeletons, meters, and reusable dashboard surfaces.
-- Automated confidence through Vitest, Testing Library, V8 coverage thresholds, TypeScript, ESLint, TypeDoc, and CI.
+- Automated confidence through Vitest, Testing Library, Playwright, V8 coverage thresholds, TypeScript, ESLint, TypeDoc, and CI.
 
 ## Product Scope
 
@@ -71,7 +71,7 @@ Key implementation choices:
 | App | Next.js 16 App Router, React 19, TypeScript |
 | Data | TanStack Query, typed mock data, static data mode |
 | UI | Tailwind CSS 4, Recharts, Lucide React |
-| Quality | ESLint, TypeScript, Vitest, Testing Library, V8 coverage |
+| Quality | ESLint, TypeScript, Vitest, Testing Library, Playwright, V8 coverage |
 | Docs and deploy | TypeDoc, GitHub Actions, GitHub Pages |
 
 Exact dependency and runtime versions are declared in `package.json` and `package-lock.json`. The badges above should be updated whenever those versions are intentionally changed.
@@ -97,6 +97,7 @@ npm run typecheck
 npm run lint
 npm run test
 npm run test:coverage
+npm run test:e2e
 npm run docs
 npm run docs:check
 npm run build
@@ -104,7 +105,11 @@ npm run build:pages
 npm run quality
 ```
 
-`npm run quality` runs typecheck, lint, coverage, and documentation validation. Coverage thresholds are enforced in `vitest.config.ts`:
+`npm run quality` runs typecheck, lint, coverage, and documentation validation. Playwright stays as a separate route smoke and responsive check so it can run explicitly in CI and during release validation.
+
+Playwright runs against a local production build started with `NEXT_PUBLIC_DATA_MODE=static`. That keeps the e2e path stable and close to GitHub Pages data behavior while `npm run build:pages` remains the static export compatibility gate.
+
+Coverage thresholds are enforced in `vitest.config.ts`:
 
 ```txt
 statements: 90%
@@ -115,7 +120,7 @@ lines: 90%
 
 ## GitHub Pages
 
-The workflow runs on pull requests, pushes to `master`, and manual dispatches. On `master`, it builds the app, generates coverage and TypeDoc reports, attaches them to the static artifact, and deploys to GitHub Pages.
+The workflow runs on pull requests, pushes to `master`, and manual dispatches. It installs Chromium for Playwright, runs typecheck, lint, coverage, e2e smoke tests, TypeDoc, and the Pages static build. On `master`, it attaches coverage and TypeDoc reports to the static artifact and deploys to GitHub Pages.
 
 Pages build environment:
 
