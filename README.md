@@ -120,7 +120,7 @@ lines: 90%
 
 ## GitHub Pages
 
-The workflow runs on pull requests, pushes to `master`, and manual dispatches. It installs Chromium for Playwright, runs typecheck, lint, coverage, e2e smoke tests, TypeDoc, and the Pages static build. On `master`, it attaches coverage and TypeDoc reports to the static artifact and deploys to GitHub Pages.
+The workflow runs on pull requests, pushes to `master`, and manual dispatches. It runs typecheck, lint, coverage, a production build for Playwright, e2e smoke tests, TypeDoc, and the Pages static build. On `master`, it attaches coverage and TypeDoc reports to the static artifact and deploys to GitHub Pages.
 
 Pages build environment:
 
@@ -139,7 +139,7 @@ $env:NEXT_PUBLIC_DATA_MODE='static'
 npm run build:pages
 ```
 
-Generated reports are intentionally ignored by Git and published as CI artifacts:
+Generated reports are intentionally ignored by Git and published inside the GitHub Pages artifact:
 
 ```txt
 coverage/

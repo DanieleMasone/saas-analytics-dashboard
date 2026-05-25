@@ -70,3 +70,15 @@ Pay attention to deprecations and conventions for the installed Next.js version.
 - Remove unused files, exports, components, mock data, and API paths only after checking imports and usages.
 - Keep route coverage aligned with the README product scope.
 - Keep TypeDoc, coverage, tests, GitHub Pages, static export, and `NEXT_PUBLIC_DATA_MODE=static` working.
+
+## CI And Pages Policy
+
+- Keep GitHub Actions on official GitHub actions for checkout, Node setup, artifacts, and Pages deployment.
+- Use `package.json` `engines` as the CI Node.js source of truth.
+- Use `npm ci` in CI and keep npm caching tied to `package-lock.json` through `actions/setup-node`.
+- Pull requests should run validation but must not deploy to GitHub Pages.
+- Pushes to `master` and manual dispatches may deploy after all validation succeeds.
+- Keep Pages deployment on the official `configure-pages`, `upload-pages-artifact`, and `deploy-pages` flow.
+- Keep Pages permissions minimal: repository contents read for validation, and `pages: write` plus `id-token: write` only where deployment needs them.
+- Keep coverage and TypeDoc reports copied into the Pages artifact after `npm run build:pages`.
+- Preserve `out/.nojekyll` in the uploaded Pages artifact so Next.js `_next` assets are served correctly.

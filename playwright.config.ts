@@ -3,6 +3,7 @@ import {defineConfig} from "@playwright/test";
 const isCI = Boolean(process.env.CI);
 const externalBaseURL = process.env.PLAYWRIGHT_BASE_URL;
 const baseURL = externalBaseURL ?? "http://localhost:3000";
+const webServerCommand = process.env.PLAYWRIGHT_WEB_SERVER_COMMAND ?? "npm run build && npm run start";
 const inheritedEnv = Object.fromEntries(
   Object.entries(process.env).filter((entry): entry is [string, string] => typeof entry[1] === "string"),
 );
@@ -47,7 +48,7 @@ export default defineConfig({
   webServer: externalBaseURL
       ? undefined
       : {
-        command: "npm run build && npm run start",
+        command: webServerCommand,
         env: {
           ...inheritedEnv,
           NEXT_PUBLIC_DATA_MODE: "static",

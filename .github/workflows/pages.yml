@@ -7,13 +7,8 @@ on:
   pull_request:
   workflow_dispatch:
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 permissions:
   contents: read
-  id-token: write
-  pages: write
 
 concurrency:
   group: pages-${{ github.ref }}
@@ -25,19 +20,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
-          node-version: 24.10.0
+          node-version-file: package.json
           cache: npm
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
 
       - name: Typecheck
         run: npm run typecheck
@@ -48,12 +40,23 @@ jobs:
       - name: Test with coverage
         run: npm run test:coverage
 
+      - name: Build production dashboard for e2e
+        env:
+          NEXT_PUBLIC_DATA_MODE: static
+        run: npm run build
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
       - name: End-to-end smoke tests
+        env:
+          NEXT_PUBLIC_DATA_MODE: static
+          PLAYWRIGHT_WEB_SERVER_COMMAND: npm run start
         run: npm run test:e2e
 
       - name: Upload Playwright report
         if: failure()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           if-no-files-found: ignore
           name: playwright-report
@@ -68,7 +71,7 @@ jobs:
       - name: Build static dashboard for Pages
         env:
           GITHUB_PAGES: "true"
-          NEXT_PUBLIC_BASE_PATH: /saas-analytics-dashboard
+          NEXT_PUBLIC_BASE_PATH: saas-analytics-dashboard
           NEXT_PUBLIC_DATA_MODE: static
         run: npm run build:pages
 
@@ -79,16 +82,25 @@ jobs:
           cp -R docs/reference/. out/reference/
           cp -R coverage/. out/coverage/
 
+      - name: Configure GitHub Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@v6
+
       - name: Upload GitHub Pages artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v5
         with:
+          include-hidden-files: true
           path: out
 
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      pages: write
 
     environment:
       name: github-pages
