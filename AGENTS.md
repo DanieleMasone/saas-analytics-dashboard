@@ -58,6 +58,7 @@ Pay attention to deprecations and conventions for the installed Next.js version.
 - Do not blindly upgrade major versions. Read release notes or migration notes first, then verify the affected framework, library, and tooling behavior.
 - Use `npm install <package>@<version>` or `npm install <package>@latest` only after compatibility is checked.
 - Update `package-lock.json` intentionally with dependency changes.
+- When `package.json` changes dependency, engine, or package-manager behavior, verify whether `package-lock.json` must change and run `npm ci` before finishing. Commit any required lockfile update with the manifest change.
 - If Next.js changes, re-check the relevant guides under `node_modules/next/dist/docs/`, especially App Router, Route Handlers, static export, and config behavior.
 - After dependency changes, run all available quality gates: `npm run typecheck`, `npm run lint`, `npm run test`, `npm run test:coverage`, `npm run test:e2e`, `npm run docs:check`, `npm run build`, and `npm run build:pages`.
 - Update README badges, requirements, and version claims when dependency or engine versions change.
