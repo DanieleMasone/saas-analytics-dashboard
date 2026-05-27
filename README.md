@@ -1,11 +1,9 @@
 # SaaS Analytics Dashboard
 
-[![CI and GitHub Pages](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml/badge.svg?branch=master)](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml)
+[![CI](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml/badge.svg?branch=master)](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml)
+[![Coverage Report](https://img.shields.io/badge/coverage-report-15803d)](https://danielemasone.github.io/saas-analytics-dashboard/coverage/)
+[![Next.js App Router](https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs)](https://nextjs.org/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Coverage](https://img.shields.io/badge/coverage-96%25-15803d)](https://danielemasone.github.io/saas-analytics-dashboard/coverage/)
-[![Next.js](https://img.shields.io/badge/Next.js-16.2.4-black?logo=nextdotjs)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19.2.4-61dafb?logo=react&logoColor=0f172a)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
 A portfolio-grade SaaS management dashboard built with Next.js 16, React 19, TypeScript, TanStack Query, Recharts, Tailwind CSS, typed mock APIs, generated documentation, coverage reporting, and GitHub Pages deployment.
 
