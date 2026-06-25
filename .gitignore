@@ -12,7 +12,7 @@
 
 # testing and generated reports
 /coverage/
-/docs/
+/docs/reference/
 /playwright-report/
 /test-results/
 

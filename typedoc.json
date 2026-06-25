@@ -31,7 +31,7 @@
     "app/api/revenue/route.ts"
   ],
   "out": "docs/reference",
-  "readme": "README.md",
+  "readme": "none",
   "tsconfig": "tsconfig.json",
   "excludeExternals": true,
   "excludePrivate": true,

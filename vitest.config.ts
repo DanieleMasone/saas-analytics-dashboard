@@ -32,7 +32,7 @@ export default defineConfig({
     globals: true,
     include: ["app/**/*.test.{ts,tsx}", "components/**/*.test.{ts,tsx}", "lib/**/*.test.ts", "providers/**/*.test.tsx"],
     maxWorkers: 1,
-    pool: "threads",
+    pool: "forks",
     setupFiles: ["./tests/setup.ts"],
   },
 });

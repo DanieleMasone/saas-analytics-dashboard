@@ -83,3 +83,12 @@ Pay attention to deprecations and conventions for the installed Next.js version.
 - Keep Pages permissions minimal: repository contents read for validation, and `pages: write` plus `id-token: write` only where deployment needs them.
 - Keep coverage and TypeDoc reports copied into the Pages artifact after `npm run build:pages`.
 - Preserve `out/.nojekyll` in the uploaded Pages artifact so Next.js `_next` assets are served correctly.
+
+## Documentation Policy
+
+- Keep `README.md` as the short portfolio entry point with live artifacts, scope, stack, quick start, and documentation links.
+- Use `docs/user-guide.md` for product usage, workspaces, UI states, responsive behavior, and accessibility-oriented UX.
+- Use `docs/architecture.md` for App Router structure, components, data mode, mock APIs, and domain data ownership.
+- Use `docs/quality-and-deployment.md` for local gates, coverage, TypeDoc, GitHub Pages export, and CI deployment flow.
+- Keep TypeDoc focused on API/reference output only.
+- Avoid duplicating large sections across README and deeper docs.

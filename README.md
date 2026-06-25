@@ -5,144 +5,72 @@
 [![Next.js App Router](https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs)](https://nextjs.org/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-A portfolio-grade SaaS management dashboard built with Next.js 16, React 19, TypeScript, TanStack Query, Recharts, Tailwind CSS, typed mock APIs, generated documentation, coverage reporting, and GitHub Pages deployment.
+A portfolio-grade SaaS management dashboard built with Next.js App Router, React, TypeScript, TanStack Query, Recharts, Tailwind CSS, typed mock data, automated tests, generated reference docs, and GitHub Pages deployment.
 
-The goal is not just to show a UI, but to demonstrate how I structure a product-like frontend: typed domain data, route-level states, responsive navigation, accessible data views, automated quality gates, and a static deployment pipeline.
+The project demonstrates how I structure a product-like frontend: focused manager workspaces, accessible data views, route-level states, responsive navigation, typed data contracts, and a CI pipeline that publishes the static dashboard with coverage and API reference reports.
 
 ## Live Artifacts
 
 | Artifact | Link |
 | --- | --- |
 | Live dashboard | [danielemasone.github.io/saas-analytics-dashboard](https://danielemasone.github.io/saas-analytics-dashboard/) |
-| API reference | [TypeDoc reference](https://danielemasone.github.io/saas-analytics-dashboard/reference/) |
+| TypeDoc reference | [Reference report](https://danielemasone.github.io/saas-analytics-dashboard/reference/) |
 | Coverage report | [HTML coverage](https://danielemasone.github.io/saas-analytics-dashboard/coverage/) |
 | CI workflow | [GitHub Actions](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml) |
 
 ## What This Demonstrates
 
-- Product thinking for a SaaS manager dashboard: revenue, customers, delivery, health, and settings workspaces.
-- Next.js 16 App Router route conventions, Route Handlers, static export, and GitHub Pages base-path handling.
-- Typed mock domain data that can power local API routes or static GitHub Pages data mode.
-- TanStack Query server-state flows with loading, error, retry, refresh, empty, and populated states.
-- Accessible dashboards with semantic landmarks, named regions, keyboard-friendly controls, native meters, chart summaries, and mobile navigation.
-- Component-level UI primitives for buttons, badges, skeletons, meters, and reusable dashboard surfaces.
-- Automated confidence through Vitest, Testing Library, Playwright, V8 coverage thresholds, TypeScript, ESLint, TypeDoc, and CI.
+- Product thinking for SaaS management views across revenue, customers, delivery, health, and operating settings.
+- Next.js App Router routing, mock Route Handlers, static export, and GitHub Pages base-path handling.
+- Typed domain data that can run through local API routes or static GitHub Pages data mode.
+- TanStack Query loading, retry, refresh, empty, error, and populated flows.
+- Accessible, responsive dashboard UI with semantic regions, keyboard-friendly controls, chart summaries, and mobile navigation.
+- Automated confidence through TypeScript, ESLint, Vitest, Testing Library, Playwright, V8 coverage, TypeDoc, and GitHub Actions.
 
 ## Product Scope
 
-The dashboard is organized as focused workspaces instead of a single overloaded page:
-
-| Route | Purpose |
+| Route | Workspace |
 | --- | --- |
 | `/` and `/dashboard` | Executive overview with KPI cards, revenue composition, and operating pulse. |
 | `/revenue` | Revenue trend, expansion/churn movement, and commercial summary. |
 | `/customers` | Searchable customer table with filters, pagination, health, usage, and retry states. |
 | `/delivery` | Jira-like sprint predictability, cycle time, blockers, scope change, and risk queue. |
 | `/health` | Customer health distribution, low-usage accounts, and follow-up prioritization. |
-| `/settings` | Alert subscriptions, operating guardrails, alert preview, data-source notes, and report-pack context. |
-
-## Architecture
-
-```txt
-app/                         Next.js App Router routes and mock Route Handlers
-components/dashboard/        Product dashboard views and composed feature panels
-components/ui/               Small shared UI primitives
-lib/api/                     Client data access for API and static modes
-lib/mock-data/               Typed SaaS, customer, revenue, and Jira-like data
-lib/utils/                   Formatting and Tailwind class helpers
-providers/                   TanStack Query provider setup
-types/                       Shared domain contracts
-.github/workflows/           CI, coverage, docs, static export, and Pages deploy
-```
-
-Key implementation choices:
-
-- `NEXT_PUBLIC_DATA_MODE=static` switches the client to local typed data for GitHub Pages.
-- Route Handlers under `app/api/**/route.ts` stay available for local demos and are marked `force-static` for export compatibility.
-- `NEXT_PUBLIC_BASE_PATH=saas-analytics-dashboard` keeps assets, routes, and favicon links correct under GitHub Pages.
-- TypeDoc reads JSDoc/TSDoc comments from the public component, data, API, and type surfaces.
+| `/settings` | Alert subscriptions, operating guardrails, alert preview, and report-pack context. |
 
 ## Tech Stack
 
 | Area | Tools |
 | --- | --- |
-| App | Next.js 16 App Router, React 19, TypeScript |
+| App | Next.js App Router, React, TypeScript |
 | Data | TanStack Query, typed mock data, static data mode |
-| UI | Tailwind CSS 4, Recharts, Lucide React |
+| UI | Tailwind CSS, Recharts, Lucide React |
 | Quality | ESLint, TypeScript, Vitest, Testing Library, Playwright, V8 coverage |
 | Docs and deploy | TypeDoc, GitHub Actions, GitHub Pages |
 
-Exact dependency and runtime versions are declared in `package.json` and `package-lock.json`. The badges above should be updated whenever those versions are intentionally changed.
+Exact dependency and runtime versions are declared in `package.json` and `package-lock.json`.
 
-## Run Locally
+## Quick Start
 
 Requirements:
 
-- Node.js version declared in `package.json` `engines` (currently `>=24.10.0`)
-- npm version declared in `package.json` `engines` (currently `>=10`)
+- Node.js version declared in `package.json` `engines`
+- npm version declared in `package.json` `engines`
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Quality Gates
+## Documentation
 
-```bash
-npm run typecheck
-npm run lint
-npm run test
-npm run test:coverage
-npm run test:e2e
-npm run docs
-npm run docs:check
-npm run build
-npm run build:pages
-npm run quality
-```
-
-`npm run quality` runs typecheck, lint, coverage, and documentation validation. Playwright stays as a separate route smoke and responsive check so it can run explicitly in CI and during release validation.
-
-Playwright runs against a local production build started with `NEXT_PUBLIC_DATA_MODE=static`. That keeps the e2e path stable and close to GitHub Pages data behavior while `npm run build:pages` remains the static export compatibility gate.
-
-Coverage thresholds are enforced in `vitest.config.ts`:
-
-```txt
-statements: 90%
-branches: 75%
-functions: 90%
-lines: 90%
-```
-
-## GitHub Pages
-
-The workflow runs on pull requests, pushes to `master`, and manual dispatches. It runs typecheck, lint, coverage, a production build for Playwright, e2e smoke tests, TypeDoc, and the Pages static build. On `master`, it attaches coverage and TypeDoc reports to the static artifact and deploys to GitHub Pages.
-
-Pages build environment:
-
-```txt
-GITHUB_PAGES=true
-NEXT_PUBLIC_BASE_PATH=saas-analytics-dashboard
-NEXT_PUBLIC_DATA_MODE=static
-```
-
-Local Pages build on PowerShell:
-
-```powershell
-$env:GITHUB_PAGES='true'
-$env:NEXT_PUBLIC_BASE_PATH='saas-analytics-dashboard'
-$env:NEXT_PUBLIC_DATA_MODE='static'
-npm run build:pages
-```
-
-Generated reports are intentionally ignored by Git and published inside the GitHub Pages artifact:
-
-```txt
-coverage/
-docs/reference/
-```
+- [User guide](docs/user-guide.md)
+- [Architecture](docs/architecture.md)
+- [Quality and deployment](docs/quality-and-deployment.md)
+- [Live TypeDoc reference](https://danielemasone.github.io/saas-analytics-dashboard/reference/)
+- [Live coverage report](https://danielemasone.github.io/saas-analytics-dashboard/coverage/)
 
 ## License
 
