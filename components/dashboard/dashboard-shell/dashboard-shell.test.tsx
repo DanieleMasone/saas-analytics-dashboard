@@ -16,6 +16,10 @@ describe("DashboardShell", () => {
     );
 
     expect(screen.getByRole("main", {name: "Delivery"})).toBeInTheDocument();
+    expect(screen.getByRole("link", {name: "Skip to dashboard content"})).toHaveAttribute(
+        "href",
+        "#dashboard-content",
+    );
     expect(screen.getByText("Route content")).toBeInTheDocument();
     expect(screen.getAllByRole("link", {name: "Delivery"})).toHaveLength(1);
     expect(screen.getAllByRole("link", {name: "Delivery"}).every((link) =>

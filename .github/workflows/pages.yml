@@ -77,7 +77,6 @@ jobs:
 
       - name: Attach generated reports to Pages artifact
         run: |
-          touch out/.nojekyll
           mkdir -p out/reference out/coverage
           cp -R docs/reference/. out/reference/
           cp -R coverage/. out/coverage/

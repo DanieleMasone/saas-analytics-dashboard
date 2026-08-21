@@ -2,7 +2,6 @@
 
 import {useQuery} from "@tanstack/react-query";
 import {AlertTriangle, CheckCircle2, ShieldCheck, TrendingUp} from "lucide-react";
-import {useMemo} from "react";
 import {DashboardShell} from "../dashboard-shell/dashboard-shell";
 import {Badge} from "@/components/ui/badge/badge";
 import {Button} from "@/components/ui/button/button";
@@ -25,6 +24,14 @@ const statusTone: Record<CustomerStatus, "amber" | "emerald" | "rose" | "slate">
   churned: "slate",
   past_due: "rose",
   trial: "amber",
+};
+
+const healthCustomerFilters = {
+  page: 1,
+  pageSize: 100,
+  plan: "all" as const,
+  query: "",
+  status: "all" as const,
 };
 
 function healthTone(value: number): MeterTone {
@@ -214,14 +221,9 @@ function RiskQueue({customers}: { customers: Customer[] }) {
 
 /** Focused health route for customer risk, usage quality, and account follow-up. */
 export function HealthPageClient() {
-  const customerFilters = useMemo(
-      () => ({page: 1, pageSize: 100, plan: "all" as const, query: "", status: "all" as const}),
-      [],
-  );
-
   const customersQuery = useQuery({
-    queryFn: () => fetchCustomers(customerFilters),
-    queryKey: ["customers", customerFilters],
+    queryFn: () => fetchCustomers(healthCustomerFilters),
+    queryKey: ["customers", healthCustomerFilters],
   });
 
   const customers = customersQuery.data?.data ?? [];

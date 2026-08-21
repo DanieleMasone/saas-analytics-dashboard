@@ -36,6 +36,7 @@ Pay attention to deprecations and conventions for the installed Next.js version.
 - Keep mock data typed and colocated under `lib/mock-data/`.
 - Use Route Handlers under `app/api/**/route.ts` for mock API endpoints.
 - Keep the GitHub Pages static data mode working with `NEXT_PUBLIC_DATA_MODE=static`.
+- Do not read incoming Route Handler request values during Pages builds; static exports may emit build-time responses only.
 - Use TanStack Query for client-side server state and Recharts for dashboard charts.
 - Use Vitest and Testing Library for unit/component coverage.
 - Use Playwright for focused end-to-end coverage of route smoke, navigation, responsive behavior, and critical accessibility regressions.

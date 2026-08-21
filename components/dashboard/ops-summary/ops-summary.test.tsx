@@ -26,6 +26,7 @@ describe("OpsSummary", () => {
     expect(screen.getByRole("heading", {name: "Operating pulse"})).toBeInTheDocument();
     expect(screen.getAllByRole("term")).toHaveLength(3);
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
+    expect(screen.getByText("Demo data")).toBeInTheDocument();
     expect(screen.getByText("Filtered MRR")).toBeInTheDocument();
     expect(screen.getByText("+2.5%")).toBeInTheDocument();
     expect(screen.getByText(/accounts need billing follow-up/i)).toBeInTheDocument();

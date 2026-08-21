@@ -1,4 +1,5 @@
 import {fetchCustomers, fetchDelivery, fetchMetrics, fetchRevenue} from "@/lib/api/api";
+import {customers, getCustomers} from "@/lib/mock-data/mock-data";
 
 const originalDataMode = process.env.NEXT_PUBLIC_DATA_MODE;
 
@@ -45,33 +46,23 @@ describe("dashboard API client", () => {
     expect(fetchMock).toHaveBeenCalledWith("/api/delivery");
   });
 
-  it("serializes only active customer filters", async () => {
-    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({
-      data: [],
-      page: 2,
-      pageSize: 10,
-      summary: {active: 0, atRisk: 0, averageHealth: 0, totalMrr: 0, trial: 0},
-      total: 0,
-      totalPages: 1,
-    })));
+  it("filters and paginates the customer dataset returned by the API", async () => {
+    const payload = getCustomers({page: 1, pageSize: customers.length});
+    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify(payload)));
     vi.stubGlobal("fetch", fetchMock);
 
-    await fetchCustomers({
+    const result = await fetchCustomers({
       page: 2,
       pageSize: 10,
       plan: "enterprise",
-      query: "north",
+      query: "northstar",
       status: "active",
     });
 
-    const requestUrl = fetchMock.mock.calls[0][0] as string;
-    const params = new URL(`http://localhost${requestUrl}`).searchParams;
-
-    expect(params.get("page")).toBe("2");
-    expect(params.get("pageSize")).toBe("10");
-    expect(params.get("plan")).toBe("enterprise");
-    expect(params.get("query")).toBe("north");
-    expect(params.get("status")).toBe("active");
+    expect(fetchMock).toHaveBeenCalledWith("/api/customers");
+    expect(result.page).toBe(1);
+    expect(result.total).toBe(1);
+    expect(result.data[0].company).toBe("Northstar Labs");
   });
 
   it("uses typed mock data directly for static GitHub Pages builds", async () => {

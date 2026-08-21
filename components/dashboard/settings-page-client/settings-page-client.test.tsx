@@ -11,7 +11,7 @@ describe("SettingsPageClient", () => {
     expect(screen.getByRole("region", {name: "Operating guardrails"})).toBeInTheDocument();
     expect(screen.getByRole("region", {name: "Alert preview"})).toBeInTheDocument();
     expect(screen.getByRole("region", {name: "Data sources"})).toBeInTheDocument();
-    expect(screen.getByText("Workspace data")).toBeInTheDocument();
+    expect(screen.getByText("Demo data")).toBeInTheDocument();
     expect(screen.getByText("Escalate delivery when blockers exceed 3.")).toBeInTheDocument();
     expect(screen.getByRole("spinbutton", {name: /Delivery blocker limit/i})).toHaveValue(3);
     expect(screen.getAllByRole("link", {name: "Settings"}).every((link) =>

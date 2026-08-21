@@ -145,8 +145,8 @@ export type ApiEnvelope<T> = {
   updatedAt: string;
 };
 
-/** Next.js 16 route-level error boundary props. */
+/** Next.js route-level error boundary props. */
 export type DashboardErrorProps = {
   error: Error & { digest?: string };
-  unstable_retry: () => void;
+  retry: () => void;
 };

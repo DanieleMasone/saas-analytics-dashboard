@@ -7,7 +7,7 @@ import {cn} from "@/lib/utils/utils";
 import type {DashboardErrorProps} from "@/types/dashboard";
 
 /** Error boundary fallback for the dedicated dashboard route segment. */
-export default function DashboardError({error, unstable_retry}: DashboardErrorProps) {
+export default function DashboardError({error, retry}: DashboardErrorProps) {
   return (
     <main className="flex min-h-screen items-center justify-center bg-slate-100 p-6 text-slate-950 dark:bg-slate-950 dark:text-slate-50">
       <section
@@ -26,7 +26,7 @@ export default function DashboardError({error, unstable_retry}: DashboardErrorPr
             <p className={cn("mt-2", uiStyles.bodyText)}>
               {error.message || "The dashboard could not be rendered."}
             </p>
-            <Button className="mt-5" onClick={unstable_retry} variant="primary">
+            <Button className="mt-5" onClick={retry} variant="primary">
               <RotateCcw aria-hidden="true" size={16}/>
               Try again
             </Button>

@@ -74,8 +74,3 @@ export function formatDate(value: string) {
     month: "short",
   }).format(new Date(value));
 }
-
-/** Keep pagination requests within the available page range. */
-export function clampPage(page: number, totalPages: number) {
-  return Math.min(Math.max(page, 1), Math.max(totalPages, 1));
-}

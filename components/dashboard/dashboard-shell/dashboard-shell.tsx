@@ -138,6 +138,12 @@ export function DashboardShell({
 
   return (
       <div className="min-h-screen bg-slate-100 text-slate-950 dark:bg-slate-950 dark:text-slate-50">
+        <a
+            className="sr-only z-50 rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-950 shadow-lg focus:not-sr-only focus:fixed focus:left-4 focus:top-4 dark:bg-slate-900 dark:text-white"
+            href="#dashboard-content"
+        >
+          Skip to dashboard content
+        </a>
         <div className="mx-auto flex max-w-370 gap-6 px-4 py-4 sm:px-6 lg:px-8">
           <aside
               aria-label="Dashboard workspace"
@@ -171,7 +177,12 @@ export function DashboardShell({
             </div>
           </aside>
 
-          <main aria-labelledby="dashboard-title" className="min-w-0 flex-1 space-y-5">
+          <main
+              aria-labelledby="dashboard-title"
+              className="min-w-0 flex-1 space-y-5"
+              id="dashboard-content"
+              tabIndex={-1}
+          >
             <header className={cn("p-4 sm:p-5", uiStyles.surface)}>
               <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
                 <div className="min-w-0">

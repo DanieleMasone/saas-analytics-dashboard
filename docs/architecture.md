@@ -8,6 +8,7 @@ app/guide/page.tsx           Published HTML User Guide included in the static ex
 components/dashboard/        Product workspaces and composed dashboard panels
 components/ui/               Small reusable UI primitives
 lib/api/                     Client data access for API and static modes
+lib/customer-query/          Shared customer filtering, pagination, and summary logic
 lib/mock-data/               Typed mock SaaS, customer, revenue, and Jira-like data
 lib/utils/                   Formatting and class-name helpers
 providers/                   TanStack Query provider setup
@@ -27,6 +28,8 @@ Shared primitives under `components/ui/` cover reusable buttons, badges, meters,
 Mock API Route Handlers live under `app/api/**/route.ts` and return typed dashboard data for local product demos. The same domain data is available through `lib/mock-data/`, with shared contracts in `types/dashboard.ts`.
 
 `NEXT_PUBLIC_DATA_MODE=static` switches client data access to local typed data instead of route fetching. This keeps GitHub Pages static export working while preserving the same UI states and data contracts used by the API mode.
+
+The customer Route Handler emits the complete typed fixture dataset so it remains compatible with static export. Shared client-side query logic applies search, status, plan, pagination, and summary calculations in API mode; the Pages client applies the same logic directly to local fixtures without fetching an endpoint.
 
 ## GitHub Pages Base Path
 

@@ -58,7 +58,7 @@ export function OpsSummary({customers, isLoading, revenue}: OpsSummaryProps) {
               A compact read on health, revenue movement, and account risk.
             </p>
           </div>
-          <Badge tone="cyan">Live data</Badge>
+          <Badge tone="cyan">Demo data</Badge>
         </div>
 
         <dl className="mt-6 grid gap-3">

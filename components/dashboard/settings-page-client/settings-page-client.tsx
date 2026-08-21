@@ -9,7 +9,7 @@ import {
   Settings2,
   SlidersHorizontal,
 } from "lucide-react";
-import {useMemo, useState} from "react";
+import {useState} from "react";
 import {DashboardShell} from "../dashboard-shell/dashboard-shell";
 import {Badge} from "@/components/ui/badge/badge";
 import {Button} from "@/components/ui/button/button";
@@ -180,11 +180,7 @@ function buildAlertPreview(
 export function SettingsPageClient() {
   const [preferences, setPreferences] = useState<Record<PreferenceKey, boolean>>(defaultPreferences);
   const [guardrails, setGuardrails] = useState<Record<GuardrailKey, number>>(defaultGuardrails);
-  const dataMode = process.env.NEXT_PUBLIC_DATA_MODE === "static" ? "Demo data" : "Workspace data";
-  const alertPreview = useMemo(
-      () => buildAlertPreview(preferences, guardrails),
-      [guardrails, preferences],
-  );
+  const alertPreview = buildAlertPreview(preferences, guardrails);
 
   const updatePreference = (id: PreferenceKey, checked: boolean) => {
     setPreferences((current) => ({...current, [id]: checked}));
@@ -287,7 +283,7 @@ export function SettingsPageClient() {
                 Revenue, customer, and delivery signals available to the workspace.
               </p>
             </div>
-            <Badge tone="cyan">{dataMode}</Badge>
+            <Badge tone="cyan">Demo data</Badge>
           </div>
 
           <ul className="mt-5 grid gap-3 lg:grid-cols-3">

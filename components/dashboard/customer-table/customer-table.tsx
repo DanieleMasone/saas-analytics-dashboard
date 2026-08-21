@@ -116,7 +116,7 @@ export function CustomerTable({
             aria-labelledby="customer-accounts-title"
             className={uiStyles.surface}>
             <div className="border-b border-slate-200 p-4 dark:border-slate-800">
-                <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
                     <div>
                         <h2 className={uiStyles.sectionHeading} id="customer-accounts-title">
                             Customer accounts

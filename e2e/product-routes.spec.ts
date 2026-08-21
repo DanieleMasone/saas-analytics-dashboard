@@ -143,12 +143,27 @@ test.describe("responsive and accessibility smoke checks", () => {
     await expect(page.getByRole("button", {name: "Refresh"})).toBeVisible();
   });
 
-  test("keyboard focus reaches desktop navigation and the theme switch", async ({page}, testInfo) => {
+  test("keyboard access reaches the skip link, desktop navigation, and theme switch", async ({page}, testInfo) => {
     test.skip(isMobileProject(testInfo), "Desktop sidebar focus order is covered by the desktop project.");
 
     await page.goto("/", {waitUntil: "domcontentloaded"});
+
+    const skipLink = page.getByRole("link", {name: "Skip to dashboard content"});
     await page.keyboard.press("Tab");
-    await expect(page.getByRole("link", {name: "Overview"})).toBeFocused();
+    await expect(skipLink).toBeFocused();
+    await page.keyboard.press("Enter");
+    await expect(page.getByRole("main")).toBeFocused();
+
+    await page.goto("/", {waitUntil: "domcontentloaded"});
+
+    const overviewLink = page.getByRole("link", {name: "Overview"});
+
+    for (let index = 0; index < 12; index += 1) {
+      await page.keyboard.press("Tab");
+      if (await overviewLink.evaluate((element) => element === document.activeElement)) break;
+    }
+
+    await expect(overviewLink).toBeFocused();
 
     const themeSwitch = page.getByRole("button", {name: /Use (dark|light) theme/i});
 
@@ -205,6 +220,17 @@ test.describe("responsive and accessibility smoke checks", () => {
     await expect(page.getByRole("heading", {level: 1, name: "Delivery"})).toBeVisible();
     await expect(page.getByRole("list", {name: "Jira weekly delivery trend"})).toBeVisible();
     await expect(page.getByRole("list", {name: "Jira risk queue"})).toBeVisible();
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test("tablet customer controls avoid document-level overflow", async ({page}, testInfo) => {
+    test.skip(isMobileProject(testInfo), "The tablet breakpoint is covered by the desktop project.");
+    await page.setViewportSize({height: 900, width: 1024});
+
+    await page.goto("/customers", {waitUntil: "domcontentloaded"});
+    await expect(page.getByRole("heading", {level: 1, name: "Customers"})).toBeVisible();
+    await expect(page.getByRole("textbox", {name: "Search customers"})).toBeVisible();
+    await expectNoErrorPage(page);
     await expectNoHorizontalOverflow(page);
   });
 });

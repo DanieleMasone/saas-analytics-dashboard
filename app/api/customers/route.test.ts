@@ -1,15 +1,15 @@
-import {NextRequest} from "next/server";
+import {customers} from "@/lib/mock-data/mock-data";
 import {GET} from "./route";
 
+afterEach(() => {
+  vi.useRealTimers();
+});
+
 describe("customers route handler", () => {
-  it("validates query params before returning paginated customer data", async () => {
+  it("returns the complete customer dataset for client-side querying", async () => {
     vi.useFakeTimers();
 
-    const responsePromise = GET(
-        new NextRequest(
-            "http://localhost/api/customers?page=-3&pageSize=99&status=unknown&plan=invalid&query=Northstar",
-        ),
-    );
+    const responsePromise = GET();
 
     await vi.advanceTimersByTimeAsync(650);
     const response = await responsePromise;
@@ -17,8 +17,9 @@ describe("customers route handler", () => {
 
     expect(response.status).toBe(200);
     expect(body.page).toBe(1);
-    expect(body.pageSize).toBe(20);
-    expect(body.total).toBe(1);
+    expect(body.pageSize).toBe(customers.length);
+    expect(body.total).toBe(customers.length);
+    expect(body.data).toHaveLength(customers.length);
     expect(body.data[0].company).toBe("Northstar Labs");
   });
 });

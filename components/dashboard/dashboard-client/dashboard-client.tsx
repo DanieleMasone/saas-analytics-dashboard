@@ -9,7 +9,6 @@ import {
   UsersRound,
 } from "lucide-react";
 import Link from "next/link";
-import {useMemo} from "react";
 import {DashboardShell} from "@/components/dashboard/dashboard-shell/dashboard-shell";
 import {KpiCard} from "@/components/dashboard/kpi-card/kpi-card";
 import {OpsSummary} from "@/components/dashboard/ops-summary/ops-summary";
@@ -21,6 +20,13 @@ import {cn, formatCurrency, formatNumber, formatPercent} from "@/lib/utils/utils
 import type {CustomersResponse, JiraDeliveryResponse, RevenuePoint} from "@/types/dashboard";
 
 const pageSize = 8;
+const overviewCustomerFilters = {
+  page: 1,
+  pageSize,
+  plan: "all" as const,
+  query: "",
+  status: "all" as const,
+};
 
 function OverviewFocusPanel({
                               customers,
@@ -113,18 +119,6 @@ function OverviewFocusPanel({
 
 /** Executive overview route that coordinates summary queries and cross-page refreshes. */
 export function DashboardClient() {
-  // Keep overview customer summary stable while focused filtering lives on the Customers page.
-  const customerFilters = useMemo(
-      () => ({
-        page: 1,
-        pageSize,
-        plan: "all" as const,
-        query: "",
-        status: "all" as const,
-      }),
-      [],
-  );
-
   const metricsQuery = useQuery({
     queryFn: fetchMetrics,
     queryKey: ["metrics"],
@@ -141,8 +135,8 @@ export function DashboardClient() {
   });
 
   const customersQuery = useQuery({
-    queryFn: () => fetchCustomers(customerFilters),
-    queryKey: ["customers", customerFilters],
+    queryFn: () => fetchCustomers(overviewCustomerFilters),
+    queryKey: ["customers", overviewCustomerFilters],
   });
 
   const isRefreshing =

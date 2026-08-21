@@ -6,6 +6,7 @@ import type {
   Metric,
   RevenuePoint,
 } from "@/types/dashboard";
+import {queryCustomers} from "@/lib/customer-query/customer-query";
 
 const isStaticDataMode = () => process.env.NEXT_PUBLIC_DATA_MODE === "static";
 
@@ -61,18 +62,10 @@ export async function fetchDelivery() {
 /** Fetch paginated and filtered customer accounts for the customer table. */
 export async function fetchCustomers(filters: CustomerFilters) {
   if (isStaticDataMode()) {
-    const {getCustomers} = await import("@/lib/mock-data/mock-data");
-    return getCustomers(filters);
+    const {customers} = await import("@/lib/mock-data/mock-data");
+    return queryCustomers(customers, filters);
   }
 
-  const params = new URLSearchParams();
-
-  // Only send active filters; the route handler treats omitted values as "all".
-  if (filters.query) params.set("query", filters.query);
-  if (filters.status && filters.status !== "all") params.set("status", filters.status);
-  if (filters.plan && filters.plan !== "all") params.set("plan", filters.plan);
-  if (filters.page) params.set("page", String(filters.page));
-  if (filters.pageSize) params.set("pageSize", String(filters.pageSize));
-
-  return fetchJson<CustomersResponse>(`/api/customers?${params.toString()}`);
+  const response = await fetchJson<CustomersResponse>("/api/customers");
+  return queryCustomers(response.data, filters);
 }
