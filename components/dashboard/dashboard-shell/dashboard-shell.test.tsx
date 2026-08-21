@@ -22,6 +22,7 @@ describe("DashboardShell", () => {
         link.getAttribute("aria-current") === "page",
     )).toBe(true);
     expect(screen.getAllByRole("link", {name: "Revenue"})[0]).toHaveAttribute("href", "/revenue");
+    expect(screen.getByRole("link", {name: "User guide"})).toHaveAttribute("href", "/guide");
   });
 
   it("expands the mobile navigation menu from the header", async () => {
@@ -47,6 +48,7 @@ describe("DashboardShell", () => {
     expect(menuButton).toHaveAttribute("aria-expanded", "true");
     expect(screen.getByRole("navigation", {name: "Mobile dashboard navigation"})).toBeInTheDocument();
     expect(screen.getAllByRole("link", {name: "Revenue"})).toHaveLength(2);
+    expect(screen.getAllByRole("link", {name: "User guide"})).toHaveLength(2);
   });
 
   it("opens a notifications panel from the bell action", async () => {

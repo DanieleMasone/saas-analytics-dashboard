@@ -40,7 +40,7 @@ jobs:
       - name: Test with coverage
         run: npm run test:coverage
 
-      - name: Build production dashboard for e2e
+      - name: Build production site for e2e
         env:
           NEXT_PUBLIC_DATA_MODE: static
         run: npm run build
@@ -68,14 +68,14 @@ jobs:
       - name: Generate TypeDoc reference
         run: npm run docs
 
-      - name: Build static dashboard for Pages
+      - name: Build static site for Pages
         env:
           GITHUB_PAGES: "true"
           NEXT_PUBLIC_BASE_PATH: saas-analytics-dashboard
           NEXT_PUBLIC_DATA_MODE: static
         run: npm run build:pages
 
-      - name: Attach reference and coverage reports to Pages artifact
+      - name: Attach generated reports to Pages artifact
         run: |
           touch out/.nojekyll
           mkdir -p out/reference out/coverage

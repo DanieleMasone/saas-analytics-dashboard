@@ -4,6 +4,7 @@ import {
   Activity,
   BarChart3,
   Bell,
+  BookOpen,
   LayoutDashboard,
   LifeBuoy,
   ListChecks,
@@ -105,6 +106,21 @@ function NavigationLinks({
   );
 }
 
+function GuideLink({onNavigate}: { onNavigate?: () => void }) {
+  return (
+      <div className="mt-4 border-t border-slate-200 pt-4 sm:col-span-3 lg:col-span-1 dark:border-slate-800">
+        <Link
+            className="flex h-10 items-center gap-3 rounded-md px-3 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
+            href="/guide"
+            onClick={onNavigate}
+        >
+          <BookOpen aria-hidden="true" size={17}/>
+          <span>User guide</span>
+        </Link>
+      </div>
+  );
+}
+
 /** Shared product shell with real route navigation for all dashboard pages. */
 export function DashboardShell({
                                  activeSection,
@@ -140,6 +156,7 @@ export function DashboardShell({
 
             <nav aria-label="Dashboard navigation" className="mt-8 space-y-1">
               <NavigationLinks activeSection={activeSection}/>
+              <GuideLink/>
             </nav>
 
             <div
@@ -260,6 +277,7 @@ export function DashboardShell({
                         layout="mobile"
                         onNavigate={() => setIsMobileNavOpen(false)}
                     />
+                    <GuideLink onNavigate={() => setIsMobileNavOpen(false)}/>
                   </nav>
               ) : null}
             </header>

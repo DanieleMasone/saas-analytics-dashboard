@@ -10,7 +10,7 @@ The project keeps quality gates explicit and repeatable through npm scripts. Exa
 | `npm run lint` | Runs ESLint across the application and tests. |
 | `npm run test` | Runs Vitest unit and component tests. |
 | `npm run test:coverage` | Runs Vitest with V8 coverage thresholds and HTML/LCOV reports. |
-| `npm run test:e2e` | Runs Playwright smoke, navigation, responsive, and accessibility-oriented checks. |
+| `npm run test:e2e` | Runs Playwright smoke, navigation, responsive, accessibility, theme, and published-guide checks. |
 | `npm run docs` | Generates the TypeDoc reference into `docs/reference/`. |
 | `npm run docs:check` | Validates TypeDoc without emitting files. |
 | `npm run build` | Builds the production Next.js app. |
@@ -37,6 +37,17 @@ NEXT_PUBLIC_DATA_MODE=static
 
 `GITHUB_PAGES=true` enables static export behavior in `next.config.ts`. `NEXT_PUBLIC_DATA_MODE=static` keeps the dashboard independent of runtime API routes when deployed to GitHub Pages.
 
+The User Guide is implemented as the static App Router route `/guide/`, so `npm run build:pages` produces `out/guide/index.html` automatically. It requires no separate documentation framework or manual copy step. TypeDoc and coverage remain generated reports and are attached to the same Pages artifact after the app build.
+
+The published artifact contains:
+
+| Path | Responsibility |
+| --- | --- |
+| `/` | Live dashboard and focused product routes. |
+| `/guide/` | Published product and user documentation. |
+| `/reference/` | Generated TypeDoc developer/API reference. |
+| `/coverage/` | Generated Vitest HTML coverage report. |
+
 ## CI Flow
 
 Pull requests run validation but do not deploy. Pushes to `master` and manual dispatches run the same validation path, then publish to GitHub Pages.
@@ -45,8 +56,8 @@ The workflow:
 
 1. Checks out the repository and sets up Node from `package.json`.
 2. Installs dependencies with `npm ci`.
-3. Runs typecheck, lint, coverage, a production build, Playwright e2e tests, and TypeDoc generation.
-4. Builds the static Pages export.
+3. Runs typecheck, lint, coverage, a production build, Playwright e2e tests including the guide, and TypeDoc generation.
+4. Builds the static Pages export containing the dashboard and User Guide routes.
 5. Copies `docs/reference/` to `out/reference/` and `coverage/` to `out/coverage/`.
 6. Uploads the Pages artifact with `.nojekyll` preserved.
 7. Deploys the artifact to the `github-pages` environment on `master`.

@@ -118,7 +118,7 @@ test.describe("public product routes", () => {
   test("workspace navigation reaches each documented route", async ({page}) => {
     test.setTimeout(60_000);
 
-    await page.goto("/", {waitUntil: "domcontentloaded"});
+    await page.goto("/dashboard", {waitUntil: "networkidle"});
 
     for (const route of navigationSpecs) {
       await openMobileNavigationIfPresent(page);
@@ -175,6 +175,11 @@ test.describe("responsive and accessibility smoke checks", () => {
         page
             .getByRole("navigation", {name: "Mobile dashboard navigation"})
             .getByRole("link", {exact: true, name: "Delivery"}),
+    ).toBeVisible();
+    await expect(
+        page
+            .getByRole("navigation", {name: "Mobile dashboard navigation"})
+            .getByRole("link", {exact: true, name: "User guide"}),
     ).toBeVisible();
     await expectNoHorizontalOverflow(page);
   });

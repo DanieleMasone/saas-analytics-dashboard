@@ -86,9 +86,9 @@ Pay attention to deprecations and conventions for the installed Next.js version.
 
 ## Documentation Policy
 
-- Keep `README.md` as the short portfolio entry point with live artifacts, scope, stack, quick start, and documentation links.
-- Use `docs/user-guide.md` for product usage, workspaces, UI states, responsive behavior, and accessibility-oriented UX.
-- Use `docs/architecture.md` for App Router structure, components, data mode, mock APIs, and domain data ownership.
-- Use `docs/quality-and-deployment.md` for local gates, coverage, TypeDoc, GitHub Pages export, and CI deployment flow.
-- Keep TypeDoc focused on API/reference output only.
-- Avoid duplicating large sections across README and deeper docs.
+- Keep `README.md` as the short GitHub and portfolio entry point.
+- Treat the published `/guide/` route, sourced by `app/guide/page.tsx`, as the owner of product and user documentation.
+- Keep `docs/architecture.md` and `docs/quality-and-deployment.md` limited to repository maintenance details that provide concrete value.
+- Keep TypeDoc focused on developer/API reference and the coverage report focused on test evidence.
+- Do not duplicate substantial documentation across README, the User Guide, TypeDoc, coverage, or contributor instructions.
+- Preserve the User Guide route, Pages base path, static export, and documentation links when changing the documentation architecture.
