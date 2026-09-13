@@ -1,8 +1,7 @@
 # SaaS Analytics Dashboard
 
-[![CI](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml/badge.svg?branch=master)](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml)
-[![Coverage Report](https://img.shields.io/badge/coverage-report-15803d)](https://danielemasone.github.io/saas-analytics-dashboard/coverage/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml/badge.svg?branch=master&event=push)](https://github.com/DanieleMasone/saas-analytics-dashboard/actions/workflows/pages.yml)
+[![Coverage](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fdanielemasone.github.io%2Fsaas-analytics-dashboard%2Fcoverage%2Fcoverage-summary.json&query=%24.total.lines.pct&label=coverage&suffix=%25&color=blue)](https://danielemasone.github.io/saas-analytics-dashboard/coverage/)
 
 A portfolio-grade SaaS management dashboard for reviewing revenue, customer health, Jira-like delivery risk, and operating guardrails.
 
