@@ -3,6 +3,23 @@ import {expect, test} from "@playwright/test";
 const themeStorageKey = "dashboard-theme";
 
 test.describe("theme switch regression", () => {
+  test("follows system changes until the user saves an explicit theme", async ({page}) => {
+    await page.emulateMedia({colorScheme: "light"});
+    await page.goto("/");
+    await page.waitForLoadState("networkidle");
+    await page.getByRole("button", {name: "Use dark theme"}).waitFor();
+    await page.emulateMedia({colorScheme: "dark"});
+    await expect(page.locator("html")).toHaveAttribute("data-dashboard-theme", "dark");
+    await expect(page.getByRole("button", {name: "Use light theme"})).toBeVisible();
+    await page.emulateMedia({colorScheme: "light"});
+    await expect(page.locator("html")).toHaveAttribute("data-dashboard-theme", "light");
+    await page.getByRole("button", {name: "Use dark theme"}).click();
+    await page.emulateMedia({colorScheme: "dark"});
+    await page.emulateMedia({colorScheme: "light"});
+    await expect(page.locator("html")).toHaveAttribute("data-dashboard-theme", "dark");
+    await expect(page.getByRole("button", {name: "Use light theme"})).toBeVisible();
+  });
+
   test("initial light theme, action label, toggle state, and reload persistence stay consistent", async ({page}) => {
     await page.emulateMedia({colorScheme: "light"});
     await page.goto("/", {waitUntil: "domcontentloaded"});

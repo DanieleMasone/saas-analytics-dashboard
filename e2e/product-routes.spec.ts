@@ -1,5 +1,49 @@
 import {expect, test, type Page, type TestInfo} from "@playwright/test";
 
+test("revenue chart labels have readable contrast in both themes", async ({page}) => {
+  for (const colorScheme of ["light", "dark"] as const) {
+    await page.emulateMedia({colorScheme});
+    await page.goto("/revenue");
+    const labels = page.locator(".recharts-cartesian-axis-tick-value, .recharts-legend-item-text > span");
+    await expect(labels.first()).toBeVisible();
+    expect(await labels.count()).toBeGreaterThan(5);
+    const ratios = await labels.evaluateAll((elements) => {
+      const canvas = document.createElement("canvas");
+      canvas.width = canvas.height = 1;
+      const context = canvas.getContext("2d")!;
+      const luminance = (color: string) => {
+        context.fillStyle = color;
+        context.fillRect(0, 0, 1, 1);
+        const channels = Array.from(context.getImageData(0, 0, 1, 1).data).slice(0, 3)
+            .map((value) => value / 255)
+            .map((value) => value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4);
+        return channels[0] * 0.2126 + channels[1] * 0.7152 + channels[2] * 0.0722;
+      };
+      return elements.map((element) => {
+        const style = getComputedStyle(element);
+        const foreground = luminance(element instanceof SVGElement ? style.fill : style.color);
+        const background = luminance(getComputedStyle(element.closest("section")!).backgroundColor);
+        return (Math.max(foreground, background) + 0.05) / (Math.min(foreground, background) + 0.05);
+      });
+    });
+    for (const ratio of ratios) expect(ratio).toBeGreaterThanOrEqual(4.5);
+  }
+});
+
+test("tablet delivery gives the trend enough room before the manager readout", async ({page}, testInfo) => {
+  test.skip(testInfo.project.name !== "Desktop Chromium", "Tablet layout uses the desktop browser profile.");
+  await page.setViewportSize({width: 1024, height: 900});
+  await page.goto("/delivery");
+  const table = page.getByRole("table", {name: /Jira weekly delivery trend/});
+  await expect(table).toBeVisible();
+  const trend = await table.locator("..").boundingBox();
+  const readout = await page.getByRole("heading", {name: "Manager readout", exact: true}).boundingBox();
+  expect(trend).not.toBeNull();
+  expect(readout).not.toBeNull();
+  expect(trend!.width).toBeGreaterThan(500);
+  expect(readout!.y).toBeGreaterThan(trend!.y + trend!.height);
+});
+
 type RouteSpec = {
   content: RegExp[];
   heading: string;

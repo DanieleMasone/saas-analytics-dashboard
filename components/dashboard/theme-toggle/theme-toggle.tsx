@@ -38,14 +38,22 @@ function getServerTheme(): Theme {
 function subscribeToThemeChanges(onStoreChange: () => void) {
   const colorSchemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
+  const synchronizeSystemTheme = () => {
+    if (!isTheme(window.localStorage.getItem(themeStorageKey))) {
+      // Update the DOM-backed snapshot before notifying React.
+      applyTheme(colorSchemeQuery.matches ? "dark" : "light");
+    }
+    onStoreChange();
+  };
+
   window.addEventListener("storage", onStoreChange);
   window.addEventListener(themeChangeEvent, onStoreChange);
-  colorSchemeQuery.addEventListener("change", onStoreChange);
+  colorSchemeQuery.addEventListener("change", synchronizeSystemTheme);
 
   return () => {
     window.removeEventListener("storage", onStoreChange);
     window.removeEventListener(themeChangeEvent, onStoreChange);
-    colorSchemeQuery.removeEventListener("change", onStoreChange);
+    colorSchemeQuery.removeEventListener("change", synchronizeSystemTheme);
   };
 }
 

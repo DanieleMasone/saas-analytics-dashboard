@@ -61,7 +61,7 @@ function DeliveryLoading() {
               <Skeleton className="h-28" key={index}/>
           ))}
         </div>
-        <div className="mt-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
+        <div className="mt-5 grid gap-4 xl:grid-cols-[minmax(0,1fr)_380px]">
           <Skeleton className="h-64"/>
           <Skeleton className="h-64"/>
         </div>
@@ -205,7 +205,7 @@ export function DeliveryInsights({
           </div>
         </dl>
 
-        <div className="mt-5 grid min-w-0 gap-4 lg:grid-cols-[minmax(0,1fr)_380px]">
+        <div className="mt-5 grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1fr)_380px]">
           <div className={cn("min-w-0 p-4", uiStyles.insetSurface)}>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
               <div className="min-w-0">

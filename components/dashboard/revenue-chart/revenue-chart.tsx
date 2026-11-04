@@ -38,7 +38,7 @@ const chartColors = {
   revenue: "#0891b2",
   revenueFillEnd: "#0891b2",
   revenueFillStart: "#0891b2",
-  tick: "#64748b",
+  tick: "var(--muted)",
 } as const;
 
 const seriesMarkerClass: Record<string, string> = {
@@ -138,7 +138,7 @@ export function RevenueChart({data, isError, isLoading, onRetry}: RevenueChartPr
               Revenue composition
             </h2>
             <p className={cn("mt-1", uiStyles.subtleText)}>
-              MRR, new business, expansion, and churn over the last 12 months.
+              MRR, new business, and expansion over the last 12 months.
             </p>
           </div>
           <div className="rounded-md border border-slate-200 px-3 py-2 text-sm dark:border-slate-800">
@@ -181,7 +181,11 @@ export function RevenueChart({data, isError, isLoading, onRetry}: RevenueChartPr
                     width={58}
                 />
                 <Tooltip content={<ChartTooltip/>} cursor={{fill: chartColors.cursor}}/>
-                <Legend iconType="square" wrapperStyle={{fontSize: 12, paddingTop: 12}}/>
+                <Legend
+                    formatter={(value) => <span className="text-slate-700 dark:text-slate-300">{value}</span>}
+                    iconType="square"
+                    wrapperStyle={{fontSize: 12, paddingTop: 12}}
+                />
                 <Bar dataKey="newBusiness" fill={chartColors.newBusiness} name="New business"
                      radius={[4, 4, 0, 0]}/>
                 <Bar dataKey="expansion" fill={chartColors.expansion} name="Expansion"
